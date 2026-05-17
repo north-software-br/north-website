@@ -15,8 +15,8 @@ const contactLinks = [
     href: "mailto:contato@northsoftware.com.br",
     label: "contato@northsoftware.com.br",
   },
-  { href: "tel:+5511999999999", label: "+55 (11) 99999-9999" },
-  { href: "#", label: "São Paulo, Brasil" },
+  { href: "https://wa.me/5592995251477", label: "+55 (92) 99525-1477" },
+  { href: "#", label: "Amazonas, Brasil" },
 ];
 
 const socialLinks = [
@@ -125,7 +125,20 @@ export default function Footer() {
           <p className="text-cumaru-500 text-xs">
             © {year} North Software. Todos os direitos reservados.
           </p>
-          <p className="text-cumaru-600 text-xs">Feito com cuidado no Brasil</p>
+          <div className="flex items-center gap-4">
+            {[
+              { label: "Termos de uso", href: "/terms" },
+              { label: "Política de privacidade.", href: "/privacy" },
+            ].map(({ label, href }) => (
+              <Link
+                key={label}
+                href={href}
+                className="text-cumaru-600 text-xs hover:text-cumaru-400 transition-colors duration-200"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
         </div>
       </Container>
     </footer>
