@@ -1,26 +1,143 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./theme.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Palette — Negro scale */
+  --color-negro-50:  var(--negro-50);
+  --color-negro-100: var(--negro-100);
+  --color-negro-200: var(--negro-200);
+  --color-negro-300: var(--negro-300);
+  --color-negro-400: var(--negro-400);
+  --color-negro-500: var(--negro-500);
+  --color-negro-600: var(--negro-600);
+  --color-negro-700: var(--negro-700);
+  --color-negro-800: var(--negro-800);
+  --color-negro-900: var(--negro-900);
+
+  /* Palette — Tarumã scale */
+  --color-taruma-50:  var(--taruma-50);
+  --color-taruma-100: var(--taruma-100);
+  --color-taruma-200: var(--taruma-200);
+  --color-taruma-300: var(--taruma-300);
+  --color-taruma-400: var(--taruma-400);
+  --color-taruma-500: var(--taruma-500);
+  --color-taruma-600: var(--taruma-600);
+  --color-taruma-700: var(--taruma-700);
+  --color-taruma-800: var(--taruma-800);
+  --color-taruma-900: var(--taruma-900);
+
+  /* Palette — Cumaru scale */
+  --color-cumaru-50:  var(--cumaru-50);
+  --color-cumaru-100: var(--cumaru-100);
+  --color-cumaru-200: var(--cumaru-200);
+  --color-cumaru-300: var(--cumaru-300);
+  --color-cumaru-400: var(--cumaru-400);
+  --color-cumaru-500: var(--cumaru-500);
+  --color-cumaru-600: var(--cumaru-600);
+  --color-cumaru-700: var(--cumaru-700);
+  --color-cumaru-800: var(--cumaru-800);
+  --color-cumaru-900: var(--cumaru-900);
+
+  /* Brand aliases */
+  --color-brand:            var(--taruma-400);
+  --color-brand-foreground: var(--negro-800);
+
+  /* Semantic tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Typography */
+  --font-sans: var(--font-satoshi);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-satoshi);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Hero animations */
+  --animate-scroll-indicator: introScrollIndicator 2s ease infinite;
+  --animate-mobile-scroll-indicator: introMobileScrollIndicator 1.5s ease infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @keyframes introTextReveal {
+    0%, 50% { color: transparent; }
+    60%, 100% { color: var(--foreground); }
+  }
+
+  @keyframes reveal {
+    0%  { transform: scale3d(0, 1, 1); transform-origin: left; }
+    50% { transform: scale3d(1, 1, 1); transform-origin: left; }
+    51% { transform: scale3d(1, 1, 1); transform-origin: right; }
+    100%{ transform: scale3d(0, 1, 1); transform-origin: right; }
+  }
+
+  @keyframes introLine {
+    0%   { transform: scaleX(0); opacity: 1; }
+    100% { transform: scaleX(1); opacity: 1; }
+  }
+
+  @keyframes introScrollIndicator {
+    0%   { transform: translate3d(-1px, 0, 0);  opacity: 0; }
+    20%  { transform: translate3d(-1px, 0, 0);  opacity: 1; }
+    100% { transform: translate3d(-1px, 8px, 0); opacity: 0; }
+  }
+
+  @keyframes introMobileScrollIndicator {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
 }

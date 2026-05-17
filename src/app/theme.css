@@ -1,0 +1,143 @@
+/* =============================================================
+   North Software — Brand Theme
+   Paleta: Negro (primary) · Tarumã (accent) · Cumaru (neutral)
+   ============================================================= */
+
+/* ── Raw palette ─────────────────────────────────────────────── */
+:root {
+  /* Negro — do Rio Negro */
+  --negro-50:  #E8EEF3;
+  --negro-100: #C7D3DE;
+  --negro-200: #9DAEC0;
+  --negro-300: #6E84A0;
+  --negro-400: #45607F;
+  --negro-500: #1F3F5F;
+  --negro-600: #14304A; /* CORE */
+  --negro-700: #0E2238;
+  --negro-800: #08172A;
+  --negro-900: #030B17;
+
+  /* Tarumã — encontro das águas */
+  --taruma-50:  #E5F6F4;
+  --taruma-100: #C2E9E4;
+  --taruma-200: #95D7CF;
+  --taruma-300: #67C4B9;
+  --taruma-400: #3DAFA6; /* CORE */
+  --taruma-500: #2E9990;
+  --taruma-600: #237D75;
+  --taruma-700: #1A5F59;
+  --taruma-800: #11403C;
+  --taruma-900: #082220;
+
+  /* Cumaru — papel quente */
+  --cumaru-50:  #FBFAF6;
+  --cumaru-100: #F6F3EB;
+  --cumaru-200: #F0EDE3; /* CORE */
+  --cumaru-300: #E5DECF;
+  --cumaru-400: #D4C9B0;
+  --cumaru-500: #BBAC8C;
+  --cumaru-600: #968764;
+  --cumaru-700: #6F6347;
+  --cumaru-800: #483F2D;
+  --cumaru-900: #241F16;
+
+  /* Rule / dividers */
+  --rule:        rgba(20, 48, 74, 0.14);
+  --rule-strong: rgba(20, 48, 74, 0.32);
+}
+
+/* ── Semantic tokens — light mode ────────────────────────────── */
+:root {
+  --background:          var(--cumaru-100);   /* #F6F3EB */
+  --foreground:          var(--negro-700);    /* #0E2238 */
+
+  --card:                var(--cumaru-50);    /* #FBFAF6 */
+  --card-foreground:     var(--negro-700);
+
+  --popover:             var(--cumaru-50);
+  --popover-foreground:  var(--negro-700);
+
+  --primary:             var(--negro-600);    /* #14304A */
+  --primary-foreground:  var(--cumaru-200);   /* #F0EDE3 */
+
+  --secondary:           var(--cumaru-200);   /* #F0EDE3 */
+  --secondary-foreground: var(--negro-600);
+
+  --muted:               var(--cumaru-200);
+  --muted-foreground:    var(--negro-400);    /* #45607F */
+
+  --accent:              var(--taruma-400);   /* #3DAFA6 */
+  --accent-foreground:   var(--negro-800);    /* #08172A */
+
+  --destructive:         #C13B3B;
+
+  --border:              var(--rule);
+  --input:               var(--cumaru-300);   /* #E5DECF */
+  --ring:                var(--taruma-400);
+
+  /* Charts — tarumã + negro gradient */
+  --chart-1: var(--taruma-400);
+  --chart-2: var(--taruma-600);
+  --chart-3: var(--negro-500);
+  --chart-4: var(--negro-400);
+  --chart-5: var(--cumaru-500);
+
+  --radius: 0.375rem;
+
+  /* Sidebar */
+  --sidebar:                     var(--cumaru-50);
+  --sidebar-foreground:          var(--negro-700);
+  --sidebar-primary:             var(--negro-600);
+  --sidebar-primary-foreground:  var(--cumaru-200);
+  --sidebar-accent:              var(--cumaru-200);
+  --sidebar-accent-foreground:   var(--negro-600);
+  --sidebar-border:              var(--rule);
+  --sidebar-ring:                var(--taruma-400);
+}
+
+/* ── Semantic tokens — dark mode ─────────────────────────────── */
+.dark {
+  --background:          var(--negro-800);    /* #08172A */
+  --foreground:          var(--cumaru-200);   /* #F0EDE3 */
+
+  --card:                var(--negro-700);    /* #0E2238 */
+  --card-foreground:     var(--cumaru-200);
+
+  --popover:             var(--negro-700);
+  --popover-foreground:  var(--cumaru-200);
+
+  --primary:             var(--cumaru-200);   /* #F0EDE3 */
+  --primary-foreground:  var(--negro-700);
+
+  --secondary:           var(--negro-600);    /* #14304A */
+  --secondary-foreground: var(--cumaru-200);
+
+  --muted:               var(--negro-700);
+  --muted-foreground:    var(--cumaru-400);   /* #D4C9B0 */
+
+  --accent:              var(--taruma-400);   /* #3DAFA6 */
+  --accent-foreground:   var(--negro-900);
+
+  --destructive:         #E05555;
+
+  --border:              rgba(255, 255, 255, 0.06);
+  --input:               rgba(255, 255, 255, 0.10);
+  --ring:                var(--taruma-500);
+
+  /* Charts */
+  --chart-1: var(--taruma-300);
+  --chart-2: var(--taruma-500);
+  --chart-3: var(--negro-300);
+  --chart-4: var(--negro-200);
+  --chart-5: var(--cumaru-400);
+
+  /* Sidebar */
+  --sidebar:                     var(--negro-700);
+  --sidebar-foreground:          var(--cumaru-200);
+  --sidebar-primary:             var(--taruma-400);
+  --sidebar-primary-foreground:  var(--negro-900);
+  --sidebar-accent:              var(--negro-600);
+  --sidebar-accent-foreground:   var(--cumaru-200);
+  --sidebar-border:              rgba(255, 255, 255, 0.06);
+  --sidebar-ring:                var(--taruma-500);
+}
