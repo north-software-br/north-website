@@ -10,24 +10,19 @@ const DisplacementSphere = lazy(() =>
   })),
 );
 
-const disciplines = ["Sistemas", "Integrações", "Análises"];
-const namePhrases = [
-  "Build. Scale. Succeed.",
-  "Modern. Reliable. Forward-Thinking.",
-];
-const nameHighlight = "Scale.";
+const disciplines = ["Sistemas", "Web", "Mobile"];
 const role = "North Software";
 
 // Shared animation classes for cycling words
 const wordCls = cn(
   "relative flex flex-shrink-0 items-center leading-none",
-  "duration-[1.5s] delay-[var(--delay,0s)]",
-  "fill-mode-forwards ease-[cubic-bezier(0.4,0,0.6,1)]",
+  "animation-duration-[1.5s] [animation-delay:var(--delay,0s)]",
+  "fill-mode-[forwards] [animation-timing-function:cubic-bezier(0.4,0,0.6,1)]",
   "text-transparent transition-opacity duration-500 isolate",
   // ::after sweep bar
   "after:content-[''] after:bg-taruma-400",
-  "after:duration-[1.5s] after:delay-[var(--delay,0s)]",
-  "after:fill-mode-forwards after:ease-[cubic-bezier(0.4,0,0.6,1)]",
+  "after:animation-duration-[1.5s] after:[animation-delay:var(--delay,0s)]",
+  "after:fill-mode-[forwards] after:[animation-timing-function:cubic-bezier(0.4,0,0.6,1)]",
   "after:origin-left after:[transform:scale3d(0,1,1)]",
   "after:absolute after:inset-0 after:-right-[0.02em] after:z-10 after:will-change-transform",
   // data-status states
@@ -111,7 +106,6 @@ export default function Hero({
   const [visible, setVisible] = useState(false);
   const [status, setStatus] = useState<"entering" | "entered">("entering");
   const [disciplineIndex, setDisciplineIndex] = useState(0);
-  const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -127,7 +121,6 @@ export default function Hero({
     () => setDisciplineIndex((i) => (i + 1) % disciplines.length),
     5000,
   );
-  useInterval(() => setPhraseIndex((i) => (i + 1) % namePhrases.length), 5000);
 
   const introLabel = `${disciplines.slice(0, -1).join(", ")} e ${disciplines.at(-1)}`;
 
@@ -144,8 +137,7 @@ export default function Hero({
       )}
 
       <header className="max-w-5xl xl:max-w-230 lg:max-w-195 w-full relative -top-8 max-[696px]:-top-16 max-[820px]:max-h-[420px]:max-[820px]:-top-6 px-6">
-        {/* Rotating name phrase */}
-        <h1
+        <p
           className={cn(
             "text-[clamp(1.125rem,2vw,1.75rem)] tracking-normal mb-10 mt-0 font-bold leading-none",
             "opacity-0 transition-opacity duration-[0.6s] ease-[cubic-bezier(0.4,0,0.6,1)] delay-[0.2s]",
@@ -153,39 +145,8 @@ export default function Hero({
             visible && "opacity-100",
           )}
         >
-          <span className="sr-only">{namePhrases.join(" / ")}</span>
-          <span aria-hidden className="flex flex-row items-center relative">
-            {namePhrases.map((phrase, i) => {
-              const hlIdx = phrase.indexOf(nameHighlight);
-              const before = phrase.slice(0, hlIdx);
-              const after = phrase.slice(hlIdx + nameHighlight.length);
-              const content =
-                hlIdx === -1 ? (
-                  phrase
-                ) : (
-                  <>
-                    {before.trimEnd()}
-                    {before.endsWith(" ") ? " " : ""}
-                    <span className="text-taruma-400">{nameHighlight}</span>
-                    {after}
-                  </>
-                );
-              return (
-                <WordTransition key={phrase} active={i === phraseIndex}>
-                  {(ws) => (
-                    <span
-                      className={wordCls}
-                      data-status={ws}
-                      style={{ "--delay": "0.1s" } as React.CSSProperties}
-                    >
-                      {content}
-                    </span>
-                  )}
-                </WordTransition>
-              );
-            })}
-          </span>
-        </h1>
+          Alguma frase aqui.
+        </p>
 
         {/* Role + discipline */}
         <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-extrabold leading-none tracking-[-0.03em] m-0">
@@ -206,8 +167,8 @@ export default function Hero({
               className={cn(
                 "h-0.5 bg-[color-mix(in_srgb,var(--foreground)_30%,transparent)]",
                 "w-[120%] flex ml-5",
-                "duration-[0.8s] delay-[1s] fill-mode-forwards",
-                "ease-[cubic-bezier(0.4,0,0.6,1)]",
+                "animation-duration-[0.8s] [animation-delay:1s] fill-mode-[forwards]",
+                "[animation-timing-function:cubic-bezier(0.4,0,0.6,1)]",
                 "origin-left scale-x-0 opacity-0 relative top-[0.05em]",
                 status === "entering" && "[animation-name:introLine]",
                 status === "entered" && "scale-x-100 opacity-100",
@@ -216,7 +177,7 @@ export default function Hero({
           </span>
 
           {/* Discipline cycling row */}
-          <div aria-hidden className="flex flex-row items-center relative">
+          <div aria-hidden className="flex flex-row items-center relative text-[clamp(2rem,5vw,5.5rem)]">
             {disciplines.map((item, i) => (
               <WordTransition key={item} active={i === disciplineIndex}>
                 {(ws) => (
