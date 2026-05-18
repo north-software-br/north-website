@@ -97,12 +97,60 @@ function SystemsBackground({ className }: { className?: string }) {
         </div>
       </div>
 
-      <AnimatedBeam containerRef={containerRef} fromRef={div1Ref} toRef={div6Ref} duration={4} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
-      <AnimatedBeam containerRef={containerRef} fromRef={div2Ref} toRef={div6Ref} duration={4} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
-      <AnimatedBeam containerRef={containerRef} fromRef={div3Ref} toRef={div6Ref} duration={4} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
-      <AnimatedBeam containerRef={containerRef} fromRef={div4Ref} toRef={div6Ref} duration={4} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
-      <AnimatedBeam containerRef={containerRef} fromRef={div5Ref} toRef={div6Ref} duration={4} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
-      <AnimatedBeam containerRef={containerRef} fromRef={div6Ref} toRef={div7Ref} duration={4} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={div1Ref}
+        toRef={div6Ref}
+        duration={4}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={div2Ref}
+        toRef={div6Ref}
+        duration={4}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={div3Ref}
+        toRef={div6Ref}
+        duration={4}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={div4Ref}
+        toRef={div6Ref}
+        duration={4}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={div5Ref}
+        toRef={div6Ref}
+        duration={4}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={div6Ref}
+        toRef={div7Ref}
+        duration={4}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-negro-800" />
     </div>
@@ -142,14 +190,19 @@ function MobileBackground({ className }: { className?: string }) {
       </div>
 
       {/* Beam origin */}
-      <div ref={centerRef} className="pointer-events-none absolute left-1/2 top-[44%] size-2 -translate-x-1/2 -translate-y-1/2 opacity-0 z-20" />
+      <div
+        ref={centerRef}
+        className="pointer-events-none absolute left-1/2 top-[44%] size-2 -translate-x-1/2 -translate-y-1/2 opacity-0 z-20"
+      />
 
       {/* Layout: left column | iPhone | right column */}
       <div className="absolute inset-0 flex items-center justify-between px-3 pb-16">
-
         {/* Left column */}
         <div className="relative z-10 flex flex-col items-start">
-          <div ref={leftAnchorRef} className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0" />
+          <div
+            ref={leftAnchorRef}
+            className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0"
+          />
           <Marquee
             vertical
             pauseOnHover
@@ -179,7 +232,10 @@ function MobileBackground({ className }: { className?: string }) {
 
         {/* Right column */}
         <div className="relative z-10 flex flex-col items-end">
-          <div ref={rightAnchorRef} className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0" />
+          <div
+            ref={rightAnchorRef}
+            className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0"
+          />
           <Marquee
             vertical
             reverse
@@ -205,8 +261,25 @@ function MobileBackground({ className }: { className?: string }) {
       </div>
 
       {/* Beams: phone → column anchors */}
-      <AnimatedBeam containerRef={containerRef} fromRef={centerRef} toRef={leftAnchorRef} reverse duration={3.5} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
-      <AnimatedBeam containerRef={containerRef} fromRef={centerRef} toRef={rightAnchorRef} duration={4} gradientStartColor="#3DAFA6" gradientStopColor="#3DAFA6" pathColor="transparent" />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={centerRef}
+        toRef={leftAnchorRef}
+        reverse
+        duration={3.5}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={centerRef}
+        toRef={rightAnchorRef}
+        duration={4}
+        gradientStartColor="#3DAFA6"
+        gradientStopColor="#3DAFA6"
+        pathColor="transparent"
+      />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-negro-800" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-1/5 bg-linear-to-b from-negro-800" />
@@ -251,7 +324,9 @@ function SitesBackground({ className }: { className?: string }) {
                     "blur-[0.5px] hover:blur-none transition-all duration-300 hover:bg-negro-700/70",
                   )}
                 >
-                  <figcaption className="text-xs font-medium text-cumaru-300">{f.label}</figcaption>
+                  <figcaption className="text-xs font-medium text-cumaru-300">
+                    {f.label}
+                  </figcaption>
                 </figure>
               ))}
             </Marquee>
@@ -265,7 +340,9 @@ function SitesBackground({ className }: { className?: string }) {
                     "blur-[0.5px] hover:blur-none transition-all duration-300 hover:bg-taruma-400/10",
                   )}
                 >
-                  <figcaption className="text-xs font-medium text-taruma-300">{f.label}</figcaption>
+                  <figcaption className="text-xs font-medium text-taruma-300">
+                    {f.label}
+                  </figcaption>
                 </figure>
               ))}
             </Marquee>
@@ -290,7 +367,14 @@ interface ServiceCardProps {
   className?: string;
 }
 
-function ServiceCard({ name, description, background, href = "#contact", cta = "Saiba mais", className }: ServiceCardProps) {
+function ServiceCard({
+  name,
+  description,
+  background,
+  href = "#contact",
+  cta = "Saiba mais",
+  className,
+}: ServiceCardProps) {
   return (
     <div
       className={cn(
@@ -347,21 +431,24 @@ function ServiceCard({ name, description, background, href = "#contact", cta = "
 const services: ServiceCardProps[] = [
   {
     name: "Sistemas e Integrações",
-    description: "Aplicações web robustas: painéis, APIs, integrações e fluxos de negócio complexos.",
+    description:
+      "Aplicações web robustas: painéis, APIs, integrações e fluxos de negócio complexos.",
     background: (
       <SystemsBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
   },
   {
     name: "Mobile",
-    description: "Apps nativos e cross-platform para iOS e Android com experiência premium.",
+    description:
+      "Apps nativos e cross-platform para iOS e Android com experiência premium.",
     background: (
       <MobileBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
   },
   {
     name: "Criação de Sites",
-    description: "Sites institucionais, landing pages e e-commerces otimizados para conversão.",
+    description:
+      "Sites institucionais, landing pages e e-commerces otimizados para conversão.",
     background: (
       <SitesBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
@@ -370,10 +457,18 @@ const services: ServiceCardProps[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative w-full overflow-hidden py-24 bg-negro-800">
+    <section
+      id="services"
+      className="relative w-full overflow-hidden py-42 bg-negro-900"
+    >
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-900 to-transparent pointer-events-none"
+        className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
+      />
+
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-negro-800 pointer-events-none z-0"
       />
       <Container>
         <div className="mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
@@ -382,11 +477,14 @@ export default function Services() {
               Serviços
             </span>
             <h2 className="mt-2 text-3xl lg:text-4xl font-bold text-cumaru-100 leading-tight">
-              Tecnologia com propósito,<br className="hidden lg:block" /> construída para escalar.
+              Tecnologia com propósito,
+              <br className="hidden lg:block" /> construída para escalar.
             </h2>
           </div>
           <p className="text-sm text-cumaru-400 max-w-sm lg:text-right">
-            Desenvolvemos sistemas robustos, apps mobile e sites de alta conversão que conectam sua ideia ao mercado e crescem com o seu negócio.
+            Desenvolvemos sistemas robustos, apps mobile e sites de alta
+            conversão que conectam sua ideia ao mercado e crescem com o seu
+            negócio.
           </p>
         </div>
 
@@ -396,10 +494,6 @@ export default function Services() {
           ))}
         </div>
       </Container>
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-negro-900 to-transparent pointer-events-none"
-      />
     </section>
   );
 }

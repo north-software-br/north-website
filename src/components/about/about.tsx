@@ -9,16 +9,16 @@ const highlights = [
 
 export default function About() {
   return (
-    <section id="about" className="relative w-full py-32 bg-negro-900">
+    <section id="about" className="relative w-full py-42 bg-negro-900">
       {/* Hero → About: fade negro-800 → negro-900 */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-negro-800 to-transparent pointer-events-none z-0"
+        className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
       />
       {/* About → Features: fade negro-900 → negro-800 */}
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-negro-800 pointer-events-none z-0"
+        className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-negro-800 pointer-events-none z-0"
       />
 
       <Container>
@@ -59,8 +59,8 @@ export default function About() {
                 <Plug className="text-accent" size={24} />
                 <p>
                   A North Software existe para ocupar um vazio: o espaço entre o
-                  discurso da transformação digital e a realidade de quem precisa
-                  que o ERP fale com a planilha.
+                  discurso da transformação digital e a realidade de quem
+                  precisa que o ERP fale com a planilha.
                 </p>
               </div>
               <div className="flex flex-col gap-3">
@@ -78,7 +78,7 @@ export default function About() {
             {highlights.map((item) => (
               <li
                 key={item}
-                className="flex-1 flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-negro-800/60 px-6 py-5"
+                className="flex-1 flex items-center gap-3 rounded-2xl border border-white/8 bg-negro-800/60 px-6 py-5"
               >
                 <span className="size-1.5 rounded-full bg-taruma-400 shrink-0" />
                 <span className="text-cumaru-200 text-sm font-medium">
