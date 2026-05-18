@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef, useRef } from "react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Container from "../container/container";
 import { AnimatedBeam } from "../ui/animated-beam";
@@ -26,7 +27,15 @@ import { Iphone } from "../ui/iphone";
 import { Safari } from "../ui/safari";
 import { Marquee } from "../ui/shadcn-space/radix/animations/marquee";
 
-// ── Sistemas ─────────────────────────────────────────────────────
+// ── Decorative dot ────────────────────────────────────────────────
+
+function Dot({ className }: { className?: string }) {
+  return (
+    <div className={cn("size-[5px] rounded-[1.5px] bg-white/[0.18]", className)} />
+  );
+}
+
+// ── Sistemas ──────────────────────────────────────────────────────
 
 const Circle = forwardRef<
   HTMLDivElement,
@@ -63,21 +72,16 @@ function SystemsBackground({ className }: { className?: string }) {
       ref={containerRef}
     >
       <div className="flex size-full max-w-xs flex-row items-stretch justify-between gap-6">
-        {/* Left: output — the client/user */}
         <div className="flex flex-col justify-center">
           <Circle ref={div7Ref} className="size-10">
             <IconUser className="size-full text-cumaru-300" />
           </Circle>
         </div>
-
-        {/* Center: hub — the system/server */}
         <div className="flex flex-col justify-center">
           <Circle ref={div6Ref} className="size-12">
             <IconServer className="size-full text-taruma-400" />
           </Circle>
         </div>
-
-        {/* Right: inputs — services that feed the system */}
         <div className="flex flex-col justify-center gap-1.5">
           <Circle ref={div1Ref}>
             <IconApi className="size-full text-cumaru-300" />
@@ -97,51 +101,18 @@ function SystemsBackground({ className }: { className?: string }) {
         </div>
       </div>
 
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div1Ref}
-        toRef={div6Ref}
-        duration={4}
-        gradientStartColor="#3DAFA6"
-        gradientStopColor="#3DAFA6"
-        pathColor="transparent"
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div2Ref}
-        toRef={div6Ref}
-        duration={4}
-        gradientStartColor="#3DAFA6"
-        gradientStopColor="#3DAFA6"
-        pathColor="transparent"
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div3Ref}
-        toRef={div6Ref}
-        duration={4}
-        gradientStartColor="#3DAFA6"
-        gradientStopColor="#3DAFA6"
-        pathColor="transparent"
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div4Ref}
-        toRef={div6Ref}
-        duration={4}
-        gradientStartColor="#3DAFA6"
-        gradientStopColor="#3DAFA6"
-        pathColor="transparent"
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div5Ref}
-        toRef={div6Ref}
-        duration={4}
-        gradientStartColor="#3DAFA6"
-        gradientStopColor="#3DAFA6"
-        pathColor="transparent"
-      />
+      {[div1Ref, div2Ref, div3Ref, div4Ref, div5Ref].map((ref, i) => (
+        <AnimatedBeam
+          key={i}
+          containerRef={containerRef}
+          fromRef={ref}
+          toRef={div6Ref}
+          duration={4}
+          gradientStartColor="#3DAFA6"
+          gradientStopColor="#3DAFA6"
+          pathColor="transparent"
+        />
+      ))}
       <AnimatedBeam
         containerRef={containerRef}
         fromRef={div6Ref}
@@ -184,20 +155,16 @@ function MobileBackground({ className }: { className?: string }) {
       ref={containerRef}
       className={cn("relative h-full w-full overflow-hidden", className)}
     >
-      {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center -translate-y-6">
         <div className="size-48 rounded-full bg-taruma-400/8 blur-3xl" />
       </div>
 
-      {/* Beam origin */}
       <div
         ref={centerRef}
         className="pointer-events-none absolute left-1/2 top-[44%] size-2 -translate-x-1/2 -translate-y-1/2 opacity-0 z-20"
       />
 
-      {/* Layout: left column | iPhone | right column */}
       <div className="absolute inset-0 flex items-center justify-between px-3 pb-16">
-        {/* Left column */}
         <div className="relative z-10 flex flex-col items-start">
           <div
             ref={leftAnchorRef}
@@ -225,12 +192,10 @@ function MobileBackground({ className }: { className?: string }) {
           </Marquee>
         </div>
 
-        {/* iPhone — center hub */}
         <div className="relative w-35 shrink-0 translate-y-12 transition-transform duration-500 ease-out group-hover:translate-y-6">
           <Iphone src="/app-login.svg" />
         </div>
 
-        {/* Right column */}
         <div className="relative z-10 flex flex-col items-end">
           <div
             ref={rightAnchorRef}
@@ -260,7 +225,6 @@ function MobileBackground({ className }: { className?: string }) {
         </div>
       </div>
 
-      {/* Beams: phone → column anchors */}
       <AnimatedBeam
         containerRef={containerRef}
         fromRef={centerRef}
@@ -310,7 +274,6 @@ const sitesRow2 = [
 function SitesBackground({ className }: { className?: string }) {
   return (
     <div className={cn("relative h-full w-full overflow-hidden", className)}>
-      {/* Safari mockup positioned in upper area, slightly clipped at bottom */}
       <div className="absolute inset-x-0 top-4 px-3">
         <Safari url="north.dev" mode="simple">
           <div className="flex h-full w-full flex-col justify-center gap-3 bg-negro-900 py-3">
@@ -356,56 +319,159 @@ function SitesBackground({ className }: { className?: string }) {
   );
 }
 
+// ── Animation variants ────────────────────────────────────────────
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.13 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 44 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.62,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  },
+};
+
 // ── ServiceCard ───────────────────────────────────────────────────
 
 interface ServiceCardProps {
+  number: string;
   name: string;
   description: string;
   background: React.ReactNode;
+  imageSrc?: string;
+  icon?: React.ReactNode;
   href?: string;
   cta?: string;
+  progressDelay?: number;
   className?: string;
 }
 
 function ServiceCard({
+  number,
   name,
   description,
   background,
+  imageSrc,
+  icon,
   href = "#contact",
   cta = "Saiba mais",
+  progressDelay = 0.4,
   className,
 }: ServiceCardProps) {
   return (
-    <div
+    <motion.div
+      variants={cardVariants}
+      whileHover={{
+        scale: 1.018,
+        y: -5,
+        transition: { duration: 0.25, ease: "easeOut" },
+      }}
       className={cn(
-        "group relative col-span-3 lg:col-span-1 flex flex-col overflow-hidden rounded-3xl",
-        "bg-negro-800 border border-white/8",
-        "[box-shadow:0_-20px_80px_-20px_rgba(61,175,166,0.06)_inset]",
-        "transition-colors duration-300",
-        "hover:border-taruma-400/30",
+        "group relative flex flex-col overflow-hidden rounded-3xl",
+        "bg-negro-800 border border-white/[0.07]",
+        "transition-[border-color,box-shadow] duration-300",
+        "hover:border-taruma-400/[0.22]",
+        "hover:shadow-[0_12px_56px_-12px_rgba(61,175,166,0.20)]",
         className,
       )}
     >
+      {/* Animated background */}
       <div className="absolute inset-0">{background}</div>
 
-      {/* Static gradient — stays fixed at bottom, never moves */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-linear-to-t from-negro-800/90 to-transparent" />
+      {/* Image reveal — desliza de cima para baixo no hover */}
+      {imageSrc && (
+        <div className="absolute inset-x-0 top-0 z-8 h-[62%] overflow-hidden">
+          <img
+            src={imageSrc}
+            alt={name}
+            className={cn(
+              "h-full w-full object-cover",
+              "-translate-y-full transition-transform duration-700",
+              "ease-[cubic-bezier(0.22,1,0.36,1)]",
+              "group-hover:translate-y-0",
+            )}
+          />
+        </div>
+      )}
 
-      {/* Text — slides up to make room for the CTA */}
+      {/* Ícone central — visível no estado padrão, some ao revelar a imagem */}
+      {icon && (
+        <div
+          className={cn(
+            "absolute left-1/2 top-[30%] z-15",
+            "-translate-x-1/2 -translate-y-1/2",
+            "transition-all duration-500",
+            imageSrc
+              ? "opacity-100 group-hover:opacity-0 group-hover:translate-y-[-60%] group-hover:-translate-x-1/2"
+              : "opacity-100",
+          )}
+        >
+          <div className="flex size-12 items-center justify-center rounded-2xl border border-white/10 bg-negro-700/70 backdrop-blur-sm">
+            {icon}
+          </div>
+        </div>
+      )}
+
+      {/* Top corner dots */}
+      <div className="absolute top-[22px] left-[22px] z-20">
+        <Dot />
+      </div>
+      <div className="absolute top-[22px] right-[22px] z-20">
+        <Dot />
+      </div>
+
+      {/* Hover radial glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_25%,rgba(61,175,166,0.06)_0%,transparent_100%)]" />
+      </div>
+
+      {/* Bottom gradient for text readability */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-11 h-2/3 bg-linear-to-t from-negro-800/95 to-transparent" />
+
+      {/* Spacer */}
+      <div className="flex-1 min-h-[200px]" />
+
+      {/* Middle dot */}
+      <div className="relative z-20 flex justify-center mb-5">
+        <Dot />
+      </div>
+
+      {/* Text — slides up to reveal CTA */}
       <div
         className={cn(
-          "pointer-events-none absolute bottom-0 left-0 right-0 z-20 flex flex-col gap-1 p-6",
+          "relative z-20 px-8 pb-5 text-center",
           "transition-transform duration-300 group-hover:-translate-y-10",
         )}
       >
-        <h3 className="text-xl font-bold text-cumaru-100">{name}</h3>
-        <p className="text-sm text-cumaru-400 max-w-xs">{description}</p>
+        <h3 className="text-[1.2rem] font-semibold tracking-tight text-cumaru-100 leading-snug">
+          {name}
+        </h3>
+        <p className="mt-2 text-sm text-cumaru-500/90 leading-relaxed max-w-xs mx-auto">
+          {description}
+        </p>
+      </div>
+
+      {/* Number */}
+      <div className="relative z-20 pb-5 text-center transition-transform duration-300 group-hover:-translate-y-10">
+        <span className="text-xs font-mono tracking-[0.18em] text-white/[0.14]">
+          {number}
+        </span>
       </div>
 
       {/* CTA — slides up from below on hover */}
       <div
         className={cn(
-          "absolute bottom-0 left-0 right-0 z-20 flex items-center p-4",
+          "absolute bottom-12 left-0 right-0 z-20 flex justify-center",
           "translate-y-10 opacity-0 transition-all duration-300",
           "group-hover:translate-y-0 group-hover:opacity-100",
         )}
@@ -422,38 +488,64 @@ function ServiceCard({
           </div>
         </a>
       </div>
-    </div>
+
+      {/* Bottom progress bar */}
+      <div className="relative z-20 mx-7 mb-7 h-px overflow-hidden rounded-full bg-white/[0.05]">
+        <motion.div
+          className="h-full rounded-full bg-taruma-400/35"
+          initial={{ width: "0%" }}
+          whileInView={{ width: "33%" }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: progressDelay, ease: "easeOut" }}
+        />
+      </div>
+    </motion.div>
   );
 }
 
-// ── Services section ──────────────────────────────────────────────
+// ── Services data ─────────────────────────────────────────────────
 
-const services: ServiceCardProps[] = [
+const services: (ServiceCardProps & { featured?: boolean })[] = [
   {
+    number: "01",
     name: "Sistemas e Integrações",
     description:
       "Aplicações web robustas: painéis, APIs, integrações e fluxos de negócio complexos.",
     background: (
       <SystemsBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    icon: <IconServer className="size-5 text-cumaru-300" />,
+    imageSrc: "/illustrations/01-studio.svg",
+    progressDelay: 0.4,
   },
   {
+    number: "02",
     name: "Mobile",
     description:
       "Apps nativos e cross-platform para iOS e Android com experiência premium.",
     background: (
       <MobileBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    icon: <IconDeviceMobile className="size-5 text-cumaru-300" />,
+    imageSrc: "/illustrations/02-journey.svg",
+    featured: true,
+    progressDelay: 0.55,
   },
   {
+    number: "03",
     name: "Criação de Sites",
     description:
       "Sites institucionais, landing pages e e-commerces otimizados para conversão.",
     background: (
       <SitesBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    icon: <IconBrandReact className="size-5 text-cumaru-300" />,
+    imageSrc: "/illustrations/04-stack.svg",
+    progressDelay: 0.7,
   },
 ];
+
+// ── Section ───────────────────────────────────────────────────────
 
 export default function Services() {
   return (
@@ -463,36 +555,54 @@ export default function Services() {
     >
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 z-0 bg-linear-to-b from-negro-800 to-transparent"
       />
-
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-negro-800 pointer-events-none z-0"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 z-0 bg-linear-to-b from-transparent to-negro-800"
       />
-      <Container>
-        <div className="mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-          <div>
-            <span className="text-sm font-semibold text-taruma-400 uppercase tracking-widest">
-              Serviços
-            </span>
-            <h2 className="mt-2 text-3xl lg:text-4xl font-bold text-cumaru-100 leading-tight">
-              Tecnologia com propósito,
-              <br className="hidden lg:block" /> construída para escalar.
-            </h2>
-          </div>
-          <p className="text-sm text-cumaru-400 max-w-sm lg:text-right">
-            Desenvolvemos sistemas robustos, apps mobile e sites de alta
-            conversão que conectam sua ideia ao mercado e crescem com o seu
-            negócio.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-3 gap-4 auto-rows-[22rem]">
-          {services.map((service, idx) => (
-            <ServiceCard key={idx} {...service} />
+      <Container>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+          }}
+          className="mb-14 text-center"
+        >
+          <span className="text-sm font-semibold text-taruma-400 uppercase tracking-widest">
+            Serviços
+          </span>
+          <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-cumaru-100 leading-tight">
+            Tecnologia com propósito,
+            <br className="hidden lg:block" /> construída para escalar.
+          </h2>
+          <p className="mt-4 text-sm text-cumaru-500 max-w-md mx-auto leading-relaxed">
+            Sistemas robustos, apps mobile e sites de alta conversão — do MVP
+            ao produto final.
+          </p>
+        </motion.div>
+
+        {/* Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"
+        >
+          {services.map(({ featured, ...service }, i) => (
+            <ServiceCard
+              key={i}
+              {...service}
+              className={featured ? "min-h-[580px]" : "min-h-[460px]"}
+            />
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );
