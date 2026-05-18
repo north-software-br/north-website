@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   description: "Construído no Norte. Feito para o mundo.",
   icons: {
     icon: "/logos/favicon.svg",
+    apple: "/logos/favicon-ios.png",
   },
 };
 
@@ -43,7 +44,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${satoshi.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col">
+<body className="min-h-full flex flex-col">
         <Navbar />
 
         <main>{children}</main>
