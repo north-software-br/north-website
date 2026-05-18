@@ -1,7 +1,7 @@
 import Container from "../container/container";
 import { Separator } from "@/components/ui/separator";
 import ContactForm from "./contact-form";
-import { Marquee } from "@/components/ui/animated-marquee";
+import { Marquee } from "../ui/shadcn-space/radix/animations/marquee";
 
 const contactDetails = [
   { label: "Telefone", value: "+55 (92) 99525-1477", href: "https://wa.me/5592995251477" },
