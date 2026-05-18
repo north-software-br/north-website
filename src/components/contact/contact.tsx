@@ -1,10 +1,19 @@
 import Container from "../container/container";
 import { Separator } from "@/components/ui/separator";
 import ContactForm from "./contact-form";
+import { Marquee } from "@/components/ui/animated-marquee";
 
 const contactDetails = [
   { label: "Telefone", value: "+55 (92) 99525-1477", href: "https://wa.me/5592995251477" },
   { label: "Email", value: "comercial@northsoftware.com.br", href: "mailto:comercial@northsoftware.com.br" },
+];
+
+const brandList = [
+  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-1.svg", name: "Brand 1" },
+  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-2.svg", name: "Brand 2" },
+  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-3.svg", name: "Brand 3" },
+  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-4.svg", name: "Brand 4" },
+  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-5.svg", name: "Brand 5" },
 ];
 
 export default function Contact() {
@@ -12,7 +21,7 @@ export default function Contact() {
     <section id="contact" className="relative w-full py-32 bg-negro-900">
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-negro-800 to-transparent pointer-events-none z-0"
+        className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
       />
 
       <Container>
@@ -54,6 +63,20 @@ export default function Contact() {
             </div>
 
             <Separator className="opacity-10" />
+
+            <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300 ease-in-out fill-mode-both">
+              <p className="text-sm text-cumaru-400">Empresas que confiam em nós</p>
+              <Marquee pauseOnHover className="[--duration:20s] p-0">
+                {brandList.map((brand, index) => (
+                  <img
+                    key={index}
+                    src={brand.image}
+                    alt={brand.name}
+                    className="w-36 h-8 mr-6 lg:mr-20"
+                  />
+                ))}
+              </Marquee>
+            </div>
           </div>
 
           {/* Spacer */}
