@@ -28,13 +28,11 @@ interface NavItemsProps {
     link: string;
   }[];
   className?: string;
-  onItemClick?: () => void;
 }
 
 interface MobileNavProps {
   children: React.ReactNode;
   className?: string;
-  visible?: boolean;
 }
 
 interface MobileNavHeaderProps {
@@ -114,21 +112,21 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({ items, className }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium lg:flex lg:space-x-2",
+        "absolute left-1/2 -translate-x-1/2 hidden flex-row items-center justify-center gap-1 text-sm font-medium lg:flex",
         className,
       )}
     >
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
+
           className="relative px-4 py-2 text-cumaru-300 hover:text-cumaru-100 transition-colors duration-200"
           key={`link-${idx}`}
           href={item.link}
@@ -190,19 +188,18 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose,
+  onClose: _onClose,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ type: "spring", stiffness: 240, damping: 28 }}
           className={cn(
-            "absolute inset-x-0 top-14 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-2xl px-6 py-8",
-            "bg-negro-800 border border-white/6",
-            "shadow-[0_8px_40px_rgba(3,11,23,0.6)]",
+            "flex w-full flex-col items-start justify-start gap-4 overflow-hidden pt-5",
             className,
           )}
         >
@@ -224,62 +221,5 @@ export const MobileNavToggle = ({
     <IconX className="text-cumaru-200 cursor-pointer" onClick={onClick} />
   ) : (
     <IconMenu2 className="text-cumaru-200 cursor-pointer" onClick={onClick} />
-  );
-};
-
-export const NavbarLogo = () => {
-  return (
-    <a
-      href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
-    >
-      <img
-        src="https://assets.aceternity.com/logo-dark.png"
-        alt="logo"
-        width={30}
-        height={30}
-      />
-      <span className="font-medium text-black dark:text-white">Startup</span>
-    </a>
-  );
-};
-
-export const NavbarButton = ({
-  href,
-  as: Tag = "a",
-  children,
-  className,
-  variant = "primary",
-  ...props
-}: {
-  href?: string;
-  as?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-  variant?: "primary" | "secondary" | "dark" | "gradient";
-} & (
-  | React.ComponentPropsWithoutRef<"a">
-  | React.ComponentPropsWithoutRef<"button">
-)) => {
-  const baseStyles =
-    "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
-
-  const variantStyles = {
-    primary:
-      "shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-    secondary: "bg-transparent shadow-none dark:text-white",
-    dark: "bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-    gradient:
-      "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
-  };
-
-  return (
-    <Tag
-      href={href || undefined}
-      className={cn(baseStyles, variantStyles[variant], className)}
-      {...props}
-    >
-      {children}
-    </Tag>
   );
 };

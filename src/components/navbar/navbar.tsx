@@ -55,7 +55,7 @@ export default function NorthNavbar() {
       </NavBody>
 
       {/* Mobile */}
-      <MobileNav>
+      <MobileNav className={cn(mobileOpen && "rounded-[28px]")}>
         <MobileNavHeader>
           <Link href="/" aria-label="North Software — início">
             <div className="relative w-8 h-6 overflow-hidden">
@@ -80,7 +80,7 @@ export default function NorthNavbar() {
                     smoothScroll(link);
                     setMobileOpen(false);
                   }}
-                  className="block text-cumaru-200 text-xl font-semibold py-3 hover:text-taruma-400 transition-colors duration-150"
+                  className="block rounded-2xl px-4 py-3 text-lg font-semibold text-cumaru-200 transition-colors duration-150 hover:bg-white/8 hover:text-taruma-400"
                 >
                   {name}
                 </a>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 
 const satoshi = localFont({
