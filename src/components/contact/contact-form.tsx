@@ -70,7 +70,7 @@ const ContactForm = () => {
   };
 
   return (
-    <Card className="ring-0 p-8 gap-6 md:gap-8 border rounded-2xl animate-in fade-in slide-in-from-right-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+    <Card className="ring-0 p-5 sm:p-6 lg:p-8 gap-6 md:gap-8 border rounded-2xl animate-in fade-in slide-in-from-right-10 duration-1000 delay-100 ease-in-out fill-mode-both">
       <CardHeader className="p-0">
         <CardTitle className="text-2xl font-semibold text-foreground">
           Iniciar projeto
@@ -80,7 +80,7 @@ const ContactForm = () => {
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
                   id="firstName"
                   name="firstName"

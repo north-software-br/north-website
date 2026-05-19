@@ -33,16 +33,16 @@ const brandList = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative w-full py-32 bg-negro-900">
+    <section id="contact" className="relative w-full overflow-hidden py-32 bg-negro-900">
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
       />
 
       <Container>
-        <div className="relative z-10 grid grid-cols-12 items-start gap-12 md:gap-0">
+        <div className="relative z-10 grid grid-cols-12 items-start gap-y-12 md:gap-8">
           {/* Info side */}
-          <div className="col-span-12 md:col-span-6 flex flex-col gap-10">
+          <div className="col-span-12 md:col-span-6 flex flex-col gap-10 min-w-0">
             <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-left-10 duration-1000 ease-in-out fill-mode-both">
               <div className="flex gap-3 items-center">
                 <span className="size-2 rounded-full bg-taruma-400" />
@@ -103,7 +103,7 @@ export default function Contact() {
           <div className="col-span-1 hidden md:block" />
 
           {/* Form side */}
-          <div className="col-span-12 md:col-span-5">
+          <div className="col-span-12 md:col-span-5 min-w-0">
             <ContactForm />
           </div>
         </div>
