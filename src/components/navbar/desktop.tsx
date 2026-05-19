@@ -20,26 +20,6 @@ function scrollTo(href: string) {
   }
 }
 
-// North "N" monogram
-function Monogram() {
-  return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 240 240"
-      aria-label="North Software"
-      fill="none"
-    >
-      <path d="M40 30 L92 30 L170 210 L118 210 Z" fill="#3DAFA6" />
-      <path
-        d="M62 30 L110 30 L196 198 L196 30 L240 30 L240 230 L192 230 L106 62 L106 230 L62 230 Z"
-        fill="#F0EDE3"
-        transform="translate(-10, 0)"
-      />
-    </svg>
-  );
-}
-
 export default function DesktopNav() {
   const [visible, setVisible] = useState(true);
   const [lastY, setLastY] = useState(0);
@@ -64,19 +44,24 @@ export default function DesktopNav() {
     >
       <nav
         className={cn(
-          "flex items-center gap-8  px-3 rounded-full",
+          "flex h-16 items-center gap-8 px-3 rounded-full",
           "bg-negro-900/40 backdrop-blur-xl backdrop-saturate-150",
           "border border-white/10",
           "shadow-[0_8px_40px_rgba(3,11,23,0.6),inset_0_1px_0_rgba(255,255,255,0.06)]",
         )}
       >
         {/* Logo */}
-        <Link href="/" aria-label="North Software — início">
+        <Link
+          href="/"
+          aria-label="North Software — início"
+          className="inline-flex h-12 w-10 items-center justify-center overflow-hidden ml-1"
+        >
           <Image
             src={NORTH_N_LOGO}
-            width={80}
-            height={80}
+            width={170}
+            height={168}
             alt="North Software — início"
+            className="h-full w-full object-contain"
           />
         </Link>
 

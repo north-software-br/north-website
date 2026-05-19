@@ -49,12 +49,17 @@ export default function Footer() {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            <Link href="/" aria-label="North Software — início">
+            <Link
+              href="/"
+              aria-label="North Software — início"
+              className="inline-flex w-fit cursor-pointer"
+            >
               <Image
                 src={NORTH_FULL_LOGO}
                 width={200}
                 height={60}
                 alt="North Software"
+                className="h-auto w-30 md:w-35"
               />
             </Link>
             <p className="text-cumaru-400 text-sm leading-relaxed max-w-xs">

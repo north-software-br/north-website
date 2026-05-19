@@ -9,11 +9,26 @@ const contactDetails = [
 ];
 
 const brandList = [
-  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-1.svg", name: "Brand 1" },
-  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-2.svg", name: "Brand 2" },
-  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-3.svg", name: "Brand 3" },
-  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-4.svg", name: "Brand 4" },
-  { image: "https://images.shadcnspace.com/assets/brand-logo/logoipsum-muted-white-5.svg", name: "Brand 5" },
+  {
+    image: "/logos/logos_clients/logo_antonelly.svg",
+    name: "Antonelly",
+    scale: 1.2,
+  },
+  {
+    image: "/logos/logos_clients/logo_elp.svg",
+    name: "ELP",
+    scale: 3.4,
+  },
+  {
+    image: "/logos/logos_clients/logo_co_paiva.svg",
+    name: "Co Paiva",
+    scale: 3.5,
+  },
+  {
+    image: "/logos/logos_clients/logo_vdl.svg",
+    name: "VDL",
+    scale: 1,
+  },
 ];
 
 export default function Contact() {
@@ -66,14 +81,19 @@ export default function Contact() {
 
             <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300 ease-in-out fill-mode-both">
               <p className="text-sm text-cumaru-400">Empresas que confiam em nós</p>
-              <Marquee pauseOnHover className="[--duration:20s] p-0">
-                {brandList.map((brand, index) => (
-                  <img
-                    key={index}
-                    src={brand.image}
-                    alt={brand.name}
-                    className="w-36 h-8 mr-6 lg:mr-20"
-                  />
+              <Marquee className="[--duration:20s] [--gap:1.5rem] p-0">
+                {brandList.map((brand) => (
+                  <div
+                    key={brand.name}
+                    className="flex h-16 w-40 shrink-0 items-center justify-center overflow-hidden p-2"
+                  >
+                    <img
+                      src={brand.image}
+                      alt={brand.name}
+                      className="h-full w-full object-contain grayscale opacity-70 transition-transform duration-300 hover:grayscale-0 hover:opacity-100"
+                      style={{ transform: `scale(${brand.scale})` }}
+                    />
+                  </div>
                 ))}
               </Marquee>
             </div>

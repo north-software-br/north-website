@@ -1,4 +1,4 @@
-import { Marquee } from "@/components/shadcn-space/radix/animations/marquee";
+import { Marquee } from "../animations/marquee";
 
 type BrandList = {
   image: string;

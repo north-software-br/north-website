@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { NORTH_N_LOGO } from '../../../public';
 
 const links = [
   { href: '#services', label: 'Serviços' },
@@ -14,16 +16,6 @@ function scrollTo(href: string) {
   if (href.startsWith('#')) {
     document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
   }
-}
-
-function Monogram() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 240 240" aria-label="North Software" fill="none">
-      <path d="M40 30 L92 30 L170 210 L118 210 Z" fill="#3DAFA6" />
-      <path d="M62 30 L110 30 L196 198 L196 30 L240 30 L240 230 L192 230 L106 62 L106 230 L62 230 Z"
-        fill="#F0EDE3" transform="translate(-10, 0)" />
-    </svg>
-  );
 }
 
 export default function MobileNav() {
@@ -70,8 +62,18 @@ export default function MobileNav() {
           "bg-negro-900/50 backdrop-blur-xl backdrop-saturate-150",
           "border-b border-white/10",
         )}>
-          <Link href="/" aria-label="North Software — início">
-            <Monogram />
+          <Link
+            href="/"
+            aria-label="North Software — início"
+            className="inline-flex w-fit"
+          >
+            <Image
+              src={NORTH_N_LOGO}
+              width={170}
+              height={168}
+              alt="North Software — início"
+              className="h-9 w-auto"
+            />
           </Link>
 
           {/* Hamburger / close button */}
