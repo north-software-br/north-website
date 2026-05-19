@@ -1,8 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { LampContainer } from "../ui/lamp";
-import { motion } from "motion/react";
 import { Safari } from "../ui/safari";
 import { BackgroundGradient } from "../ui/background-gradient";
 
@@ -48,27 +45,23 @@ interface ProjectCardProps {
 const ProjectCard = ({ item, index }: ProjectCardProps) => {
   return (
     <div
-      className="sticky top-0 h-[50vh] flex items-center"
+      className="sticky top-20 flex min-h-svh items-start pt-6 pb-8 md:h-[60vh] md:min-h-0 md:items-center md:py-0"
       style={{ zIndex: index + 1 }}
     >
       <div className="w-full">
-        <div
-          className="relative overflow-hidden "
-          style={{ maxHeight: "40vh" }}
-        >
-          <div className="flex flex-row gap-5 ">
-            <div className="w-[50%] flex flex-col gap-4 justify-center bg-background">
-              {" "}
-              <span className="text-4xl font-semibold">
+        <div className="relative max-h-[calc(100svh-4rem)] overflow-hidden md:max-h-[48vh]">
+          <div className="flex flex-col gap-5 md:flex-row md:gap-5">
+            <div className="flex w-full flex-col justify-center gap-4 bg-background md:w-1/2">
+              <span className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
                 {item.portfolio_title}
               </span>
-              <span className="font-normal text-lg text-negro-200">
+              <span className="line-clamp-5 text-sm font-normal leading-relaxed text-negro-200 sm:line-clamp-none sm:text-base lg:text-lg">
                 {item.portfolio_description}
               </span>
             </div>
 
-            <div className="w-[50%]">
-              <BackgroundGradient className="p-6" bright={false}>
+            <div className="w-full md:w-1/2">
+              <BackgroundGradient className="p-3 sm:p-4 lg:p-6" bright={false}>
                 <Safari imageSrc={item.portfolio_image} />
               </BackgroundGradient>
             </div>
@@ -81,7 +74,7 @@ const ProjectCard = ({ item, index }: ProjectCardProps) => {
 
 const Projects = () => {
   return (
-    <section className="bg-background mt-32">
+    <section id="projects" className="bg-background mt-24 sm:mt-32">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 xl:px-16 ">
         <div className="flex flex-col gap-4 justify-center items-center animate-in fade-in slide-in-from-top-8 duration-700 ease-in-out">
           <div className="max-w-xs sm:max-w-2xl mx-auto text-center flex flex-col gap-5">

@@ -378,7 +378,7 @@ function ServiceCard({
   return (
     <div
       className={cn(
-        "group relative col-span-3 lg:col-span-1 flex flex-col overflow-hidden rounded-3xl",
+        "group relative col-span-1 sm:col-span-1 flex flex-col overflow-hidden rounded-3xl",
         "bg-negro-800 border border-white/8",
         "[box-shadow:0_-20px_80px_-20px_rgba(61,175,166,0.06)_inset]",
         "transition-colors duration-300",
@@ -459,7 +459,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative w-full overflow-hidden py-42 bg-negro-900"
+      className="relative w-full overflow-hidden py-20 lg:py-42 bg-negro-900"
     >
       <div
         aria-hidden
@@ -488,7 +488,7 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 auto-rows-[22rem]">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 auto-rows-[22rem]">
           {services.map((service, idx) => (
             <ServiceCard key={idx} {...service} />
           ))}

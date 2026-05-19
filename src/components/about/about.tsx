@@ -9,7 +9,7 @@ const highlights = [
 
 export default function About() {
   return (
-    <section id="about" className="relative w-full py-42 bg-negro-900">
+    <section id="about" className="relative w-full py-20 lg:py-42 bg-negro-900">
       {/* Hero → About: fade negro-800 → negro-900 */}
       <div
         aria-hidden
@@ -32,7 +32,7 @@ export default function About() {
           </h2>
 
           {/* Body */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 text-cumaru-400 text-base leading-relaxed">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 text-cumaru-400 text-base leading-relaxed">
             <div className="flex flex-col gap-8 text-xl">
               <div className="flex flex-col gap-3">
                 <Timer className="text-accent" size={24} />
