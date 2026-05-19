@@ -471,17 +471,16 @@ export default function Services() {
         className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-negro-800 pointer-events-none z-0"
       />
       <Container>
-        <div className="mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
-            <span className="text-sm font-semibold text-taruma-400 uppercase tracking-widest">
+            {/* <span className="text-sm font-semibold text-taruma-400 uppercase tracking-widest">
               Serviços
-            </span>
-            <h2 className="mt-2 text-3xl lg:text-4xl font-bold text-cumaru-100 leading-tight">
-              Tecnologia com propósito,
-              <br className="hidden lg:block" /> construída para escalar.
+            </span> */}
+            <h2 className="mt-2 text-3xl lg:text-5xl font-normal text-cumaru-100 leading-tight">
+              Tecnologia com propósito.
             </h2>
           </div>
-          <p className="text-sm text-cumaru-400 max-w-sm lg:text-right">
+          <p className="text-md text-cumaru-400 max-w-lg lg:text-right">
             Desenvolvemos sistemas robustos, apps mobile e sites de alta
             conversão que conectam sua ideia ao mercado e crescem com o seu
             negócio.

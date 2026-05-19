@@ -8,7 +8,7 @@ const Fetaures = () => {
   return (
     <section className="w-full overflow-hidden">
       <Container>
-        <BentoGrid className="w-full py-20">
+        <BentoGrid className="w-full py-10">
           {GRID_ITEMS.map((item, i) => (
             <BentoGridItem
               key={i}
