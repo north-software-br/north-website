@@ -1,0 +1,47 @@
+import type { HTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
+
+export interface MacosWindowProps extends HTMLAttributes<HTMLDivElement> {
+  imageSrc?: string;
+  title?: string;
+  imageClassName?: string;
+}
+
+export function MacosWindow({
+  imageSrc,
+  title,
+  imageClassName,
+  className,
+  ...props
+}: MacosWindowProps) {
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-xl border border-white/10 bg-[#1e1e1e] shadow-2xl",
+        className,
+      )}
+      {...props}
+    >
+      {/* Title bar */}
+      <div className="flex h-7 items-center gap-1.5 border-b border-white/10 bg-[#2a2a2a] px-4">
+        <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
+        <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
+        <span className="h-2 w-2 rounded-full bg-[#28c840]" />
+        {title && (
+          <span className="flex-1 text-center text-xs text-white/40 select-none">
+            {title}
+          </span>
+        )}
+      </div>
+
+      {/* Content */}
+      {imageSrc && (
+        <img
+          src={imageSrc}
+          alt=""
+          className={cn("block w-full object-cover object-top", imageClassName)}
+        />
+      )}
+    </div>
+  );
+}

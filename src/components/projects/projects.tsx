@@ -2,12 +2,29 @@
 
 import { Safari } from "../ui/safari";
 import { BackgroundGradient } from "../ui/background-gradient";
+import {
+  IconBrandReact,
+  IconBrandNextjs,
+  IconBrandTypescript,
+  IconBrandFigma,
+  IconBrandTailwind,
+  IconBrandReactNative,
+} from "@tabler/icons-react";
+type TechStack = {
+  name: string;
+  icon: React.ComponentType<{
+    size?: number;
+    className?: string;
+    stroke?: number;
+  }>;
+};
 
 type PortfolioData = {
   portfolio_image: string;
   portfolio_title: string;
   portfolio_description: string;
   portfolio_tags: string[];
+  portfolio_tech: TechStack[];
 };
 
 const portfolioData: PortfolioData[] = [
@@ -18,6 +35,12 @@ const portfolioData: PortfolioData[] = [
     portfolio_description:
       "Flowbank is a digital banking platform that offers a range of financial services, including savings accounts, loans, and investment options. The platform is designed to provide users with a seamless and intuitive banking experience, with features such as real-time account management, personalized financial insights, and secure transactions.",
     portfolio_tags: ["UX Research", "Interface Design"],
+    portfolio_tech: [
+      { name: "Figma", icon: IconBrandFigma },
+      { name: "React", icon: IconBrandReact },
+      { name: "Next.js", icon: IconBrandNextjs },
+      { name: "TypeScript", icon: IconBrandTypescript },
+    ],
   },
   {
     portfolio_image:
@@ -26,6 +49,12 @@ const portfolioData: PortfolioData[] = [
     portfolio_description:
       "Academy.co is an online learning platform that offers a wide range of courses and educational resources for students and professionals. The platform features a user-friendly interface, personalized learning paths, and interactive content to help users acquire new skills and knowledge in various fields.",
     portfolio_tags: ["Product Design", "Interaction Design"],
+    portfolio_tech: [
+      { name: "Figma", icon: IconBrandFigma },
+      { name: "React", icon: IconBrandReact },
+      { name: "TypeScript", icon: IconBrandTypescript },
+      { name: "Tailwind", icon: IconBrandTailwind },
+    ],
   },
   {
     portfolio_image:
@@ -34,6 +63,11 @@ const portfolioData: PortfolioData[] = [
     portfolio_description:
       "Genome is a health and wellness app that provides users with personalized insights and recommendations based on their genetic data. The app offers features such as DNA analysis, health risk assessments, and lifestyle recommendations to help users make informed decisions about their health and well-being.",
     portfolio_tags: ["Brand identity design", "UX Research"],
+    portfolio_tech: [
+      { name: "Figma", icon: IconBrandFigma },
+      { name: "React Native", icon: IconBrandReactNative },
+      { name: "TypeScript", icon: IconBrandTypescript },
+    ],
   },
 ];
 

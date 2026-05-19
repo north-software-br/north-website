@@ -5,6 +5,7 @@ import IllustrationJourney from "./illustrations/02-journey.svg";
 import IllustrationModules from "./illustrations/03-modules.svg";
 import IllustrationStack from "./illustrations/04-stack.svg";
 import IllustrationScale from "./illustrations/05-scale.svg";
+import SIAN_PRINT from "./illustrations/SIAN-PRINT.png";
 
 export {
   NORTH_N_LOGO,
@@ -14,4 +15,5 @@ export {
   IllustrationModules,
   IllustrationStack,
   IllustrationScale,
+  SIAN_PRINT,
 };

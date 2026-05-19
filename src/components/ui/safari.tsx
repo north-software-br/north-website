@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react"
+import { cn } from "@/lib/utils"
 
 const SAFARI_WIDTH = 1203
 const SAFARI_HEIGHT = 753
@@ -21,6 +22,7 @@ export interface SafariProps extends HTMLAttributes<HTMLDivElement> {
   videoSrc?: string
   mode?: SafariMode
   children?: ReactNode
+  imageClassName?: string
 }
 
 export function Safari({
@@ -31,6 +33,7 @@ export function Safari({
   children,
   className,
   style,
+  imageClassName,
   ...props
 }: SafariProps) {
   const hasVideo = !!videoSrc
@@ -96,7 +99,7 @@ export function Safari({
           <img
             src={imageSrc}
             alt=""
-            className="block size-full object-cover object-top"
+            className={cn("block size-full object-cover object-top", imageClassName)}
           />
         </div>
       )}

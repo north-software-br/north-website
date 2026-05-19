@@ -388,7 +388,7 @@ export function DisplacementSphere() {
       data-visible={visible}
       style={{
         position: 'absolute',
-        width: '100vw',
+        width: '100%',
         inset: 0,
         opacity: visible ? 1 : 0,
         transition: 'opacity 3s cubic-bezier(0.4, 0, 0.6, 1)',

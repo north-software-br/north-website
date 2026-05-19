@@ -4,8 +4,16 @@ import ContactForm from "./contact-form";
 import { Marquee } from "../ui/shadcn-space/radix/animations/marquee";
 
 const contactDetails = [
-  { label: "Telefone", value: "+55 (92) 99525-1477", href: "https://wa.me/5592995251477" },
-  { label: "Email", value: "comercial@northsoftware.com.br", href: "mailto:comercial@northsoftware.com.br" },
+  {
+    label: "Telefone",
+    value: "+55 (92) 99525-1477",
+    href: "https://wa.me/5592995251477",
+  },
+  {
+    label: "Email",
+    value: "comercial@northsoftware.com.br",
+    href: "mailto:comercial@northsoftware.com.br",
+  },
 ];
 
 const brandList = [
@@ -33,7 +41,10 @@ const brandList = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative w-full overflow-hidden py-32 bg-negro-900">
+    <section
+      id="contact"
+      className="relative w-full overflow-hidden py-32 bg-negro-900"
+    >
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
@@ -80,7 +91,9 @@ export default function Contact() {
             <Separator className="opacity-10" />
 
             <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300 ease-in-out fill-mode-both">
-              <p className="text-sm text-cumaru-400">Empresas que confiam em nós</p>
+              <p className="text-sm text-cumaru-400">
+                Empresas que confiam em nós
+              </p>
               <Marquee className="[--duration:20s] [--gap:1.5rem] p-0">
                 {brandList.map((brand) => (
                   <div

@@ -11,7 +11,6 @@ const Fetaures = () => {
         <BentoGrid className="w-full py-20">
           {GRID_ITEMS.map((item, i) => (
             <BentoGridItem
-              id={item.id}
               key={i}
               title={item.title}
               description={item.description}
@@ -19,8 +18,7 @@ const Fetaures = () => {
               img={item.img}
               imgWidth={item.imgWidth}
               imgClassName={item.imgClassName}
-              titleClassName={item.titleClassName}
-              spareImg={item.spareImg}
+              type={item.type}
             />
           ))}
         </BentoGrid>

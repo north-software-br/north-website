@@ -153,7 +153,7 @@ export default function Hero({
           <span className="sr-only">{`${role} + ${introLabel}`}</span>
 
           {/* "North Software" row + line */}
-          <span aria-hidden className="flex flex-row items-center relative">
+          <span aria-hidden className="flex flex-row items-center relative overflow-hidden">
             <span
               className={wordCls}
               data-status={status}
@@ -166,7 +166,7 @@ export default function Hero({
               aria-hidden
               className={cn(
                 "h-0.5 bg-[color-mix(in_srgb,var(--foreground)_30%,transparent)]",
-                "w-[120%] flex ml-5",
+                "flex-1 ml-5 min-w-0",
                 "animation-duration-[0.8s] [animation-delay:1s] fill-mode-[forwards]",
                 "[animation-timing-function:cubic-bezier(0.4,0,0.6,1)]",
                 "origin-left scale-x-0 opacity-0 relative top-[0.05em]",
@@ -177,7 +177,10 @@ export default function Hero({
           </span>
 
           {/* Discipline cycling row */}
-          <div aria-hidden className="flex flex-row items-center relative text-[clamp(2rem,5vw,5.5rem)]">
+          <div
+            aria-hidden
+            className="flex flex-row items-center relative text-[clamp(2rem,5vw,5.5rem)]"
+          >
             {disciplines.map((item, i) => (
               <WordTransition key={item} active={i === disciplineIndex}>
                 {(ws) => (
