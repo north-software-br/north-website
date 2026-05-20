@@ -1,5 +1,8 @@
 import { cn } from "@/lib/utils";
 import { MacosWindow } from "./macos-window";
+import { TextGenerateEffect } from "./text-generate-effect";
+import { Terminal } from "./terminal";
+import { ArchBeamDiagram } from "./arch-beam-diagram";
 
 export const BentoGrid = ({
   className,
@@ -25,15 +28,76 @@ export const BentoGridItem = ({
   img,
   imgWidth,
   imgClassName,
+  terminalCommands,
+  terminalOutputs,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  type?: "large" | "small";
+  type?: "large" | "small" | "terminal" | "beam";
   img?: string;
   imgWidth?: number;
   imgClassName?: string;
+  terminalCommands?: string[];
+  terminalOutputs?: Record<number, string[]>;
 }) => {
+  if (type === "beam") {
+    return (
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-3xl bg-negro-700 group/bento hover:shadow-xl transition duration-200 flex flex-col",
+          className,
+        )}
+      >
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
+        <div className="flex-1 flex items-center justify-center p-6 pt-10 overflow-hidden">
+          <ArchBeamDiagram className="w-full h-full" />
+        </div>
+        <div className="p-6 pt-2 flex flex-col gap-1">
+          <p className="text-lg lg:text-lg font-normal tracking-wide">
+            {description}
+          </p>
+          <h3 className="text-xs lg:text-[1.1rem] font-normal text-cumaru-400">
+            {title}
+          </h3>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "terminal") {
+    return (
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-3xl bg-negro-700 group/bento hover:shadow-xl transition duration-200 flex flex-col",
+          className,
+        )}
+      >
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
+        <div className="flex-1 flex items-center justify-center p-6 overflow-hidden">
+          <Terminal
+            commands={terminalCommands ?? []}
+            outputs={terminalOutputs ?? {}}
+            username="north-dev"
+            typingSpeed={40}
+            delayBetweenCommands={900}
+            enableSound={false}
+            className="w-full max-w-none px-0 text-[10px]"
+            contentClassName="h-60"
+          />
+        </div>
+        <div className="p-6 pt-2 flex flex-col gap-1">
+          <p className="text-lg lg:text-lg font-normal tracking-wide">
+            {description}
+          </p>
+          <h3 className="text-xs lg:text-[1.1rem] font-normal text-cumaru-400">
+            {title}
+          </h3>
+        </div>
+      </div>
+    );
+  }
+
   if (type === "large") {
     return (
       <div
@@ -45,7 +109,7 @@ export const BentoGridItem = ({
         <div className="absolute right-0 top-1/6 -translate-y-1/2 w-505 h-205 rounded-full bg-taruma-500/20 blur-3xl pointer-events-none" />
 
         <div className="flex flex-col items-center text-center px-6 pt-8 gap-1">
-          <h3 className="text-xl lg:text-5xl font-normal max-w-205">{title}</h3>
+          <TextGenerateEffect words={typeof title === "string" ? title : ""} />
         </div>
 
         {img && (
@@ -95,10 +159,10 @@ export const BentoGridItem = ({
         )}
       </div>
       <div className="p-6 pt-2 flex flex-col gap-1">
-        <p className=" text-lg lg:text-xl font-normal  tracking-wide">
+        <p className=" text-lg lg:text-lg font-normal  tracking-wide">
           {description}
         </p>
-        <h3 className="text-xs lg:text-[1.1rem] font-normal text-negro-200">
+        <h3 className="text-xs lg:text-[1.1rem] font-normal text-cumaru-400">
           {title}
         </h3>
       </div>

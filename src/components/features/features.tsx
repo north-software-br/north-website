@@ -19,6 +19,8 @@ const Fetaures = () => {
               imgWidth={item.imgWidth}
               imgClassName={item.imgClassName}
               type={item.type}
+              terminalCommands={"terminalCommands" in item ? item.terminalCommands : undefined}
+              terminalOutputs={"terminalOutputs" in item ? item.terminalOutputs : undefined}
             />
           ))}
         </BentoGrid>
