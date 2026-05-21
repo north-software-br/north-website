@@ -16,6 +16,7 @@ const Fetaures = () => {
               description={item.description}
               className={item.className}
               img={item.img}
+              secondImg={"secondImg" in item ? item.secondImg : undefined}
               imgWidth={item.imgWidth}
               imgClassName={item.imgClassName}
               type={item.type}

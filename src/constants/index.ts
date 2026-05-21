@@ -6,7 +6,8 @@ export const GRID_ITEMS = [
     description: "Velocidade sem atalhos",
     className: "col-span-1 md:col-span-3 min-h-[280px] lg:min-h-[320px]",
     imgClassName: "object-contain h-full opacity-90",
-    img: "/illustrations/SIAN-PRINT.png",
+    img: "/illustrations/LOGIN-SIAN-PRINT.png",
+    secondImg: "/illustrations/SIAN-PRINT.png",
     imgWidth: 600,
   },
   {

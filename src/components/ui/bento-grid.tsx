@@ -26,6 +26,7 @@ export const BentoGridItem = ({
   description,
   type = "small",
   img,
+  secondImg,
   imgWidth,
   imgClassName,
   terminalCommands,
@@ -36,6 +37,7 @@ export const BentoGridItem = ({
   description?: string | React.ReactNode;
   type?: "large" | "small" | "terminal" | "beam";
   img?: string;
+  secondImg?: string;
   imgWidth?: number;
   imgClassName?: string;
   terminalCommands?: string[];
@@ -124,6 +126,7 @@ export const BentoGridItem = ({
               <div className="h-full w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-zinc-900">
                 <MacosWindow
                   imageSrc={img}
+                  secondImageSrc={secondImg}
                   imageClassName={cn(
                     "w-full object-cover object-top",
                     imgClassName,
