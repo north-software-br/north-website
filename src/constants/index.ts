@@ -4,7 +4,8 @@ export const GRID_ITEMS = [
     type: "large" as const,
     title: "Sistemas integrados sob medida",
     description: "Velocidade sem atalhos",
-    className: "col-span-1 md:col-span-3 min-h-[280px] lg:min-h-[320px]",
+    className:
+      "col-span-1 md:col-span-3 min-h-[400px] sm:min-h-[360px] lg:min-h-[320px]",
     imgClassName: "object-contain h-full opacity-90",
     img: "/illustrations/LOGIN-SIAN-PRINT.png",
     secondImg: "/illustrations/SIAN-PRINT.png",

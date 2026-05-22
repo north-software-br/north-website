@@ -17,13 +17,16 @@ import {
 
 const navLinks = [
   { name: "Serviços", link: "#services" },
+  { name: "Processo", link: "#features" },
   { name: "Projetos", link: "#projects" },
-  { name: "Sobre",    link: "#about" },
+  { name: "Sobre", link: "#about" },
 ];
 
 function smoothScroll(href: string) {
   if (href.startsWith("#")) {
-    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById(href.slice(1))
+      ?.scrollIntoView({ behavior: "smooth" });
   }
 }
 
@@ -34,32 +37,46 @@ export default function NorthNavbar() {
     <Navbar>
       {/* Desktop */}
       <NavBody>
-        <Link href="/" aria-label="North Software — início" className="relative z-20 shrink-0">
+        <Link
+          href="/"
+          aria-label="North Software — início"
+          className="relative z-20 shrink-0"
+        >
           <div className="relative w-9 h-7 overflow-hidden">
-            <Image src={NORTH_N_LOGO} fill alt="North Software" className="object-cover object-top" />
+            <Image
+              src={NORTH_N_LOGO}
+              fill
+              alt="North Software"
+              className="object-cover object-top"
+            />
           </div>
         </Link>
 
         <NavItems items={navLinks} />
 
-        <Link
-          href="/contact"
+        <button
+          onClick={() => smoothScroll("#contact")}
           className={cn(
             "relative z-20 inline-flex items-center gap-2 px-5 py-2 rounded-full",
             "bg-taruma-400 hover:bg-taruma-500 text-negro-900",
-            "font-semibold text-sm transition-colors duration-200",
+            "font-semibold text-sm transition-colors duration-200 cursor-pointer",
           )}
         >
           Fale conosco
-        </Link>
+        </button>
       </NavBody>
 
       {/* Mobile */}
-      <MobileNav className={cn(mobileOpen && "rounded-[28px]")}>
+      <MobileNav isOpen={mobileOpen}>
         <MobileNavHeader>
           <Link href="/" aria-label="North Software — início">
             <div className="relative w-8 h-6 overflow-hidden">
-              <Image src={NORTH_N_LOGO} fill alt="North Software" className="object-cover object-top" />
+              <Image
+                src={NORTH_N_LOGO}
+                fill
+                alt="North Software"
+                className="object-cover object-top"
+              />
             </div>
           </Link>
 
@@ -90,18 +107,20 @@ export default function NorthNavbar() {
 
           <div className="w-full h-px bg-white/8" />
 
-          <Link
-            href="/contact"
-            onClick={() => setMobileOpen(false)}
+          <button
+            onClick={() => {
+              smoothScroll("#contact");
+              setMobileOpen(false);
+            }}
             className={cn(
               "w-full flex items-center justify-center",
               "bg-taruma-400 hover:bg-taruma-500 text-negro-900",
               "font-semibold text-base px-6 py-3.5 rounded-full",
-              "transition-colors duration-200",
+              "transition-colors duration-200 cursor-pointer",
             )}
           >
             Fale conosco
-          </Link>
+          </button>
 
           <p className="font-mono text-[10px] text-negro-400 tracking-[0.14em] uppercase">
             NS-V.2025 // MANAUS, BR

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { forwardRef, useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 import Container from "../container/container";
 import { AnimatedBeam } from "../ui/animated-beam";
@@ -67,7 +67,7 @@ function SystemsBackground({ className }: { className?: string }) {
       )}
       ref={containerRef}
     >
-      <div className="flex size-full max-w-xs flex-row items-stretch justify-between gap-6">
+      <div className="flex w-full max-w-[14rem] sm:max-w-xs flex-row items-stretch justify-between gap-4 sm:gap-6">
         {/* Left: output — the client/user */}
         <div className="flex flex-col justify-center">
           <Circle ref={div7Ref} className="size-10">
@@ -190,7 +190,7 @@ const rightItems = [
   { icon: IconBell, label: "Notificações" },
 ];
 
-function MobileBackground({ className }: { className?: string }) {
+function MobileBackground({ className, modal }: { className?: string; modal?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
   const leftAnchorRef = useRef<HTMLDivElement>(null);
@@ -243,7 +243,7 @@ function MobileBackground({ className }: { className?: string }) {
         </div>
 
         {/* iPhone — center hub */}
-        <div className="relative w-35 shrink-0 translate-y-12 transition-transform duration-500 ease-out group-hover:translate-y-6">
+        <div className={cn("relative w-20 sm:w-35 shrink-0 transition-transform duration-500 ease-out group-hover:translate-y-6", modal ? "translate-y-0" : "translate-y-0 sm:translate-y-12")}>
           <Iphone src="/app-login.svg" />
         </div>
 
@@ -391,6 +391,7 @@ interface ServiceCardProps {
   name: string;
   description: string;
   background: React.ReactNode;
+  modalBackground?: React.ReactNode;
   Icon: React.ElementType;
   detail: ServiceDetail;
   cta?: string;
@@ -440,7 +441,7 @@ function ServiceModal({
       >
         {/* Visual header — reuses the card background */}
         <div className="relative h-52 overflow-hidden rounded-t-3xl">
-          {service.background}
+          {service.modalBackground ?? service.background}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-negro-800 via-negro-800/20 to-transparent" />
 
           {/* Close */}
@@ -544,6 +545,9 @@ const services: ServiceCardProps[] = [
     background: (
       <SystemsBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    modalBackground: (
+      <SystemsBackground className="pb-6 mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
+    ),
     detail: {
       tagline: "Back-end & Integrações",
       features: [
@@ -588,6 +592,9 @@ const services: ServiceCardProps[] = [
     background: (
       <MobileBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    modalBackground: (
+      <MobileBackground modal className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
+    ),
     detail: {
       tagline: "iOS & Android",
       features: [
@@ -631,6 +638,9 @@ const services: ServiceCardProps[] = [
     background: (
       <SitesBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    modalBackground: (
+      <SitesBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
+    ),
     detail: {
       tagline: "Web & Performance",
       features: [
@@ -671,6 +681,8 @@ export default function Services() {
   const [activeService, setActiveService] = useState<ServiceCardProps | null>(
     null,
   );
+  const headingRef = useRef<HTMLDivElement>(null);
+  const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
 
   return (
     <section
@@ -687,7 +699,13 @@ export default function Services() {
         className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-negro-800 pointer-events-none z-0"
       />
       <Container>
-        <div className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <motion.div
+          ref={headingRef}
+          initial={{ opacity: 0, y: 28 }}
+          animate={headingInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+        >
           <div>
             {/* <span className="text-sm font-semibold text-taruma-400 uppercase tracking-widest">
               Serviços
@@ -701,7 +719,7 @@ export default function Services() {
             conversão que conectam sua ideia ao mercado e crescem com o seu
             negócio.
           </p>
-        </div>
+        </motion.div>
 
         <BentoGrid className="auto-rows-[28rem] sm:grid-cols-3">
           {services.map((service) => (

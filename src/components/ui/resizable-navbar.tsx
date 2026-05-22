@@ -10,7 +10,6 @@ import {
 
 import React, { useRef, useState } from "react";
 
-
 interface NavbarProps {
   children: React.ReactNode;
   className?: string;
@@ -33,6 +32,7 @@ interface NavItemsProps {
 interface MobileNavProps {
   children: React.ReactNode;
   className?: string;
+  isOpen?: boolean;
 }
 
 interface MobileNavHeaderProps {
@@ -93,13 +93,15 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       initial={{
         maxWidth: "820px",
         backgroundColor: "rgba(3,11,23,0.4)",
-        boxShadow: "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
+        boxShadow:
+          "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
         backdropFilter: "blur(16px) saturate(150%)",
       }}
       animate={{
         maxWidth: visible ? "560px" : "820px",
         backgroundColor: "rgba(3,11,23,0.4)",
-        boxShadow: "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
+        boxShadow:
+          "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
         backdropFilter: "blur(16px) saturate(150%)",
       }}
       transition={{
@@ -132,7 +134,6 @@ export const NavItems = ({ items, className }: NavItemsProps) => {
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-
           className="relative px-4 py-2 text-cumaru-300 hover:text-cumaru-100 transition-colors duration-200"
           key={`link-${idx}`}
           href={item.link}
@@ -150,25 +151,19 @@ export const NavItems = ({ items, className }: NavItemsProps) => {
   );
 };
 
-export const MobileNav = ({ children, className }: MobileNavProps) => {
+export const MobileNav = ({ children, className, isOpen }: MobileNavProps) => {
   return (
     <motion.div
-      initial={{
-        backgroundColor: "rgba(3,11,23,0.4)",
-        backdropFilter: "blur(16px) saturate(150%)",
-      }}
       animate={{
-        backgroundColor: "rgba(3,11,23,0.4)",
-        backdropFilter: "blur(16px) saturate(150%)",
+        borderRadius: isOpen ? "28px" : "28px",
       }}
       transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 50,
+        borderRadius: { type: "tween", ease: [0.4, 0, 0.2, 1], duration: 0.28 },
       }}
       className={cn(
-        "relative z-50 mx-auto mt-6 flex w-[calc(100%-3rem)] flex-col items-center justify-between rounded-full",
+        "relative z-50 mx-auto mt-6 flex w-[calc(100%-3rem)] flex-col items-center justify-between",
         "border border-white/10 px-5 py-3 lg:hidden",
+        "bg-[rgba(3,11,23,0.4)] backdrop-blur-lg",
         "shadow-[0_8px_40px_rgba(3,11,23,0.6),inset_0_1px_0_rgba(255,255,255,0.06)]",
         className,
       )}
@@ -204,10 +199,27 @@ export const MobileNavMenu = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ type: "spring", stiffness: 240, damping: 28 }}
+          variants={{
+            open: {
+              opacity: 1,
+              height: "auto",
+              transition: {
+                height: { type: "spring", stiffness: 280, damping: 26 },
+                opacity: { duration: 0.2, ease: "easeOut" },
+              },
+            },
+            closed: {
+              opacity: 0,
+              height: 0,
+              transition: {
+                height: { type: "tween", ease: [0.4, 0, 1, 1], duration: 0.22 },
+                opacity: { duration: 0.12, ease: "easeIn" },
+              },
+            },
+          }}
+          initial="closed"
+          animate="open"
+          exit="closed"
           className={cn(
             "flex w-full flex-col items-start justify-start gap-4 overflow-hidden pt-5",
             className,

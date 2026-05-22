@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { NORTH_FULL_LOGO } from "../../../public";
@@ -42,9 +46,17 @@ const socialLinks = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <footer className="bg-negro-900 border-t border-white/[0.06]">
+    <motion.footer
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+      className="bg-negro-900 border-t border-white/6"
+    >
       <Container>
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -134,7 +146,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/[0.06] py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="border-t border-white/6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-cumaru-500 text-xs">
             © {year} North Software. Todos os direitos reservados.
           </p>
@@ -154,6 +166,6 @@ export default function Footer() {
           </div>
         </div>
       </Container>
-    </footer>
+    </motion.footer>
   );
 }

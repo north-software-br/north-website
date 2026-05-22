@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import Container from "../container/container";
 import { Separator } from "@/components/ui/separator";
 import ContactForm from "./contact-form";
@@ -40,6 +44,11 @@ const brandList = [
 ];
 
 export default function Contact() {
+  const infoRef = useRef<HTMLDivElement>(null);
+  const infoInView = useInView(infoRef, { once: true, amount: 0.15 });
+  const formRef = useRef<HTMLDivElement>(null);
+  const formInView = useInView(formRef, { once: true, amount: 0.15 });
+
   return (
     <section
       id="contact"
@@ -53,8 +62,14 @@ export default function Contact() {
       <Container>
         <div className="relative z-10 grid grid-cols-12 items-start gap-y-12 md:gap-8">
           {/* Info side */}
-          <div className="col-span-12 md:col-span-6 flex flex-col gap-10 min-w-0">
-            <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-left-10 duration-1000 ease-in-out fill-mode-both">
+          <motion.div
+            ref={infoRef}
+            initial={{ opacity: 0, x: -32 }}
+            animate={infoInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+            className="col-span-12 md:col-span-6 flex flex-col gap-10 min-w-0"
+          >
+            <div className="flex flex-col gap-6">
               <div className="flex gap-3 items-center">
                 <span className="size-2 rounded-full bg-taruma-400" />
                 <p className="text-sm font-normal text-cumaru-400">
@@ -67,7 +82,7 @@ export default function Contact() {
               </h2>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-8 animate-in fade-in slide-in-from-left-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+            <div className="flex flex-col sm:flex-row gap-8">
               {contactDetails.map(({ label, value, href }) => (
                 <div key={label} className="flex flex-col gap-1">
                   <p className="text-sm text-cumaru-400">{label}</p>
@@ -81,7 +96,7 @@ export default function Contact() {
               ))}
             </div>
 
-            <div className="flex flex-col gap-1 animate-in fade-in slide-in-from-left-10 duration-1000 delay-200 ease-in-out fill-mode-both">
+            <div className="flex flex-col gap-1">
               <p className="text-sm text-cumaru-400">Localização</p>
               <p className="text-base font-medium text-cumaru-200">
                 Amazonas, Brasil
@@ -90,7 +105,7 @@ export default function Contact() {
 
             <Separator className="opacity-10" />
 
-            <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300 ease-in-out fill-mode-both">
+            <div className="flex flex-col gap-6">
               <p className="text-sm text-cumaru-400">
                 Empresas que confiam em nós
               </p>
@@ -110,15 +125,21 @@ export default function Contact() {
                 ))}
               </Marquee>
             </div>
-          </div>
+          </motion.div>
 
           {/* Spacer */}
           <div className="col-span-1 hidden md:block" />
 
           {/* Form side */}
-          <div className="col-span-12 md:col-span-5 min-w-0">
+          <motion.div
+            ref={formRef}
+            initial={{ opacity: 0, x: 32 }}
+            animate={formInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
+            className="col-span-12 md:col-span-5 min-w-0"
+          >
             <ContactForm />
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>

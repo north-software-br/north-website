@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { Safari } from "../ui/safari";
 import { BackgroundGradient } from "../ui/background-gradient";
 import { Highlight } from "../ui/hero-highlight";
@@ -78,12 +80,12 @@ interface ProjectCardProps {
 const ProjectCard = ({ item, index }: ProjectCardProps) => {
   return (
     <div
-      className="sticky top-20 flex min-h-svh items-start pt-6 pb-8 md:h-[60vh] md:min-h-0 md:items-center md:py-0"
+      className="sticky top-20 flex items-start pt-6 pb-8 md:h-[60vh] md:min-h-0 md:items-center md:py-0"
       style={{ zIndex: index + 1 }}
     >
       <div className="w-full">
         <div className="relative max-h-[calc(100svh-4rem)] overflow-hidden md:max-h-[48vh]">
-          <div className="flex flex-col gap-5 md:flex-row md:gap-5">
+          <div className="flex flex-col gap-5 md:flex-row md:gap-5 sm:bg-transparent bg-background p-2">
             <div className="flex w-full flex-col justify-center gap-4 bg-background md:w-1/2 md:pr-10">
               <span className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
                 {item.portfolio_title}
@@ -109,10 +111,19 @@ const ProjectCard = ({ item, index }: ProjectCardProps) => {
 };
 
 const Projects = () => {
+  const headingRef = useRef<HTMLDivElement>(null);
+  const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
+
   return (
     <section id="projects" className="bg-background mt-24 sm:mt-32">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 xl:px-16 ">
-        <div className="flex flex-col gap-4 justify-center items-center animate-in fade-in slide-in-from-top-8 duration-700 ease-in-out">
+        <motion.div
+          ref={headingRef}
+          initial={{ opacity: 0, y: 28 }}
+          animate={headingInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          className="flex flex-col gap-4 justify-center items-center"
+        >
           <div className="max-w-xs sm:max-w-2xl mx-auto text-center flex flex-col gap-5">
             <h2 className="text-foreground text-3xl sm:text-5xl font-semibold">
               Alguns de nossos{" "}
@@ -126,7 +137,7 @@ const Projects = () => {
               projeto é uma história de colaboração e criatividade
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 lg:px-8 xl:px-16">
