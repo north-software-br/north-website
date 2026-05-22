@@ -20,7 +20,8 @@ type TechStack = {
 };
 
 type PortfolioData = {
-  portfolio_image: string;
+  portfolio_image?: string;
+  portfolio_video?: string;
   portfolio_title: string;
   portfolio_description: string;
   portfolio_tags: string[];
@@ -29,11 +30,10 @@ type PortfolioData = {
 
 const portfolioData: PortfolioData[] = [
   {
-    portfolio_image:
-      "https://images.shadcnspace.com/assets/portfolio/flowbank.webp",
-    portfolio_title: "Flowbank",
+    portfolio_video: "/midia/adv-paiva.mp4",
+    portfolio_title: "GABRIELA C.O. PAIVA",
     portfolio_description:
-      "Flowbank is a digital banking platform that offers a range of financial services, including savings accounts, loans, and investment options. The platform is designed to provide users with a seamless and intuitive banking experience, with features such as real-time account management, personalized financial insights, and secure transactions.",
+      "Website institucional desenvolvido para o escritório Gabriela Paiva, com foco em transmitir credibilidade, profissionalismo e presença digital. O projeto foi pensado para apresentar os serviços jurídicos de forma clara e estratégica, destacando a atuação personalizada, a excelência técnica e o compromisso com soluções inteligentes para cada cliente.",
     portfolio_tags: ["UX Research", "Interface Design"],
     portfolio_tech: [
       { name: "Figma", icon: IconBrandFigma },
@@ -43,11 +43,10 @@ const portfolioData: PortfolioData[] = [
     ],
   },
   {
-    portfolio_image:
-      "https://images.shadcnspace.com/assets/portfolio/academy.webp",
-    portfolio_title: "Academy.co",
+    portfolio_video: "/midia/antonelly-site.mp4",
+    portfolio_title: "ANTONELLY CONSTRUÇÕES",
     portfolio_description:
-      "Academy.co is an online learning platform that offers a wide range of courses and educational resources for students and professionals. The platform features a user-friendly interface, personalized learning paths, and interactive content to help users acquire new skills and knowledge in various fields.",
+      "Desenvolvimento de uma plataforma institucional para a Antonelly Construções e Serviços, criada para representar a solidez de mais de 20 anos de atuação no mercado. A experiência foi estruturada para comunicar a dimensão da empresa, sua expertise nos setores da construção civil e naval, além do compromisso com qualidade, segurança e excelência operacional.",
     portfolio_tags: ["Product Design", "Interaction Design"],
     portfolio_tech: [
       { name: "Figma", icon: IconBrandFigma },
@@ -57,11 +56,10 @@ const portfolioData: PortfolioData[] = [
     ],
   },
   {
-    portfolio_image:
-      "https://images.shadcnspace.com/assets/portfolio/genome.webp",
-    portfolio_title: "Genome",
+    portfolio_video: "/midia/office-145.mp4",
+    portfolio_title: "OFFICE 145",
     portfolio_description:
-      "Genome is a health and wellness app that provides users with personalized insights and recommendations based on their genetic data. The app offers features such as DNA analysis, health risk assessments, and lifestyle recommendations to help users make informed decisions about their health and well-being.",
+      "Website institucional para o edifício Empresarial Office 145, criado para transmitir modernidade, credibilidade e praticidade. O projeto foi pensado para apresentar de forma clara os diferenciais do empreendimento, destacando sua infraestrutura completa, tecnologia, segurança e soluções voltadas para pequenas e médias empresas que buscam um ambiente corporativo funcional e eficiente.",
     portfolio_tags: ["Brand identity design", "UX Research"],
     portfolio_tech: [
       { name: "Figma", icon: IconBrandFigma },
@@ -85,18 +83,21 @@ const ProjectCard = ({ item, index }: ProjectCardProps) => {
       <div className="w-full">
         <div className="relative max-h-[calc(100svh-4rem)] overflow-hidden md:max-h-[48vh]">
           <div className="flex flex-col gap-5 md:flex-row md:gap-5">
-            <div className="flex w-full flex-col justify-center gap-4 bg-background md:w-1/2">
+            <div className="flex w-full flex-col justify-center gap-4 bg-background md:w-1/2 md:pr-10">
               <span className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
                 {item.portfolio_title}
               </span>
-              <span className="line-clamp-5 text-sm font-normal leading-relaxed text-negro-200 sm:line-clamp-none sm:text-base lg:text-lg">
+              <span className="line-clamp-5 text-sm font-normal leading-relaxed text-negro-200 sm:line-clamp-none sm:text-base lg:text-lg text-justify">
                 {item.portfolio_description}
               </span>
             </div>
 
             <div className="w-full md:w-1/2">
               <BackgroundGradient className="p-3 sm:p-4 lg:p-6" bright={false}>
-                <Safari imageSrc={item.portfolio_image} />
+                <Safari
+                  imageSrc={item.portfolio_image}
+                  videoSrc={item.portfolio_video}
+                />
               </BackgroundGradient>
             </div>
           </div>
