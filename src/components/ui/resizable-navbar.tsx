@@ -98,7 +98,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         backdropFilter: "blur(16px) saturate(150%)",
       }}
       animate={{
-        maxWidth: visible ? "560px" : "820px",
+        maxWidth: visible ? "600px" : "820px",
         backgroundColor: "rgba(3,11,23,0.4)",
         boxShadow:
           "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
@@ -127,7 +127,7 @@ export const NavItems = ({ items, className }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute left-1/2 -translate-x-1/2 hidden flex-row items-center justify-center gap-1 text-sm font-medium lg:flex",
+        "flex-1 hidden flex-row items-center justify-center gap-1 text-sm font-medium lg:flex",
         className,
       )}
     >

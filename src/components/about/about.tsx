@@ -100,15 +100,14 @@ export default function About() {
             {/* Testimonial card */}
             <div className="absolute -bottom-6 -right-6 max-w-xs rounded-2xl bg-taruma-600/20 backdrop-blur-lg p-6 shadow-2xl">
               <p className="text-white text-sm leading-relaxed font-medium">
-                &ldquo;Reduzimos o tempo de fechamento mensal de 3 dias para
-                menos de 4 horas com a integração que a North entregou.&rdquo;
+&ldquo;Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento para visitantes e funcionários, agora passou a ser automático, ágil e seguro.&rdquo;
               </p>
               <div className="mt-4">
                 <p className="text-white/90 text-xs font-semibold">
-                  Carlos Mendonça
+                  Paula Pinheiro
                 </p>
                 <p className="text-white/60 text-xs">
-                  Diretor Financeiro, Grupo Araújo
+                  Antonelly Construções, Recepcionista
                 </p>
               </div>
             </div>

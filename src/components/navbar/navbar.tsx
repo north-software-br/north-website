@@ -17,9 +17,9 @@ import {
 
 const navLinks = [
   { name: "Serviços", link: "#services" },
-  { name: "Processo", link: "#features" },
-  { name: "Projetos", link: "#projects" },
+  { name: "Processos", link: "#features" },
   { name: "Sobre", link: "#about" },
+  { name: "Projetos", link: "#projects" },
 ];
 
 function smoothScroll(href: string) {

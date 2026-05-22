@@ -15,7 +15,7 @@ export const GRID_ITEMS = [
     id: 2,
     type: "terminal" as const,
     title: "Do briefing ao deploy, você acompanha cada etapa",
-    description: "Processo transparente",
+    description: "Processos transparentes",
     className: "col-span-1 min-h-[280px]",
     imgClassName: "",
     img: "",

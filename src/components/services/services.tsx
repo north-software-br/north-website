@@ -579,7 +579,7 @@ const services: ServiceCardProps[] = [
         "Docker",
         "AWS",
         "Prisma",
-        "tRPC",
+        "Python",
       ],
     },
   },
