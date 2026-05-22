@@ -144,20 +144,44 @@ function useInView(ref: React.RefObject<HTMLElement | null>, once = true) {
     const el = ref.current;
     if (!el || (once && triggered.current)) return;
 
+    const activate = () => {
+      if (triggered.current) return;
+      triggered.current = true;
+      setInView(true);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !triggered.current) {
-          setInView(true);
-          if (once) {
-            triggered.current = true;
-            observer.disconnect();
-          }
+        // Only trigger after the user has scrolled, not on initial page load
+        if (entry.isIntersecting && window.scrollY > 0) {
+          activate();
+          if (once) observer.disconnect();
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.2 },
     );
     observer.observe(el);
-    return () => observer.disconnect();
+
+    const onScroll = () => {
+      if (triggered.current) {
+        window.removeEventListener("scroll", onScroll);
+        return;
+      }
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
+        activate();
+        if (once) {
+          observer.disconnect();
+          window.removeEventListener("scroll", onScroll);
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [ref, once]);
 
   return inView;
