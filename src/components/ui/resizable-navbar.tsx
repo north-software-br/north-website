@@ -90,6 +90,12 @@ export const Navbar = ({ children, className }: NavbarProps) => {
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
+      initial={{
+        maxWidth: "820px",
+        backgroundColor: "rgba(3,11,23,0.4)",
+        boxShadow: "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
+        backdropFilter: "blur(16px) saturate(150%)",
+      }}
       animate={{
         maxWidth: visible ? "560px" : "820px",
         backgroundColor: "rgba(3,11,23,0.4)",
@@ -147,6 +153,10 @@ export const NavItems = ({ items, className }: NavItemsProps) => {
 export const MobileNav = ({ children, className }: MobileNavProps) => {
   return (
     <motion.div
+      initial={{
+        backgroundColor: "rgba(3,11,23,0.4)",
+        backdropFilter: "blur(16px) saturate(150%)",
+      }}
       animate={{
         backgroundColor: "rgba(3,11,23,0.4)",
         backdropFilter: "blur(16px) saturate(150%)",

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 import Container from "../container/container";
 import { AnimatedBeam } from "../ui/animated-beam";
@@ -21,7 +22,11 @@ import {
   IconCloudUpload,
   IconBrandTypescript,
   IconBell,
+  IconX,
+  IconCheck,
+  IconWorldWww,
 } from "@tabler/icons-react";
+import { BentoGrid, BentoCard } from "../ui/bento-grid";
 import { Iphone } from "../ui/iphone";
 import { Safari } from "../ui/safari";
 import { Marquee } from "../ui/shadcn-space/radix/animations/marquee";
@@ -102,6 +107,8 @@ function SystemsBackground({ className }: { className?: string }) {
         fromRef={div1Ref}
         toRef={div6Ref}
         duration={4}
+        delay={0}
+        repeatDelay={0}
         gradientStartColor="#3DAFA6"
         gradientStopColor="#3DAFA6"
         pathColor="transparent"
@@ -110,7 +117,9 @@ function SystemsBackground({ className }: { className?: string }) {
         containerRef={containerRef}
         fromRef={div2Ref}
         toRef={div6Ref}
-        duration={4}
+        duration={1}
+        delay={0.8}
+        repeatDelay={0}
         gradientStartColor="#3DAFA6"
         gradientStopColor="#3DAFA6"
         pathColor="transparent"
@@ -120,6 +129,8 @@ function SystemsBackground({ className }: { className?: string }) {
         fromRef={div3Ref}
         toRef={div6Ref}
         duration={4}
+        delay={1.6}
+        repeatDelay={0}
         gradientStartColor="#3DAFA6"
         gradientStopColor="#3DAFA6"
         pathColor="transparent"
@@ -129,6 +140,8 @@ function SystemsBackground({ className }: { className?: string }) {
         fromRef={div4Ref}
         toRef={div6Ref}
         duration={4}
+        delay={2.4}
+        repeatDelay={0}
         gradientStartColor="#3DAFA6"
         gradientStopColor="#3DAFA6"
         pathColor="transparent"
@@ -138,6 +151,8 @@ function SystemsBackground({ className }: { className?: string }) {
         fromRef={div5Ref}
         toRef={div6Ref}
         duration={4}
+        delay={3.2}
+        repeatDelay={0}
         gradientStartColor="#3DAFA6"
         gradientStopColor="#3DAFA6"
         pathColor="transparent"
@@ -147,6 +162,8 @@ function SystemsBackground({ className }: { className?: string }) {
         fromRef={div6Ref}
         toRef={div7Ref}
         duration={4}
+        delay={0}
+        repeatDelay={0}
         gradientStartColor="#3DAFA6"
         gradientStopColor="#3DAFA6"
         pathColor="transparent"
@@ -356,72 +373,161 @@ function SitesBackground({ className }: { className?: string }) {
   );
 }
 
-// ── ServiceCard ───────────────────────────────────────────────────
+// ── Service types ─────────────────────────────────────────────────
+
+interface ServiceFeature {
+  label: string;
+  description: string;
+}
+
+interface ServiceDetail {
+  tagline: string;
+  features: ServiceFeature[];
+  stack: string[];
+}
 
 interface ServiceCardProps {
+  id: string;
   name: string;
   description: string;
   background: React.ReactNode;
-  href?: string;
+  Icon: React.ElementType;
+  detail: ServiceDetail;
   cta?: string;
   className?: string;
 }
 
-function ServiceCard({
-  name,
-  description,
-  background,
-  href = "#contact",
-  cta = "Saiba mais",
-  className,
-}: ServiceCardProps) {
+// ── ServiceModal ──────────────────────────────────────────────────
+
+function ServiceModal({
+  service,
+  onClose,
+}: {
+  service: ServiceCardProps;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
   return (
-    <div
-      className={cn(
-        "group relative col-span-1 sm:col-span-1 flex flex-col overflow-hidden rounded-3xl",
-        "bg-negro-800 border border-white/8",
-        "[box-shadow:0_-20px_80px_-20px_rgba(61,175,166,0.06)_inset]",
-        "transition-colors duration-300",
-        "hover:border-taruma-400/30",
-        className,
-      )}
-    >
-      <div className="absolute inset-0">{background}</div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8">
+      {/* Backdrop — independent fade, not part of card layout animation */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute inset-0 bg-negro-900/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
-      {/* Static gradient — stays fixed at bottom, never moves */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-linear-to-t from-negro-800/90 to-transparent" />
-
-      {/* Text — slides up to make room for the CTA */}
-      <div
+      {/* Card expands from grid position via layoutId */}
+      <motion.div
+        layoutId={`service-card-${service.id}`}
         className={cn(
-          "pointer-events-none absolute bottom-0 left-0 right-0 z-20 flex flex-col gap-1 p-6",
-          "transition-transform duration-300 group-hover:-translate-y-10",
+          "relative z-10 w-full max-w-xl max-h-[88vh] overflow-y-auto",
+          "rounded-3xl bg-negro-800 border border-white/10",
+          "[box-shadow:0_0_80px_-20px_rgba(61,175,166,0.15)]",
         )}
       >
-        <h3 className="text-xl font-bold text-cumaru-100">{name}</h3>
-        <p className="text-sm text-cumaru-400 max-w-xs">{description}</p>
-      </div>
+        {/* Visual header — reuses the card background */}
+        <div className="relative h-52 overflow-hidden rounded-t-3xl">
+          {service.background}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-negro-800 via-negro-800/20 to-transparent" />
 
-      {/* CTA — slides up from below on hover */}
-      <div
-        className={cn(
-          "absolute bottom-0 left-0 right-0 z-20 flex items-center p-4",
-          "translate-y-10 opacity-0 transition-all duration-300",
-          "group-hover:translate-y-0 group-hover:opacity-100",
-        )}
-      >
-        <a
-          href={href}
-          className="group/btn relative flex h-10 w-fit cursor-pointer items-center overflow-hidden rounded-full border border-white/10 bg-negro-700 ps-5 pe-12 text-sm font-medium text-cumaru-200 transition-all duration-500 hover:ps-12 hover:pe-5"
+          {/* Close */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.15 }}
+            onClick={onClose}
+            className={cn(
+              "absolute top-4 right-4 z-30",
+              "flex size-8 items-center justify-center rounded-full",
+              "border border-white/10 bg-negro-700/80 backdrop-blur-sm",
+              "text-cumaru-400 transition-colors hover:text-cumaru-100 cursor-pointer",
+            )}
+          >
+            <IconX className="size-4" />
+          </motion.button>
+        </div>
+
+        {/* Content fades in after the card finishes expanding */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, delay: 0.1 }}
+          className="px-6 pb-8 pt-2"
         >
-          <span className="relative z-10 whitespace-nowrap transition-all duration-500">
-            {cta}
-          </span>
-          <div className="absolute right-1 flex size-8 items-center justify-center rounded-full bg-taruma-400 text-negro-900 transition-all duration-500 group-hover/btn:right-[calc(100%-36px)]">
-            <IconArrowUpRight className="size-3.5" />
+          <p className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-taruma-400">
+            {service.detail.tagline}
+          </p>
+          <h3 className="mb-1 text-2xl font-bold text-cumaru-100">
+            {service.name}
+          </h3>
+          <p className="mb-6 text-sm text-cumaru-400">{service.description}</p>
+
+          {/* Features */}
+          <div className="mb-6 space-y-3">
+            {service.detail.features.map((f, i) => (
+              <div key={i} className="flex gap-3">
+                <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-taruma-400/15 text-taruma-400">
+                  <IconCheck className="size-3" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-cumaru-200">
+                    {f.label}
+                  </p>
+                  <p className="text-xs text-cumaru-500">{f.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        </a>
-      </div>
+
+          {/* Stack */}
+          {service.detail.stack.length > 0 && (
+            <div className="mb-7">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-cumaru-500">
+                Tecnologias
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {service.detail.stack.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="rounded-full border border-taruma-400/20 bg-taruma-400/8 px-3 py-1 text-xs text-taruma-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* CTA */}
+          <a
+            href="#contact"
+            onClick={onClose}
+            className="group/btn relative flex h-11 w-fit cursor-pointer items-center overflow-hidden rounded-full border border-white/10 bg-negro-700 ps-5 pe-12 text-sm font-medium text-cumaru-200 transition-all duration-500 hover:ps-12 hover:pe-5"
+          >
+            <span className="relative z-10 whitespace-nowrap transition-all duration-500">
+              Falar com a equipe
+            </span>
+            <div className="absolute right-1 flex size-9 items-center justify-center rounded-full bg-taruma-400 text-negro-900 transition-all duration-500 group-hover/btn:right-[calc(100%-40px)]">
+              <IconArrowUpRight className="size-3.5" />
+            </div>
+          </a>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
@@ -430,32 +536,142 @@ function ServiceCard({
 
 const services: ServiceCardProps[] = [
   {
+    id: "sistemas",
+    Icon: IconServer,
     name: "Sistemas e Integrações",
     description:
       "Aplicações web robustas: painéis, APIs, integrações e fluxos de negócio complexos.",
     background: (
       <SystemsBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    detail: {
+      tagline: "Back-end & Integrações",
+      features: [
+        {
+          label: "APIs RESTful e GraphQL",
+          description:
+            "Arquitetura de APIs escaláveis com documentação automática e controle de versão.",
+        },
+        {
+          label: "Integrações com terceiros",
+          description:
+            "Conectamos seu sistema a ERPs, CRMs, gateways de pagamento e qualquer serviço externo.",
+        },
+        {
+          label: "Painéis e dashboards",
+          description:
+            "Interfaces de gestão com relatórios em tempo real e controle granular de permissões.",
+        },
+        {
+          label: "Automação de processos",
+          description:
+            "Workflows automatizados que eliminam trabalho manual e reduzem erros operacionais.",
+        },
+      ],
+      stack: [
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "Docker",
+        "AWS",
+        "Prisma",
+        "tRPC",
+      ],
+    },
   },
   {
+    id: "mobile",
+    Icon: IconDeviceMobile,
     name: "Mobile",
     description:
       "Apps nativos e cross-platform para iOS e Android com experiência premium.",
     background: (
       <MobileBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    detail: {
+      tagline: "iOS & Android",
+      features: [
+        {
+          label: "React Native & Expo",
+          description:
+            "Um único código-fonte para iOS e Android, com performance nativa e atualizações OTA.",
+        },
+        {
+          label: "Design de alta fidelidade",
+          description:
+            "Interfaces polidas com animações fluidas que respeitam as guidelines de cada plataforma.",
+        },
+        {
+          label: "Publicação nas lojas",
+          description:
+            "Configuramos o pipeline de CI/CD e publicamos seu app na App Store e Google Play.",
+        },
+        {
+          label: "Notificações e offline",
+          description:
+            "Push notifications, suporte offline e sincronização transparente com o back-end.",
+        },
+      ],
+      stack: [
+        "React Native",
+        "Expo",
+        "TypeScript",
+        "Reanimated",
+        "Zustand",
+        "Supabase",
+      ],
+    },
   },
   {
+    id: "sites",
+    Icon: IconWorldWww,
     name: "Criação de Sites",
     description:
       "Sites institucionais, landing pages e e-commerces otimizados para conversão.",
     background: (
       <SitesBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
+    detail: {
+      tagline: "Web & Performance",
+      features: [
+        {
+          label: "Landing pages de alta conversão",
+          description:
+            "Páginas focadas em resultados com copywriting, CTA estratégico e testes A/B.",
+        },
+        {
+          label: "SEO técnico e performance",
+          description:
+            "Core Web Vitals no verde, SSR/SSG com Next.js e estrutura de dados para melhor indexação.",
+        },
+        {
+          label: "E-commerce completo",
+          description:
+            "Lojas virtuais com checkout, gestão de estoque e integração com meios de pagamento.",
+        },
+        {
+          label: "Sites institucionais",
+          description:
+            "Presença digital profissional com CMS headless para edição fácil pelo seu time.",
+        },
+      ],
+      stack: [
+        "Next.js",
+        "TailwindCSS",
+        "Framer Motion",
+        "Sanity",
+        "Vercel",
+        "Stripe",
+      ],
+    },
   },
 ];
 
 export default function Services() {
+  const [activeService, setActiveService] = useState<ServiceCardProps | null>(
+    null,
+  );
+
   return (
     <section
       id="services"
@@ -487,12 +703,31 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 auto-rows-[22rem]">
-          {services.map((service, idx) => (
-            <ServiceCard key={idx} {...service} />
+        <BentoGrid className="auto-rows-[28rem] sm:grid-cols-3">
+          {services.map((service) => (
+            <BentoCard
+              key={service.id}
+              id={service.id}
+              name={service.name}
+              description={service.description}
+              background={service.background}
+              Icon={service.Icon}
+              isActive={activeService?.id === service.id}
+              onLearnMore={() => setActiveService(service)}
+            />
           ))}
-        </div>
+        </BentoGrid>
       </Container>
+
+      <AnimatePresence>
+        {activeService && (
+          <ServiceModal
+            key={activeService.id}
+            service={activeService}
+            onClose={() => setActiveService(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

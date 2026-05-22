@@ -127,15 +127,15 @@ function ElbowBeamSvg({
               animate={{
                 x1: ["0%", "0%"],
                 x2: ["0%", "0%"],
-                y1: ["10%", "110%"],
-                y2: ["0%", "100%"],
+                y1: ["0%", "110%"],
+                y2: ["-10%", "100%"],
               }}
               transition={{
                 delay: edges[i].delay,
-                duration: 3,
-                ease: [0.16, 1, 0.3, 1],
+                duration: 5,
+                ease: "linear",
                 repeat: Infinity,
-                repeatDelay: 1,
+                repeatDelay: 0,
               }}
             >
               <stop stopColor="#3DAFA6" stopOpacity="0" />

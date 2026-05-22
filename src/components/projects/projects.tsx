@@ -2,6 +2,7 @@
 
 import { Safari } from "../ui/safari";
 import { BackgroundGradient } from "../ui/background-gradient";
+import { Highlight } from "../ui/hero-highlight";
 import {
   IconBrandReact,
   IconBrandNextjs,
@@ -114,7 +115,10 @@ const Projects = () => {
         <div className="flex flex-col gap-4 justify-center items-center animate-in fade-in slide-in-from-top-8 duration-700 ease-in-out">
           <div className="max-w-xs sm:max-w-2xl mx-auto text-center flex flex-col gap-5">
             <h2 className="text-foreground text-3xl sm:text-5xl font-semibold">
-              Alguns de nossos <span className="text-accent">projetos</span>
+              Alguns de nossos{" "}
+              <Highlight className="from-taruma-200 via-taruma-100 to-cumaru-300 rounded-3xl text-negro-700 dark:from-taruma-500/70 dark:via-taruma-400/60 dark:to-negro-500 dark:text-cumaru-100">
+                projetos
+              </Highlight>
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg font-normal">
               Uma seleção de trabalhos que entregamos para nossos clientes desde
