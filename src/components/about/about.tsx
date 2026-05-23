@@ -5,21 +5,17 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Container from "../container/container";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { Highlighter } from "@/components/ui/highlighter";
 
-const ROTATIONS = [-4, 6, -7, 3];
+const ROTATIONS = [-4, 5];
 
-const slides = [
+const textSlides = [
   {
     tagline: "Infraestrutura",
     title: "Sistemas que duram",
     description: "Código que resiste ao tempo e escala com o negócio.",
     stat: "99.9%",
     statLabel: "de uptime nos últimos 12 meses",
-    src: "/illustrations/SIAN-PRINT.png",
-    quote:
-      "Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento, agora passou a ser automático, ágil e seguro.",
-    name: "Paula Pinheiro",
-    designation: "Antonelly Construções — Recepcionista",
   },
   {
     tagline: "Produto",
@@ -27,11 +23,6 @@ const slides = [
     description: "Sem relatórios que ninguém lê. Só o que fecha o caixa.",
     stat: "3×",
     statLabel: "mais rápido que a solução anterior",
-    src: "/illustrations/LOGIN-SIAN-PRINT.png",
-    quote:
-      "O sistema transformou como gerenciamos nossos processos internos. A equipe adaptou em dias, não semanas.",
-    name: "Carlos Mendes",
-    designation: "ELP Engenharia — Gerente Operacional",
   },
   {
     tagline: "Integrações",
@@ -39,11 +30,6 @@ const slides = [
     description: "O ERP fala com a planilha. Sem intermediários, sem surpresas.",
     stat: "+40",
     statLabel: "integrações entregues em produção",
-    src: "/illustrations/LOGIN-SIAN-PRINT.png",
-    quote:
-      "Finalmente um software que resolve o problema sem criar outros três. A integração com o nosso ERP foi cirúrgica.",
-    name: "Marcos Paiva",
-    designation: "ADV Paiva — Sócio",
   },
   {
     tagline: "Suporte",
@@ -51,11 +37,23 @@ const slides = [
     description: "Você fala com quem construiu. Resposta antes de virar crise.",
     stat: "<1h",
     statLabel: "tempo médio de resposta",
-    src: "/illustrations/LOGIN-SIAN-PRINT.png",
+  },
+];
+
+const imageSlides = [
+  {
+    src: "/illustrations/SIAN-PRINT.png",
     quote:
-      "Crescemos 3x em volume de atendimentos sem precisar contratar mais alguém para o backoffice.",
-    name: "Amanda Costa",
-    designation: "VDL Sistemas — Diretora",
+      "Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento, agora passou a ser automático, ágil e seguro.",
+    name: "Paula Pinheiro",
+    designation: "Antonelly Construções — Recepcionista",
+  },
+  {
+    src: "/illustrations/adv-paiva.jpeg",
+    quote:
+      "A North entregou exatamente o que eu precisava: um site que transmite seriedade e converte visitas em clientes.",
+    name: "Gabriela Paiva",
+    designation: "ADV Paiva — Advogada",
   },
 ];
 
@@ -69,10 +67,14 @@ export default function About() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
+  const textSlide = textSlides[current % textSlides.length];
+  const activeImageIndex = current % imageSlides.length;
+  const imgSlide = imageSlides[activeImageIndex];
+
   useEffect(() => {
     if (paused) return;
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+      setCurrent((prev) => (prev + 1) % textSlides.length);
     }, INTERVAL);
     return () => clearInterval(timer);
   }, [paused]);
@@ -100,7 +102,18 @@ export default function About() {
               className="text-3xl lg:text-4xl font-normal leading-tight tracking-tight text-cumaru-200"
             >
               Migre para o que{" "}
-              <span className="text-accent">realmente funciona.</span>
+              <Highlighter
+                action="circle"
+                color="#3DAFA6"
+                strokeWidth={1.5}
+                animationDuration={800}
+                iterations={2}
+                padding={6}
+                isView
+                delay={850}
+              >
+                <span className="text-accent">realmente funciona.</span>
+              </Highlighter>
               <br />É mais simples do que parece.
             </motion.h2>
 
@@ -124,23 +137,23 @@ export default function About() {
                   className="flex flex-col gap-5"
                 >
                   <span className="text-xs font-semibold uppercase tracking-widest text-taruma-400">
-                    {slides[current].tagline}
+                    {textSlide.tagline}
                   </span>
                   <div>
                     <h3 className="text-cumaru-100 font-semibold text-2xl lg:text-3xl leading-tight">
-                      {slides[current].title}
+                      {textSlide.title}
                     </h3>
                     <p className="mt-2 text-sm text-cumaru-400">
-                      {slides[current].description}
+                      {textSlide.description}
                     </p>
                   </div>
                   <div className="w-8 h-px bg-cumaru-700" />
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-accent">
-                      {slides[current].stat}
+                      {textSlide.stat}
                     </span>
                     <span className="text-xs text-cumaru-500">
-                      {slides[current].statLabel}
+                      {textSlide.statLabel}
                     </span>
                   </div>
                 </motion.div>
@@ -149,7 +162,7 @@ export default function About() {
 
             {/* Dots + progress */}
             <div className="flex items-center gap-3">
-              {slides.map((_, i) => (
+              {textSlides.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => { setCurrent(i); setPaused(true); }}
@@ -187,30 +200,30 @@ export default function About() {
             {/* Stacked images */}
             <div className="relative h-80 w-full perspective-[1000px]">
               <AnimatePresence>
-                {slides.map((slide, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9, rotate: ROTATIONS[index] }}
-                    animate={{
-                      opacity: index === current ? 1 : 0.6,
-                      scale: index === current ? 1 : 0.95,
-                      rotate: index === current ? 0 : ROTATIONS[index],
-                      zIndex: index === current ? 40 : slides.length + 2 - index,
-                      y: index === current ? [0, -10, 0] : 0,
-                    }}
-                    exit={{ opacity: 0, scale: 0.9, rotate: ROTATIONS[index] }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="absolute inset-0 origin-bottom"
-                  >
-                    <Image
-                      src={slide.src}
-                      alt={slide.name}
-                      width={700}
-                      height={420}
-                      draggable={false}
-                      className="h-full w-full rounded-2xl object-cover object-center"
-                    />
-                  </motion.div>
+                {imageSlides.map((img, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9, rotate: ROTATIONS[index] }}
+                      animate={{
+                        opacity: index === activeImageIndex ? 1 : 0.6,
+                        scale: index === activeImageIndex ? 1 : 0.95,
+                        rotate: index === activeImageIndex ? 0 : ROTATIONS[index],
+                        zIndex: index === activeImageIndex ? 40 : imageSlides.length + 2 - index,
+                        y: index === activeImageIndex ? [0, -10, 0] : 0,
+                      }}
+                      exit={{ opacity: 0, scale: 0.9, rotate: ROTATIONS[index] }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="absolute inset-0 origin-bottom"
+                    >
+                      <Image
+                        src={img.src}
+                        alt={img.name}
+                        width={700}
+                        height={420}
+                        draggable={false}
+                        className="h-full w-full rounded-2xl object-cover object-center"
+                      />
+                    </motion.div>
                 ))}
               </AnimatePresence>
             </div>
@@ -232,14 +245,14 @@ export default function About() {
                 }}
               >
                 <p className="text-cumaru-200 text-sm leading-relaxed">
-                  &ldquo;{slides[current].quote}&rdquo;
+                  &ldquo;{imgSlide.quote}&rdquo;
                 </p>
                 <div className="mt-4">
                   <p className="text-cumaru-100 text-xs font-semibold">
-                    {slides[current].name}
+                    {imgSlide.name}
                   </p>
                   <p className="text-taruma-400 text-xs mt-0.5">
-                    {slides[current].designation}
+                    {imgSlide.designation}
                   </p>
                 </div>
               </motion.div>

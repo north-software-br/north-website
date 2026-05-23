@@ -3,6 +3,7 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Highlighter } from "@/components/ui/highlighter";
 
 const DisplacementSphere = lazy(() =>
   import("./displacement-sphere").then((m) => ({
@@ -106,7 +107,6 @@ export default function Hero({
   const [visible, setVisible] = useState(false);
   const [status, setStatus] = useState<"entering" | "entered">("entering");
   const [disciplineIndex, setDisciplineIndex] = useState(0);
-
   useEffect(() => {
     setMounted(true);
     const t1 = setTimeout(() => setVisible(true), 100);
@@ -145,7 +145,18 @@ export default function Hero({
             visible && "opacity-100",
           )}
         >
-          Construímos o que o seu negócio precisa.
+          Construímos o que o seu negócio{" "}
+          <Highlighter
+            action="underline"
+            color="#3DAFA6"
+            strokeWidth={2}
+            animationDuration={700}
+            iterations={2}
+            padding={2}
+            delay={1600}
+          >
+            precisa.
+          </Highlighter>
         </p>
 
         {/* Role + discipline */}

@@ -71,10 +71,6 @@ export default function Contact() {
           >
             <div className="flex flex-col gap-6">
               <div className="flex gap-3 items-center">
-                <span className="size-2 rounded-full bg-taruma-400" />
-                <p className="text-sm font-normal text-cumaru-400">
-                  Vamos conversar
-                </p>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-cumaru-200">
                 Pronto para levar seu projeto ao{" "}
