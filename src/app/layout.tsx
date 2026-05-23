@@ -29,9 +29,23 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "North Software",
   description: "Construído no Norte. Feito para o mundo.",
+  metadataBase: new URL("https://northsoftware.com.br"),
   icons: {
     icon: "/logos/favicon.svg",
     apple: "/logos/favicon-ios.png",
+  },
+  openGraph: {
+    title: "North Software",
+    description: "Construído no Norte. Feito para o mundo.",
+    url: "https://northsoftware.com.br",
+    siteName: "North Software",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "North Software",
+    description: "Construído no Norte. Feito para o mundo.",
   },
 };
 
