@@ -50,12 +50,12 @@ export const GRID_ITEMS = [
   {
     id: 4,
     type: "small" as const,
-    title: "Sem intermediários — você fala direto com quem constrói",
+    title: "Sem intermediários, você fala direto com quem constrói",
     description: "Comunicação direta",
     className: "col-span-1 min-h-[280px]",
     imgClassName: "opacity-80",
-    img: "/illustrations/04-stack.svg",
-    imgWidth: 280,
+    img: "/illustrations/06-direct.svg",
+    imgWidth: 600,
   },
 ];
 
