@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { useMotionValue, motion, useMotionTemplate } from "motion/react";
-import React from "react";
+import { useMotionValue, motion, useMotionTemplate, useInView } from "motion/react";
+import React, { useRef } from "react";
 
 export const HeroHighlight = ({
   children,
@@ -111,14 +111,16 @@ export const Highlight = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+
   return (
     <motion.span
+      ref={ref}
       initial={{
         backgroundSize: "0% 100%",
       }}
-      animate={{
-        backgroundSize: "100% 100%",
-      }}
+      animate={inView ? { backgroundSize: "100% 100%" } : {}}
       transition={{
         duration: 2,
         ease: "linear",
