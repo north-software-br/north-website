@@ -16,10 +16,10 @@ import {
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 const navLinks = [
-  { name: "Serviços", link: "#services" },
-  { name: "Processos", link: "#features" },
-  { name: "Sobre", link: "#about" },
-  { name: "Projetos", link: "#projects" },
+  { name: "Serviços", link: "/#services" },
+  { name: "Processos", link: "/#features" },
+  { name: "Sobre", link: "/#about" },
+  { name: "Projetos", link: "/#projects" },
 ];
 
 function smoothScroll(href: string) {
