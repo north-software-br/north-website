@@ -190,7 +190,13 @@ const rightItems = [
   { icon: IconBell, label: "Notificações" },
 ];
 
-function MobileBackground({ className, modal }: { className?: string; modal?: boolean }) {
+function MobileBackground({
+  className,
+  modal,
+}: {
+  className?: string;
+  modal?: boolean;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
   const leftAnchorRef = useRef<HTMLDivElement>(null);
@@ -243,7 +249,12 @@ function MobileBackground({ className, modal }: { className?: string; modal?: bo
         </div>
 
         {/* iPhone — center hub */}
-        <div className={cn("relative w-20 sm:w-35 shrink-0 transition-transform duration-500 ease-out group-hover:translate-y-6", modal ? "translate-y-0" : "translate-y-0 sm:translate-y-12")}>
+        <div
+          className={cn(
+            "relative w-20 sm:w-35 shrink-0 transition-transform duration-500 ease-out group-hover:translate-y-6",
+            modal ? "translate-y-0" : "translate-y-0 sm:translate-y-12",
+          )}
+        >
           <Iphone src="/app-login.svg" />
         </div>
 
@@ -593,7 +604,10 @@ const services: ServiceCardProps[] = [
       <MobileBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
     modalBackground: (
-      <MobileBackground modal className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
+      <MobileBackground
+        modal
+        className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]"
+      />
     ),
     detail: {
       tagline: "iOS & Android",

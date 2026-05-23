@@ -5,72 +5,9 @@ import { motion, useInView } from "motion/react";
 import { Safari } from "../ui/safari";
 import { BackgroundGradient } from "../ui/background-gradient";
 import { Highlight } from "../ui/hero-highlight";
-import {
-  IconBrandReact,
-  IconBrandNextjs,
-  IconBrandTypescript,
-  IconBrandFigma,
-  IconBrandTailwind,
-  IconBrandReactNative,
-} from "@tabler/icons-react";
-type TechStack = {
-  name: string;
-  icon: React.ComponentType<{
-    size?: number;
-    className?: string;
-    stroke?: number;
-  }>;
-};
-
-type PortfolioData = {
-  portfolio_image?: string;
-  portfolio_video?: string;
-  portfolio_title: string;
-  portfolio_description: string;
-  portfolio_tags: string[];
-  portfolio_tech: TechStack[];
-};
-
-const portfolioData: PortfolioData[] = [
-  {
-    portfolio_video: "/midia/adv-paiva.mp4",
-    portfolio_title: "GABRIELA C.O. PAIVA",
-    portfolio_description:
-      "Website institucional desenvolvido para o escritório Gabriela Paiva, com foco em transmitir credibilidade, profissionalismo e presença digital. O projeto foi pensado para apresentar os serviços jurídicos de forma clara e estratégica, destacando a atuação personalizada, a excelência técnica e o compromisso com soluções inteligentes para cada cliente.",
-    portfolio_tags: ["UX Research", "Interface Design"],
-    portfolio_tech: [
-      { name: "Figma", icon: IconBrandFigma },
-      { name: "React", icon: IconBrandReact },
-      { name: "Next.js", icon: IconBrandNextjs },
-      { name: "TypeScript", icon: IconBrandTypescript },
-    ],
-  },
-  {
-    portfolio_video: "/midia/antonelly-site.mp4",
-    portfolio_title: "ANTONELLY CONSTRUÇÕES",
-    portfolio_description:
-      "Desenvolvimento de uma plataforma institucional para a Antonelly Construções e Serviços, criada para representar a solidez de mais de 20 anos de atuação no mercado. A experiência foi estruturada para comunicar a dimensão da empresa, sua expertise nos setores da construção civil e naval, além do compromisso com qualidade, segurança e excelência operacional.",
-    portfolio_tags: ["Product Design", "Interaction Design"],
-    portfolio_tech: [
-      { name: "Figma", icon: IconBrandFigma },
-      { name: "React", icon: IconBrandReact },
-      { name: "TypeScript", icon: IconBrandTypescript },
-      { name: "Tailwind", icon: IconBrandTailwind },
-    ],
-  },
-  {
-    portfolio_video: "/midia/office-145.mp4",
-    portfolio_title: "OFFICE 145",
-    portfolio_description:
-      "Website institucional para o edifício Empresarial Office 145, criado para transmitir modernidade, credibilidade e praticidade. O projeto foi pensado para apresentar de forma clara os diferenciais do empreendimento, destacando sua infraestrutura completa, tecnologia, segurança e soluções voltadas para pequenas e médias empresas que buscam um ambiente corporativo funcional e eficiente.",
-    portfolio_tags: ["Brand identity design", "UX Research"],
-    portfolio_tech: [
-      { name: "Figma", icon: IconBrandFigma },
-      { name: "React Native", icon: IconBrandReactNative },
-      { name: "TypeScript", icon: IconBrandTypescript },
-    ],
-  },
-];
+import { IconArrowUpRight } from "@tabler/icons-react";
+import { portfolioData, PortfolioData } from "@/constants";
+import Container from "../container/container";
 
 interface ProjectCardProps {
   item: PortfolioData;
@@ -96,7 +33,7 @@ const ProjectCard = ({ item, index }: ProjectCardProps) => {
             </div>
 
             <div className="w-full md:w-1/2">
-              <BackgroundGradient className="p-3 sm:p-4 lg:p-6" bright={false}>
+              <BackgroundGradient className="p-3 sm:p-4 lg:p-3" bright={false}>
                 <Safari
                   imageSrc={item.portfolio_image}
                   videoSrc={item.portfolio_video}
@@ -116,7 +53,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="bg-background mt-24 sm:mt-32">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 xl:px-16 ">
+      <Container>
         <motion.div
           ref={headingRef}
           initial={{ opacity: 0, y: 28 }}
@@ -138,13 +75,27 @@ const Projects = () => {
             </p>
           </div>
         </motion.div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 xl:px-16">
-        {portfolioData.map((item, index) => (
-          <ProjectCard key={index} item={item} index={index} />
-        ))}
-      </div>
+        {portfolioData
+          .map((item, index) => (
+            <ProjectCard key={index} item={item} index={index} />
+          ))
+          .slice(0, 3)}
+
+        <div className="w-full flex justify-end items-center mt-6">
+          <a
+            href="/projects"
+            className="group/btn relative flex h-10 w-fit cursor-pointer items-center overflow-hidden rounded-full border border-white/10 bg-negro-700 ps-5 pe-12 text-sm font-medium text-cumaru-200 transition-all duration-500 hover:ps-12 hover:pe-5"
+          >
+            <span className="relative z-10 whitespace-nowrap transition-all duration-500">
+              Ver todos os projetos
+            </span>
+            <div className="absolute right-1 flex size-8 items-center justify-center rounded-full bg-taruma-400 text-negro-900 transition-all duration-500 group-hover/btn:right-[calc(100%-36px)]">
+              <IconArrowUpRight className="size-3.5" />
+            </div>
+          </a>
+        </div>
+      </Container>
     </section>
   );
 };
