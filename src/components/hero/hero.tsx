@@ -145,7 +145,7 @@ export default function Hero({
             visible && "opacity-100",
           )}
         >
-          Alguma frase aqui.
+          Construímos o que o seu negócio precisa.
         </p>
 
         {/* Role + discipline */}
