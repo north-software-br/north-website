@@ -6,34 +6,56 @@ import { motion, AnimatePresence } from "motion/react";
 import Container from "../container/container";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
+const ROTATIONS = [-4, 6, -7, 3];
+
 const slides = [
   {
+    tagline: "Infraestrutura",
     title: "Sistemas que duram",
-    description:
-      "No centro de uma das maiores reservas de complexidade do planeta, aprendemos que sistema bom é o que dura.",
+    description: "Código que resiste ao tempo e escala com o negócio.",
     stat: "99.9%",
     statLabel: "de uptime nos últimos 12 meses",
+    src: "/illustrations/SIAN-PRINT.png",
+    quote:
+      "Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento, agora passou a ser automático, ágil e seguro.",
+    name: "Paula Pinheiro",
+    designation: "Antonelly Construções — Recepcionista",
   },
   {
+    tagline: "Produto",
     title: "Tecnologia sem ruído",
-    description:
-      "Fazemos o caixa fechar, a nota sair e o cliente ser atendido — sem dashboards que ninguém abre.",
+    description: "Sem relatórios que ninguém lê. Só o que fecha o caixa.",
     stat: "3×",
     statLabel: "mais rápido que a solução anterior",
+    src: "/illustrations/LOGIN-SIAN-PRINT.png",
+    quote:
+      "O sistema transformou como gerenciamos nossos processos internos. A equipe adaptou em dias, não semanas.",
+    name: "Carlos Mendes",
+    designation: "ELP Engenharia — Gerente Operacional",
   },
   {
+    tagline: "Integrações",
     title: "Integrações que funcionam",
-    description:
-      "Ocupamos o vazio entre o discurso da transformação digital e a realidade de quem precisa que o ERP fale com a planilha.",
+    description: "O ERP fala com a planilha. Sem intermediários, sem surpresas.",
     stat: "+40",
     statLabel: "integrações entregues em produção",
+    src: "/illustrations/LOGIN-SIAN-PRINT.png",
+    quote:
+      "Finalmente um software que resolve o problema sem criar outros três. A integração com o nosso ERP foi cirúrgica.",
+    name: "Marcos Paiva",
+    designation: "ADV Paiva — Sócio",
   },
   {
+    tagline: "Suporte",
     title: "Suporte que responde",
-    description:
-      "Nenhum ticket perdido em fila. Você fala com quem construiu o sistema — e a resposta vem antes do problema virar crise.",
+    description: "Você fala com quem construiu. Resposta antes de virar crise.",
     stat: "<1h",
     statLabel: "tempo médio de resposta",
+    src: "/illustrations/LOGIN-SIAN-PRINT.png",
+    quote:
+      "Crescemos 3x em volume de atendimentos sem precisar contratar mais alguém para o backoffice.",
+    name: "Amanda Costa",
+    designation: "VDL Sistemas — Diretora",
   },
 ];
 
@@ -99,22 +121,28 @@ export default function About() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
-                  className="flex flex-col gap-3"
+                  className="flex flex-col gap-5"
                 >
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-4xl font-bold text-accent">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-taruma-400">
+                    {slides[current].tagline}
+                  </span>
+                  <div>
+                    <h3 className="text-cumaru-100 font-semibold text-2xl lg:text-3xl leading-tight">
+                      {slides[current].title}
+                    </h3>
+                    <p className="mt-2 text-sm text-cumaru-400">
+                      {slides[current].description}
+                    </p>
+                  </div>
+                  <div className="w-8 h-px bg-cumaru-700" />
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-accent">
                       {slides[current].stat}
                     </span>
-                    <span className="text-cumaru-400 text-sm">
+                    <span className="text-xs text-cumaru-500">
                       {slides[current].statLabel}
                     </span>
                   </div>
-                  <h3 className="text-cumaru-200 font-semibold text-xl">
-                    {slides[current].title}
-                  </h3>
-                  <p className="text-cumaru-400 text-lg leading-relaxed">
-                    {slides[current].description}
-                  </p>
                 </motion.div>
               </AnimatePresence>
             </motion.div>
@@ -134,7 +162,7 @@ export default function About() {
                     <motion.span
                       className="absolute inset-y-0 left-0 bg-accent rounded-full"
                       initial={{ width: "0%" }}
-                      animate={{ width: paused ? "100%" : "100%" }}
+                      animate={{ width: "100%" }}
                       transition={
                         paused
                           ? { duration: 0 }
@@ -148,38 +176,74 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right: image + testimonial overlay */}
+          {/* Right: stacked images + floating testimonial card */}
           <motion.div
             ref={imageCol.ref}
             initial={{ opacity: 0, x: 40 }}
             animate={imageCol.isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-            className="relative"
+            className="relative pb-16"
           >
-            <div className="overflow-hidden rounded-2xl">
-              <Image
-                src="/illustrations/SIAN-PRINT.png"
-                alt="Sistema SIAN em uso"
-                width={700}
-                height={420}
-                className="w-full object-cover"
-              />
+            {/* Stacked images */}
+            <div className="relative h-80 w-full perspective-[1000px]">
+              <AnimatePresence>
+                {slides.map((slide, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9, rotate: ROTATIONS[index] }}
+                    animate={{
+                      opacity: index === current ? 1 : 0.6,
+                      scale: index === current ? 1 : 0.95,
+                      rotate: index === current ? 0 : ROTATIONS[index],
+                      zIndex: index === current ? 40 : slides.length + 2 - index,
+                      y: index === current ? [0, -10, 0] : 0,
+                    }}
+                    exit={{ opacity: 0, scale: 0.9, rotate: ROTATIONS[index] }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="absolute inset-0 origin-bottom"
+                  >
+                    <Image
+                      src={slide.src}
+                      alt={slide.name}
+                      width={700}
+                      height={420}
+                      draggable={false}
+                      className="h-full w-full rounded-2xl object-cover object-center"
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
 
-            {/* Testimonial card */}
-            <div className="absolute -bottom-6 -right-6 max-w-xs rounded-2xl bg-taruma-600/20 backdrop-blur-lg p-6 shadow-2xl">
-              <p className="text-white text-sm leading-relaxed font-medium">
-&ldquo;Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento para visitantes e funcionários, agora passou a ser automático, ágil e seguro.&rdquo;
-              </p>
-              <div className="mt-4">
-                <p className="text-white/90 text-xs font-semibold">
-                  Paula Pinheiro
+            {/* Floating testimonial card — liquid glass, rectangular, bottom-right */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`card-${current}`}
+                initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute bottom-0 right-0 left-[28%] z-50 rounded-2xl border border-white/10 px-6 py-5"
+                style={{
+                  backgroundColor: "rgba(3,11,23,0.45)",
+                  boxShadow:
+                    "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(16px) saturate(160%)",
+                }}
+              >
+                <p className="text-cumaru-200 text-sm leading-relaxed">
+                  &ldquo;{slides[current].quote}&rdquo;
                 </p>
-                <p className="text-white/60 text-xs">
-                  Antonelly Construções, Recepcionista
-                </p>
-              </div>
-            </div>
+                <div className="mt-4">
+                  <p className="text-cumaru-100 text-xs font-semibold">
+                    {slides[current].name}
+                  </p>
+                  <p className="text-taruma-400 text-xs mt-0.5">
+                    {slides[current].designation}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
         </div>
       </Container>
