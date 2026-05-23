@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { NORTH_N_LOGO } from "../../../public";
 import {
   Navbar,
@@ -14,6 +13,7 @@ import {
   MobileNavMenu,
   MobileNavToggle,
 } from "@/components/ui/resizable-navbar";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 const navLinks = [
   { name: "Serviços", link: "#services" },
@@ -54,16 +54,12 @@ export default function NorthNavbar() {
 
         <NavItems items={navLinks} />
 
-        <button
+        <InteractiveHoverButton
           onClick={() => smoothScroll("#contact")}
-          className={cn(
-            "relative z-20 inline-flex items-center gap-2 px-5 py-2 rounded-full",
-            "bg-taruma-400 hover:bg-taruma-500 text-negro-900",
-            "font-semibold text-sm transition-colors duration-200 cursor-pointer",
-          )}
+          className="relative z-20 text-sm"
         >
           Fale conosco
-        </button>
+        </InteractiveHoverButton>
       </NavBody>
 
       {/* Mobile */}
@@ -107,20 +103,15 @@ export default function NorthNavbar() {
 
           <div className="w-full h-px bg-white/8" />
 
-          <button
+          <InteractiveHoverButton
             onClick={() => {
               smoothScroll("#contact");
               setMobileOpen(false);
             }}
-            className={cn(
-              "w-full flex items-center justify-center",
-              "bg-taruma-400 hover:bg-taruma-500 text-negro-900",
-              "font-semibold text-base px-6 py-3.5 rounded-full",
-              "transition-colors duration-200 cursor-pointer",
-            )}
+            className="w-full text-base py-3.5"
           >
             Fale conosco
-          </button>
+          </InteractiveHoverButton>
 
           <p className="font-mono text-[10px] text-negro-400 tracking-[0.14em] uppercase">
             NS-V.2025 // MANAUS, BR

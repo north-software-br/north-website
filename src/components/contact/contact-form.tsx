@@ -20,6 +20,7 @@ import {
   IconAdjustments,
   IconPlugConnected,
   IconBriefcase,
+  IconBrandWhatsapp,
 } from "@tabler/icons-react";
 
 type ButtonState = "idle" | "loading" | "success";
@@ -61,10 +62,22 @@ const ContactForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setButtonState("loading");
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const message = [
+      `Olá! Gostaria de falar sobre um projeto.`,
+      ``,
+      `*Nome:* ${formData.firstName} ${formData.lastName}`,
+      `*E-mail:* ${formData.email}`,
+      `*Tipo de projeto:* ${formData.projectType}`,
+      `*Mensagem:* ${formData.message}`,
+    ].join("\n");
+
+    const url = `https://wa.me/5592995251477?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+
     setButtonState("success");
     setTimeout(() => setButtonState("idle"), 3000);
   };
@@ -73,7 +86,7 @@ const ContactForm = () => {
     <Card className="ring-0 p-5 sm:p-6 lg:p-8 gap-6 md:gap-8 border rounded-2xl animate-in fade-in slide-in-from-right-10 duration-1000 delay-100 ease-in-out fill-mode-both">
       <CardHeader className="p-0">
         <CardTitle className="text-2xl font-semibold text-foreground">
-          Iniciar projeto
+          Fale conosco sobre seu projeto
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
@@ -171,6 +184,7 @@ const ContactForm = () => {
             </div>
 
             <AnimatedButton type="submit" state={buttonState}>
+              <IconBrandWhatsapp size={16} />
               Enviar mensagem
             </AnimatedButton>
           </div>
