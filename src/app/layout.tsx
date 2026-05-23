@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
+import ScrollRestoration from "@/components/scroll-restoration";
 
 const satoshi = localFont({
   src: [
@@ -45,6 +46,7 @@ export default function RootLayout({
       className={`${satoshi.variable} ${geistMono.variable} h-full antialiased dark`}
     >
 <body className="min-h-full flex flex-col">
+        <ScrollRestoration />
         <Navbar />
 
         <main>{children}</main>

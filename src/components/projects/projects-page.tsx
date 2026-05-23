@@ -4,16 +4,6 @@ import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Safari } from "../ui/safari";
 import { BackgroundGradient } from "../ui/background-gradient";
-import { Highlight } from "../ui/hero-highlight";
-import {
-  IconBrandReact,
-  IconBrandNextjs,
-  IconBrandTypescript,
-  IconBrandFigma,
-  IconBrandTailwind,
-  IconBrandReactNative,
-  IconArrowUpRight,
-} from "@tabler/icons-react";
 import Container from "../container/container";
 import { portfolioData, PortfolioData } from "@/constants";
 

@@ -49,7 +49,7 @@ const imageSlides = [
     designation: "Antonelly Construções — Recepcionista",
   },
   {
-    src: "/illustrations/adv-paiva.jpeg",
+    src: "/illustrations/adv-paiva.png",
     quote:
       "A North entregou exatamente o que eu precisava: um site que transmite seriedade e converte visitas em clientes.",
     name: "Gabriela Paiva",

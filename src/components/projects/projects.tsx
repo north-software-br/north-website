@@ -76,11 +76,9 @@ const Projects = () => {
           </div>
         </motion.div>
 
-        {portfolioData
-          .map((item, index) => (
+        {portfolioData.slice(0, 3).map((item, index) => (
             <ProjectCard key={index} item={item} index={index} />
-          ))
-          .slice(0, 3)}
+          ))}
 
         <div className="w-full flex justify-end items-center mt-6">
           <a
