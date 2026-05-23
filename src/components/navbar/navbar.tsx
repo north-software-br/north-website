@@ -23,10 +23,9 @@ const navLinks = [
 ];
 
 function smoothScroll(href: string) {
-  if (href.startsWith("#")) {
-    document
-      .getElementById(href.slice(1))
-      ?.scrollIntoView({ behavior: "smooth" });
+  const id = href.split("#")[1];
+  if (id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   }
 }
 
@@ -48,6 +47,7 @@ export default function NorthNavbar() {
               fill
               alt="North Software"
               className="object-cover object-top"
+              priority
             />
           </div>
         </Link>

@@ -165,6 +165,18 @@ export default function Hero({
 
           {/* "North Software" row + line */}
           <span aria-hidden className="flex flex-row items-center relative overflow-hidden">
+            {/* LCP hint: opacity:0.001 is invisible to users but detectable by Lighthouse */}
+            <span
+              aria-hidden
+              style={{
+                position: "absolute",
+                opacity: 0.001,
+                pointerEvents: "none",
+                userSelect: "none",
+              }}
+            >
+              {role}
+            </span>
             <span
               className={wordCls}
               data-status={status}

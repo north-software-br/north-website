@@ -1,4 +1,6 @@
-import type { HTMLAttributes, ReactNode } from "react"
+"use client"
+
+import { useEffect, useRef, type HTMLAttributes, type ReactNode } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
@@ -39,6 +41,24 @@ export function Safari({
 }: SafariProps) {
   const hasVideo = !!videoSrc
   const hasMedia = hasVideo || !!imageSrc || !!children
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (!videoRef.current || !videoSrc) return
+    const video = videoRef.current
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.src = videoSrc
+          video.play().catch(() => {})
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [videoSrc])
 
   return (
     <div
@@ -60,13 +80,13 @@ export function Safari({
           }}
         >
           <video
+            ref={videoRef}
             className="block size-full object-cover"
-            src={videoSrc}
             autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="none"
           />
         </div>
       )}

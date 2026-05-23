@@ -173,9 +173,10 @@ export default function About() {
                   <span className="absolute inset-0 bg-cumaru-700 rounded-full" />
                   {i === current && (
                     <motion.span
-                      className="absolute inset-y-0 left-0 bg-accent rounded-full"
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
+                      className="absolute inset-0 bg-accent rounded-full"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      style={{ transformOrigin: "left" }}
                       transition={
                         paused
                           ? { duration: 0 }
