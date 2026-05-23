@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import Image from "next/image";
 import Container from "../container/container";
 import { Separator } from "@/components/ui/separator";
 import ContactForm from "./contact-form";
@@ -111,9 +112,12 @@ export default function Contact() {
                     key={brand.name}
                     className="flex h-16 w-40 shrink-0 items-center justify-center overflow-hidden p-2"
                   >
-                    <img
+                    <Image
                       src={brand.image}
                       alt={brand.name}
+                      width={160}
+                      height={64}
+                      unoptimized
                       className="h-full w-full object-contain grayscale opacity-70 transition-transform duration-300 hover:grayscale-0 hover:opacity-100"
                       style={{ transform: `scale(${brand.scale})` }}
                     />

@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { Compare } from "./compare";
+import Image from "next/image";
 
 export interface MacosWindowProps extends HTMLAttributes<HTMLDivElement> {
   imageSrc?: string;
@@ -8,6 +9,8 @@ export interface MacosWindowProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   imageClassName?: string;
   compareSlideMode?: "hover" | "drag";
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 export function MacosWindow({
@@ -16,6 +19,8 @@ export function MacosWindow({
   title,
   imageClassName,
   compareSlideMode = "hover",
+  imageWidth = 1200,
+  imageHeight = 800,
   className,
   ...props
 }: MacosWindowProps) {
@@ -53,9 +58,13 @@ export function MacosWindow({
           />
         </div>
       ) : imageSrc ? (
-        <img
+        <Image
           src={imageSrc}
           alt=""
+          width={imageWidth}
+          height={imageHeight}
+          unoptimized={imageSrc.endsWith(".svg")}
+          sizes="(max-width: 768px) 100vw, 60vw"
           className={cn("block w-full object-cover object-top", imageClassName)}
         />
       ) : null}

@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import React from "react";
+import Image from "next/image";
 import { MacosWindow } from "./macos-window";
 import { TextGenerateEffect } from "./text-generate-effect";
 import { Terminal } from "./terminal";
@@ -218,10 +219,13 @@ export const BentoGridItem = ({
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
       <div className="flex-1 flex items-center justify-center p-8 overflow-hidden">
         {img && (
-          <img
+          <Image
             src={img}
             alt=""
-            width={imgWidth}
+            width={imgWidth || 600}
+            height={240}
+            unoptimized={img.endsWith(".svg")}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 400px"
             className={cn(
               "transition duration-200 group-hover/bento:scale-105 max-h-60 object-contain",
               imgClassName,

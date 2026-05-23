@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const SAFARI_WIDTH = 1203
 const SAFARI_HEIGHT = 753
@@ -96,10 +97,13 @@ export function Safari({
             borderRadius: "0 0 11px 11px",
           }}
         >
-          <img
+          <Image
             src={imageSrc}
             alt=""
-            className={cn("block size-full object-cover object-top", imageClassName)}
+            fill
+            unoptimized={imageSrc.endsWith(".svg")}
+            sizes="(max-width: 768px) 100vw, 60vw"
+            className={cn("object-cover object-top", imageClassName)}
           />
         </div>
       )}
