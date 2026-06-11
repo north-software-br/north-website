@@ -16,19 +16,26 @@ export type PortfolioData = {
 };
 
 export const portfolioData: PortfolioData[] = [
+
   {
     portfolio_video:
-      "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/adv-paiva.mp4",
+    "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/adv-paiva.mp4",
     portfolio_title: "GABRIELA C.O. PAIVA",
     portfolio_description:
-      "Website institucional desenvolvido para o escritório Gabriela Paiva, com foco em transmitir credibilidade, profissionalismo e presença digital. O projeto foi pensado para apresentar os serviços jurídicos de forma clara e estratégica, destacando a atuação personalizada, a excelência técnica e o compromisso com soluções inteligentes para cada cliente.",
+    "Website institucional desenvolvido para o escritório Gabriela Paiva, com foco em transmitir credibilidade, profissionalismo e presença digital. O projeto foi pensado para apresentar os serviços jurídicos de forma clara e estratégica, destacando a atuação personalizada, a excelência técnica e o compromisso com soluções inteligentes para cada cliente.",
+  },
+  {
+    portfolio_image: "/illustrations/crm-antonelly.jpg",
+    portfolio_title: "SIAN - ANTONELLY CONSTRUÇÕES",
+    portfolio_description:
+          "Plataforma interna de gestão desenvolvida para centralizar processos, indicadores, documentos e operações da empresa em um único ambiente digital. O sistema integra diferentes setores, automatiza rotinas operacionais e fornece informações em tempo real para apoiar a tomada de decisões e aumentar a eficiência dos processos.",
   },
   {
     portfolio_video:
       "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/antonelly-site.mp4",
-    portfolio_title: "ANTONELLY CONSTRUÇÕES",
+    portfolio_title: "WEB - ANTONELLY CONSTRUÇÕES",
     portfolio_description:
-      "Desenvolvimento de uma plataforma institucional para a Antonelly Construções e Serviços, criada para representar a solidez de mais de 20 anos de atuação no mercado. A experiência foi estruturada para comunicar a dimensão da empresa, sua expertise nos setores da construção civil e naval, além do compromisso com qualidade, segurança e excelência operacional.",
+      "Website institucional para a Antonelly Construções e Serviços, criada para representar a solidez de mais de 20 anos de atuação no mercado. A experiência foi estruturada para comunicar a dimensão da empresa, sua expertise nos setores da construção civil e naval, além do compromisso com qualidade, segurança e excelência operacional.",
   },
 
   {
