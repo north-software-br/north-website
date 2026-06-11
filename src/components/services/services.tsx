@@ -72,7 +72,13 @@ function NodeLabel({ children }: { children: React.ReactNode }) {
 // ── Sistemas para Operações Internas ──────────────────────────────
 // Ferramentas da empresa convergindo na API central (layout Magic UI)
 
-function SystemsBackground({ className }: { className?: string }) {
+function SystemsBackground({
+  className,
+  modal,
+}: {
+  className?: string;
+  modal?: boolean;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const erpRef = useRef<HTMLDivElement>(null);
   const crmRef = useRef<HTMLDivElement>(null);
@@ -96,7 +102,11 @@ function SystemsBackground({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative flex h-full w-full items-center justify-center overflow-hidden p-8 pb-28",
+        "relative flex h-full w-full justify-center overflow-hidden",
+        // No card mobile o texto é sempre visível: diagrama ancora no topo
+        modal
+          ? "items-center p-8 pb-6"
+          : "items-start p-6 pt-10 pb-28 md:items-center md:p-8 md:pb-28",
         className,
       )}
       ref={containerRef}
@@ -223,7 +233,12 @@ function MobileBackground({
       />
 
       {/* Layout: left column | iPhone | right column */}
-      <div className="absolute inset-0 flex items-center justify-between px-3 pb-16">
+      <div
+        className={cn(
+          "absolute inset-0 flex items-center justify-between px-3",
+          modal ? "pb-16" : "pb-40 sm:pb-16",
+        )}
+      >
         {/* Left column */}
         <div className="relative z-10 flex flex-col items-start">
           <div
@@ -407,11 +422,21 @@ const innerOrbit = [
   { Icon: IconBell, label: "Alertas" },
 ];
 
-function AutomationBackground({ className }: { className?: string }) {
+function AutomationBackground({
+  className,
+  modal,
+}: {
+  className?: string;
+  modal?: boolean;
+}) {
   return (
     <div
       className={cn(
-        "relative flex h-full w-full items-center justify-center overflow-hidden pb-25",
+        "relative flex h-full w-full justify-center overflow-hidden",
+        // No card mobile o texto é sempre visível: órbita ancora no topo
+        modal
+          ? "items-center pb-25"
+          : "items-start pt-6 pb-25 md:items-center md:pt-0",
         className,
       )}
     >
@@ -420,7 +445,12 @@ function AutomationBackground({ className }: { className?: string }) {
         <div className="size-40 rounded-full bg-taruma-400/8 blur-3xl" />
       </div>
 
-      <div className="relative flex size-65 items-center justify-center">
+      <div
+        className={cn(
+          "relative flex size-65 items-center justify-center",
+          !modal && "origin-top scale-90 md:origin-center md:scale-100",
+        )}
+      >
         {/* Hub — IA no centro */}
         <div className="relative z-10">
           <span className="absolute -inset-1.5 animate-pulse rounded-full border border-taruma-400/30" />
@@ -656,7 +686,10 @@ const services: ServiceCardProps[] = [
       <SystemsBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
     modalBackground: (
-      <SystemsBackground className="pb-6 mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
+      <SystemsBackground
+        modal
+        className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]"
+      />
     ),
     detail: {
       tagline: "Operações & Gestão",
@@ -798,7 +831,10 @@ const services: ServiceCardProps[] = [
       <AutomationBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
     modalBackground: (
-      <AutomationBackground className="pb-6 mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
+      <AutomationBackground
+        modal
+        className="pb-6 mask-[linear-gradient(to_top,transparent_15%,#000_100%)]"
+      />
     ),
     detail: {
       tagline: "Automação & IA",
@@ -946,7 +982,7 @@ export default function Services() {
         </motion.div>
 
         <div ref={gridRef}>
-        <BentoGrid className="auto-rows-[28rem] sm:grid-cols-2 md:grid-cols-2">
+        <BentoGrid className="auto-rows-[30rem] sm:auto-rows-[28rem] sm:grid-cols-2 md:grid-cols-2">
           {services.map((service, i) => (
             <motion.div
               key={service.id}
@@ -964,7 +1000,7 @@ export default function Services() {
                 name={service.name}
                 description={service.description}
                 tagline={service.detail.tagline}
-                background={service.background}
+                background={gridInView ? service.background : null}
                 Icon={service.Icon}
                 isActive={activeService?.id === service.id}
                 onLearnMore={() => setActiveService(service)}

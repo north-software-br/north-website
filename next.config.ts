@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   ],
   images: {
     formats: ["image/avif", "image/webp"],
+    // Evita reotimização frequente das imagens no servidor (31 dias)
+    minimumCacheTTL: 2678400,
   },
   experimental: {
     optimizePackageImports: ["@tabler/icons-react"],

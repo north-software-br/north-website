@@ -42,14 +42,14 @@ const textSlides = [
 
 const imageSlides = [
   {
-    src: "/illustrations/SIAN-PRINT.png",
+    src: "/illustrations/SIAN-PRINT.jpg",
     quote:
       "Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento, agora passou a ser automático, ágil e seguro.",
     name: "Paula Pinheiro",
     designation: "Antonelly Construções — Recepcionista",
   },
   {
-    src: "/illustrations/adv-paiva.png",
+    src: "/illustrations/adv-paiva.jpg",
     quote:
       "A North entregou exatamente o que eu precisava: um site que transmite seriedade e converte visitas em clientes.",
     name: "Gabriela Paiva",

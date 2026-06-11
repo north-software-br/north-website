@@ -1,9 +1,12 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/hero/hero";
 import Process from "@/components/process/process";
-import About from "@/components/about/about";
 import Services from "@/components/services/services";
-import Contact from "@/components/contact/contact";
-import Projects from "@/components/projects/projects";
+
+// Seções abaixo da dobra: chunks separados, fora do JS inicial
+const About = dynamic(() => import("@/components/about/about"));
+const Projects = dynamic(() => import("@/components/projects/projects"));
+const Contact = dynamic(() => import("@/components/contact/contact"));
 
 export default function Home() {
   return (

@@ -294,8 +294,8 @@ function DeployMedia() {
         </div>
 
         <MacosWindow
-          imageSrc="/illustrations/LOGIN-SIAN-PRINT.png"
-          secondImageSrc="/illustrations/SIAN-PRINT.png"
+          imageSrc="/illustrations/LOGIN-SIAN-PRINT.jpg"
+          secondImageSrc="/illustrations/SIAN-PRINT.jpg"
           compareSlideMode="hover"
         />
 
