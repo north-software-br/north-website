@@ -473,7 +473,10 @@ export function Terminal({
         {/* Terminal Content */}
         <div
           ref={contentRef}
-          className={cn("no-visible-scrollbar h-80 overflow-y-auto p-4 font-mono", contentClassName)}
+          className={cn(
+            "no-visible-scrollbar h-80  p-4 font-mono",
+            contentClassName,
+          )}
         >
           {lines.map((line, i) => (
             <div key={i} className="leading-relaxed whitespace-pre-wrap">
