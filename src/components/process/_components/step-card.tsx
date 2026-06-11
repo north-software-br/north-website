@@ -8,8 +8,18 @@ import { ProcessStep } from "@/constants";
 import { StepMedia } from "./step-media";
 
 // ── Card da etapa (compartilhado entre layouts) ───────────────────
+// Três estados visuais: futura (esmaecida), atual (destaque taruma)
+// e concluída (neutra) — o visitante sabe sempre onde está.
 
-export function StepCard({ step }: { step: ProcessStep }) {
+export function StepCard({
+  step,
+  reached = true,
+  current = false,
+}: {
+  step: ProcessStep;
+  reached?: boolean;
+  current?: boolean;
+}) {
   const { ref, isInView } = useScrollReveal({ amount: 0.3 });
 
   return (
@@ -22,39 +32,64 @@ export function StepCard({ step }: { step: ProcessStep }) {
     >
       <div
         className={cn(
-          "group relative h-full overflow-hidden rounded-2xl border border-white/8 bg-negro-700/50 p-6 sm:p-7",
-          "transition-all duration-300 hover:-translate-y-1 hover:border-taruma-400/30 hover:bg-negro-700/60",
+          "group relative h-full overflow-hidden rounded-2xl border bg-negro-700/50 p-6 sm:p-7",
+          "transition-all duration-500 hover:-translate-y-1 hover:border-taruma-400/30 hover:bg-negro-700/60",
           "hover:shadow-[0_24px_60px_-32px_rgba(61,175,166,0.4)]",
+          current
+            ? "border-taruma-400/25 bg-negro-700/60 shadow-[0_24px_70px_-36px_rgba(61,175,166,0.45)]"
+            : "border-white/8",
+          !reached && "opacity-60 saturate-[0.85]",
         )}
       >
-        {/* Hairline superior no hover */}
+        {/* Hairline superior — fixa na etapa atual, no hover nas demais */}
         <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-taruma-400/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className={cn(
+            "absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-taruma-400/50 to-transparent transition-opacity duration-500",
+            current ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+          )}
         />
-        {/* Glow interno no hover */}
+        {/* Glow interno — idem */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-16 right-0 size-40 rounded-full bg-taruma-400/8 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className={cn(
+            "pointer-events-none absolute -top-16 right-0 size-40 rounded-full bg-taruma-400/8 blur-3xl transition-opacity duration-500",
+            current ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+          )}
         />
 
         <div className="md:grid md:grid-cols-[1fr_18rem] md:items-center md:gap-6">
           <div>
             <div className="flex items-center gap-3">
-              <span className="text-xs font-semibold uppercase tracking-widest text-taruma-400">
-                {step.number}
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest transition-colors duration-500",
+                  reached
+                    ? "border-taruma-400/30 bg-taruma-400/10 text-taruma-300"
+                    : "border-white/10 bg-white/3 text-cumaru-500",
+                )}
+              >
+                Etapa {step.number}
               </span>
-              <span className="h-px w-10 bg-white/6" />
+              <span className="h-px flex-1 max-w-16 bg-linear-to-r from-white/10 to-transparent" />
             </div>
 
-            <h3 className="mt-3 text-xl font-semibold leading-tight text-cumaru-100 lg:text-2xl">
+            <h3 className="mt-4 text-xl font-semibold leading-tight text-cumaru-100 lg:text-2xl">
               {step.title}
             </h3>
             <p className="mt-2.5 text-sm leading-relaxed text-cumaru-400">
               {step.description}
             </p>
 
-            <ul className="mt-6 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
+            <div
+              aria-hidden
+              className="mt-5 h-px w-full bg-linear-to-r from-white/8 to-transparent"
+            />
+            <p className="mt-4 text-[10px] font-semibold uppercase tracking-widest text-cumaru-600">
+              Entregas desta etapa
+            </p>
+
+            <ul className="mt-3 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
               {step.deliverables.map((item, i) => (
                 <motion.li
                   key={i}

@@ -14,27 +14,39 @@ export function RoadmapItem({
   step,
   index,
   reached,
+  current = false,
 }: {
   step: ProcessStep;
   index: number;
   reached: boolean;
+  current?: boolean;
 }) {
   const { ref, isInView } = useScrollReveal({ amount: 0.4 });
   const isTop = index % 2 === 0;
 
+  // Trilha neutra + preenchimento que cresce do trilho em direção ao
+  // card quando a linha de progresso alcança o nó.
   const connector = (
     <div
       aria-hidden
-      className={cn(
-        "h-14 w-px flex-none transition-colors duration-500 [@media(max-height:56rem)]:h-7",
-        reached ? "bg-taruma-400/60" : "bg-white/10",
-      )}
-    />
+      className="relative h-14 w-px flex-none [@media(max-height:56rem)]:h-7"
+    >
+      <div className="absolute inset-0 bg-white/10" />
+      <div
+        className={cn(
+          "absolute inset-0 transition-transform duration-500 ease-out",
+          isTop
+            ? "origin-bottom bg-linear-to-t from-taruma-400/70 to-taruma-400/15"
+            : "origin-top bg-linear-to-b from-taruma-400/70 to-taruma-400/15",
+          reached ? "scale-y-100" : "scale-y-0",
+        )}
+      />
+    </div>
   );
 
   const card = (
     <div className="w-full">
-      <StepCard step={step} />
+      <StepCard step={step} reached={reached} current={current} />
     </div>
   );
 
@@ -60,6 +72,7 @@ export function RoadmapItem({
         step={step}
         isInView={isInView}
         reached={reached}
+        current={current}
         className="flex-none"
       />
 

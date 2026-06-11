@@ -31,6 +31,7 @@ export const BentoCard = ({
   background,
   Icon,
   description,
+  tagline,
   cta = "Saiba mais",
   isActive,
   onLearnMore,
@@ -41,12 +42,14 @@ export const BentoCard = ({
   background: React.ReactNode;
   Icon: React.ElementType;
   description: string;
+  tagline?: string;
   cta?: string;
   isActive?: boolean;
   onLearnMore?: () => void;
 }) => (
   <motion.div
     layoutId={`service-card-${id}`}
+    whileHover={{ scale: 1.015 }}
     style={{
       opacity: isActive ? 0 : 1,
       pointerEvents: isActive ? "none" : "auto",
@@ -55,21 +58,33 @@ export const BentoCard = ({
       "group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-3xl",
       "bg-negro-800 border border-white/8",
       "[box-shadow:0_-20px_80px_-20px_rgba(61,175,166,0.06)_inset]",
-      "transform-gpu transition-colors duration-300",
+      "transform-gpu transition-[border-color,box-shadow] duration-300",
       "hover:border-taruma-400/30",
+      "hover:shadow-[0_0_60px_-15px_rgba(61,175,166,0.25)]",
       className,
     )}
   >
     {/* Background */}
-    <div className="absolute inset-0">{background}</div>
+    <div className="absolute inset-0 transform-gpu transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+      {background}
+    </div>
 
     {/* Static bottom gradient */}
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-linear-to-t from-negro-800/90 to-transparent" />
 
     {/* Text area — slides up on hover to reveal CTA (desktop only) */}
     <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 flex flex-col gap-1 p-6 pb-16 md:pb-6 transition-all duration-300 md:group-hover:-translate-y-10">
-      <Icon className="mb-2 size-7 origin-left transform-gpu text-taruma-400 transition-all duration-300 ease-in-out group-hover:scale-75" />
-      <h3 className="text-xl font-bold text-cumaru-100">{name}</h3>
+      <div className="mb-2.5 flex size-11 origin-left transform-gpu items-center justify-center rounded-xl border border-taruma-400/20 bg-taruma-400/10 backdrop-blur-sm transition-all duration-300 ease-in-out group-hover:scale-90 group-hover:border-taruma-400/35">
+        <Icon className="size-5.5 text-taruma-400" />
+      </div>
+      {tagline && (
+        <span className="text-[10px] font-semibold uppercase tracking-widest text-taruma-400/90">
+          {tagline}
+        </span>
+      )}
+      <h3 className="text-xl font-bold text-cumaru-100 transition-colors duration-300 group-hover:text-taruma-300">
+        {name}
+      </h3>
       <p className="max-w-xs text-sm text-cumaru-400">{description}</p>
     </div>
 
@@ -186,7 +201,7 @@ export const BentoGridItem = ({
         {img && (
           <div className="flex-1 px-6 overflow-hidden">
             <div
-              className="relative mx-auto w-[100%] sm:w-[80%] -bottom-3 sm:-bottom-15 border-4 border-[#6C6C6C] p-2 md:p-4 bg-[#222222] rounded-[30px] shadow-2xl"
+              className="relative mx-auto w-full sm:w-[80%] -bottom-3 sm:-bottom-15 border-4 border-[#6C6C6C] p-2 md:p-4 bg-[#222222] rounded-[30px] shadow-2xl"
               style={{
                 boxShadow:
                   "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",

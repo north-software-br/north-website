@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  AnimatePresence,
   motion,
   useMotionValueEvent,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -86,6 +88,7 @@ export default function Process() {
 
   const x = useTransform(scrollYProgress, [0, 1], [0, -distance]);
   const hintOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
+  const reducedMotion = useReducedMotion();
 
   // Os nós acendem exatamente quando o preenchimento alcança o centro de
   // cada um. Itens têm largura/gap idênticos → centros equidistantes, e o
@@ -180,9 +183,34 @@ export default function Process() {
                   step={step}
                   index={i}
                   reached={i < reachedDesktop}
+                  current={i === reachedDesktop - 1}
                 />
               ))}
             </motion.div>
+          </div>
+
+          {/* Contador de progresso — onde o visitante está na jornada */}
+          <div className="pointer-events-none absolute bottom-8 left-8 z-10 flex items-center gap-3">
+            <span className="text-xs font-semibold tabular-nums text-taruma-400">
+              {String(reachedDesktop).padStart(2, "0")}
+              <span className="text-cumaru-600">
+                {" / "}
+                {String(PROCESS_STEPS.length).padStart(2, "0")}
+              </span>
+            </span>
+            <span aria-hidden className="h-px w-8 bg-white/10" />
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={reachedDesktop}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                className="text-xs text-cumaru-400"
+              >
+                {PROCESS_STEPS[reachedDesktop - 1].title}
+              </motion.span>
+            </AnimatePresence>
           </div>
 
           {/* Dica de navegação — some assim que a jornada começa */}
@@ -192,7 +220,7 @@ export default function Process() {
           >
             <span>Role para explorar as etapas</span>
             <motion.span
-              animate={{ x: [0, 6, 0] }}
+              animate={reducedMotion ? undefined : { x: [0, 6, 0] }}
               transition={{
                 duration: 1.4,
                 repeat: Infinity,
@@ -233,6 +261,7 @@ export default function Process() {
                 key={step.number}
                 step={step}
                 reached={i < reachedMobile}
+                current={i === reachedMobile - 1}
               />
             ))}
           </div>

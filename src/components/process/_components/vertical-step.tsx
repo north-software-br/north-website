@@ -10,9 +10,11 @@ import { StepNode } from "./step-node";
 export function VerticalStep({
   step,
   reached,
+  current = false,
 }: {
   step: ProcessStep;
   reached: boolean;
+  current?: boolean;
 }) {
   const { ref, isInView } = useScrollReveal({ amount: 0.3 });
 
@@ -22,10 +24,11 @@ export function VerticalStep({
         step={step}
         isInView={isInView}
         reached={reached}
+        current={current}
         className="absolute left-5 top-0 -translate-x-1/2"
       />
       <div className="ml-13">
-        <StepCard step={step} />
+        <StepCard step={step} reached={reached} current={current} />
       </div>
     </div>
   );
