@@ -31,8 +31,16 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "/logos/favicon.svg",
-    apple: "/logos/favicon-ios.png",
+    icon: [
+      { url: "/logos/favicons/favicon.ico", sizes: "48x48" },
+      { url: "/logos/favicons/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/logos/favicons/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/logos/favicons/android-chrome-512x512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/logos/favicons/apple-touch-icon.png",
+    other: [
+      { rel: "manifest", url: "/logos/favicons/site.webmanifest" },
+    ],
   },
   openGraph: {
     title: "North Software",
@@ -66,16 +74,41 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "North Software",
-              url: "https://northsoftware.com.br",
-              logo: "https://northsoftware.com.br/logos/NORTH_FULL_LOGO.svg",
-              description:
-                "Software house especializada em sistemas sob medida, aplicativos mobile, sites e automação com IA.",
-              areaServed: "BR",
-            }),
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "North Software",
+                url: "https://northsoftware.com.br",
+                logo: "https://northsoftware.com.br/logos/NORTH_FULL_LOGO.svg",
+                description:
+                  "Software house especializada em sistemas sob medida, aplicativos mobile, sites e automação com IA.",
+                areaServed: "BR",
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  email: "contato@northsoftware.com.br",
+                  contactType: "customer support",
+                  availableLanguage: "Portuguese",
+                },
+                sameAs: [
+                  "https://www.linkedin.com/company/north-software",
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "North Software",
+                url: "https://northsoftware.com.br",
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://northsoftware.com.br/?q={search_term_string}",
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+            ]),
           }}
         />
         <ScrollRestoration />

@@ -4,7 +4,11 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade — North Software",
-  description: "Leia a política de privacidade da North Software.",
+  description:
+    "Saiba como a North Software coleta, usa e protege seus dados pessoais. Transparência e segurança são princípios fundamentais do nosso serviço.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 const principles = [
