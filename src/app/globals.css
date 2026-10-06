@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Palette — Negro scale */
+  /* Palette - Negro scale */
   --color-negro-50:  var(--negro-50);
   --color-negro-100: var(--negro-100);
   --color-negro-200: var(--negro-200);
@@ -18,7 +18,7 @@
   --color-negro-800: var(--negro-800);
   --color-negro-900: var(--negro-900);
 
-  /* Palette — Tarumã scale */
+  /* Palette - Tarumã scale */
   --color-taruma-50:  var(--taruma-50);
   --color-taruma-100: var(--taruma-100);
   --color-taruma-200: var(--taruma-200);
@@ -30,7 +30,7 @@
   --color-taruma-800: var(--taruma-800);
   --color-taruma-900: var(--taruma-900);
 
-  /* Palette — Cumaru scale */
+  /* Palette - Cumaru scale */
   --color-cumaru-50:  var(--cumaru-50);
   --color-cumaru-100: var(--cumaru-100);
   --color-cumaru-200: var(--cumaru-200);

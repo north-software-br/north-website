@@ -9,7 +9,7 @@ import { StepMedia } from "./step-media";
 
 // ── Card da etapa (compartilhado entre layouts) ───────────────────
 // Três estados visuais: futura (esmaecida), atual (destaque taruma)
-// e concluída (neutra) — o visitante sabe sempre onde está.
+// e concluída (neutra) - o visitante sabe sempre onde está.
 
 export function StepCard({
   step,
@@ -32,7 +32,7 @@ export function StepCard({
     >
       <div
         className={cn(
-          "group relative h-full overflow-hidden rounded-2xl border bg-negro-700/50 p-6 sm:p-7",
+          "group relative h-full overflow-hidden rounded-2xl border bg-negro-700/50 p-4 sm:p-7 [@media(min-width:64rem)_and_(max-height:50rem)]:p-5",
           "transition-all duration-500 hover:-translate-y-1 hover:border-taruma-400/30 hover:bg-negro-700/60",
           "hover:shadow-[0_24px_60px_-32px_rgba(61,175,166,0.4)]",
           current
@@ -41,7 +41,7 @@ export function StepCard({
           !reached && "opacity-60 saturate-[0.85]",
         )}
       >
-        {/* Hairline superior — fixa na etapa atual, no hover nas demais */}
+        {/* Hairline superior - fixa na etapa atual, no hover nas demais */}
         <div
           aria-hidden
           className={cn(
@@ -49,17 +49,17 @@ export function StepCard({
             current ? "opacity-100" : "opacity-0 group-hover:opacity-100",
           )}
         />
-        {/* Glow interno — idem */}
+        {/* Glow interno - idem */}
         <div
           aria-hidden
           className={cn(
-            "pointer-events-none absolute -top-16 right-0 size-40 rounded-full bg-taruma-400/8 blur-3xl transition-opacity duration-500",
+            "pointer-events-none absolute -top-16 right-0 size-40 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.13),transparent)] transition-opacity duration-500",
             current ? "opacity-100" : "opacity-0 group-hover:opacity-100",
           )}
         />
 
-        <div className="md:grid md:grid-cols-[1fr_18rem] md:items-center md:gap-6">
-          <div>
+        <div className="md:grid md:grid-cols-[minmax(0,1fr)_18rem] md:items-center md:gap-6">
+          <div className="min-w-0">
             <div className="flex items-center gap-3">
               <span
                 className={cn(
@@ -77,7 +77,7 @@ export function StepCard({
             <h3 className="mt-4 text-xl font-semibold leading-tight text-cumaru-100 lg:text-2xl">
               {step.title}
             </h3>
-            <p className="mt-2.5 text-sm leading-relaxed text-cumaru-400">
+            <p className="mt-2.5 text-sm leading-relaxed text-cumaru-400 wrap-break-word">
               {step.description}
             </p>
 
@@ -115,7 +115,7 @@ export function StepCard({
             initial={{ opacity: 0, y: 12 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.35 }}
-            className="mt-6 md:mt-0"
+            className="mt-6 min-w-0 max-w-full overflow-hidden md:mt-0"
           >
             <StepMedia step={step} isInView={isInView} />
           </motion.div>

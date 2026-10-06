@@ -127,7 +127,7 @@ export default function Hero({
   return (
     <section
       className="h-screen flex items-center justify-center flex-col relative overflow-hidden"
-      aria-label={`${role} — ${introLabel}`}
+      aria-label={`${role} - ${introLabel}`}
       tabIndex={-1}
     >
       {mounted && (
@@ -224,27 +224,6 @@ export default function Hero({
           </div>
         </h2>
       </header>
-
-      {/* Desktop scroll indicator */}
-      <Link
-        href="/#services"
-        aria-label="Ir para serviços"
-        onClick={(e) => {
-          e.preventDefault();
-          scrollTo("/#services");
-        }}
-        className={cn(
-          "border-2 border-[color-mix(in_srgb,var(--foreground)_40%,transparent)] rounded-[20px]",
-          "w-[26px] h-[38px] absolute bottom-16 transition-opacity duration-[0.6s] opacity-0",
-          // ::before dot
-          "before:content-[''] before:h-1.75 before:w-0.5",
-          "before:bg-[color-mix(in_srgb,var(--foreground)_40%,transparent)] before:rounded-[4px]",
-          "before:absolute before:top-1.5 before:left-1/2 before:-translate-x-[1px]",
-          "motion-safe:before:animate-scroll-indicator",
-          "[@media(pointer:coarse)]:hidden",
-          status === "entered" && !scrollIndicatorHidden && "opacity-100",
-        )}
-      />
 
       {/* Mobile scroll indicator */}
       <Link

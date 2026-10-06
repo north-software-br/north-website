@@ -3,7 +3,7 @@ import Container from "@/components/container/container";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso — North Software",
+  title: "Termos de Uso - North Software",
   description:
     "Leia os termos de uso e condições de serviço da North Software. Entenda seus direitos e obrigações ao utilizar nosso site e serviços.",
   alternates: {

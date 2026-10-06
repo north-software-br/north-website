@@ -35,7 +35,7 @@ export function StepNode({
             : "scale-90 border-white/10 shadow-none",
         )}
       >
-        {/* Pulso — apenas na etapa atual */}
+        {/* Pulso - apenas na etapa atual */}
         {current && (
           <span
             aria-hidden

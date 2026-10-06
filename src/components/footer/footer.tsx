@@ -9,9 +9,10 @@ import Container from "../container/container";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#services", label: "Serviços" },
-  { href: "#projects", label: "Projetos" },
-  { href: "#about", label: "Sobre" },
+  { href: "/#services", label: "Serviços" },
+  { href: "/#projects", label: "Projetos" },
+  { href: "/#about", label: "Sobre" },
+  { href: "/#contact", label: "Contato" },
 ];
 
 const contactLinks = [
@@ -63,7 +64,7 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-6">
             <Link
               href="/"
-              aria-label="North Software — início"
+              aria-label="North Software - início"
               className="inline-flex w-fit cursor-pointer"
             >
               <Image
@@ -114,14 +115,6 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-cumaru-400 text-sm hover:text-taruma-400 transition-colors duration-200"
-                >
-                  Contato
-                </Link>
-              </li>
             </ul>
           </div>
 

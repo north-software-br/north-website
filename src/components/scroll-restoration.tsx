@@ -9,7 +9,7 @@ export default function ScrollRestoration() {
 
   useEffect(() => {
     const saved = sessionStorage.getItem(key);
-    if (saved) {
+    if (saved && !window.location.hash) {
       window.scrollTo(0, parseInt(saved, 10));
     }
 

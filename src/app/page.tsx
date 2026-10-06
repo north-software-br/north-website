@@ -5,14 +5,14 @@ import Process from "@/components/process/process";
 import Services from "@/components/services/services";
 
 export const metadata: Metadata = {
-  title: "North Software — Sistemas, Apps e Sites sob medida",
+  title: "North Software - Sistemas, Apps e Sites sob medida",
   description:
     "Software house do Norte do Brasil especializada em sistemas para operações internas, aplicativos mobile, sites de alta conversão e automação com IA. Construído no Norte. Feito para o mundo.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "North Software — Sistemas, Apps e Sites sob medida",
+    title: "North Software - Sistemas, Apps e Sites sob medida",
     description:
       "Software house do Norte do Brasil especializada em sistemas para operações internas, aplicativos mobile, sites de alta conversão e automação com IA.",
     url: "https://northsoftware.com.br",

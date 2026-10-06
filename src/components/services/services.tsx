@@ -13,12 +13,11 @@ import {
   IconApi,
   IconLayoutDashboard,
   IconArrowUpRight,
-  IconBrandReact,
+  IconBrandKotlin,
+  IconComponents,
   IconDeviceMobile,
-  IconRocket,
   IconBrandApple,
   IconBrandGooglePlay,
-  IconCloudUpload,
   IconBrandTypescript,
   IconBell,
   IconX,
@@ -27,18 +26,17 @@ import {
   IconServer,
   IconRobot,
   IconMail,
-  IconSparkles,
-  IconGauge,
-  IconTrendingUp,
-  IconChartBar,
-  IconEdit,
-  IconSearch,
   IconFileText,
+  IconBolt,
+  IconScale,
+  IconBuildingSkyscraper,
+  IconLeaf,
+  IconCopyright,
+  IconBuilding,
 } from "@tabler/icons-react";
 import { BentoGrid, BentoCard } from "../ui/bento-grid";
 import { Iphone } from "../ui/iphone";
 import { Marquee } from "../ui/shadcn-space/radix/animations/marquee";
-import { NumberTicker } from "../ui/number-ticker";
 import { BorderBeam } from "../ui/border-beam";
 import { OrbitingCircles } from "../ui/orbiting-circles";
 import { Highlighter } from "../ui/highlighter";
@@ -102,7 +100,7 @@ function SystemsBackground({
   return (
     <div
       className={cn(
-        "relative flex h-full w-full justify-center overflow-hidden",
+        "relative flex h-full w-full justify-center overflow-clip",
         // No card mobile o texto é sempre visível: diagrama ancora no topo
         modal
           ? "items-center p-8 pb-6"
@@ -134,7 +132,7 @@ function SystemsBackground({
             </Circle>
             <NodeLabel>CRM</NodeLabel>
           </div>
-          {/* Hub — o sistema que integra tudo */}
+          {/* Hub - o sistema que integra tudo */}
           <div className="flex flex-col items-center gap-1">
             <Circle ref={apiRef} className="size-13 border-taruma-400/35">
               <IconApi className="size-full text-taruma-400" />
@@ -191,16 +189,15 @@ function SystemsBackground({
 // ── Aplicativos para Clientes e Equipes ───────────────────────────
 
 const leftItems = [
-  { icon: IconBrandReact, label: "React Native" },
+  { icon: IconBrandKotlin, label: "Kotlin" },
+  { icon: IconComponents, label: "Jetpack Compose" },
   { icon: IconDeviceMobile, label: "iOS & Android" },
-  { icon: IconRocket, label: "Expo" },
   { icon: IconBrandTypescript, label: "TypeScript" },
 ];
 
 const rightItems = [
   { icon: IconBrandApple, label: "App Store" },
   { icon: IconBrandGooglePlay, label: "Play Store" },
-  { icon: IconCloudUpload, label: "OTA Updates" },
   { icon: IconBell, label: "Notificações" },
 ];
 
@@ -219,11 +216,11 @@ function MobileBackground({
   return (
     <div
       ref={containerRef}
-      className={cn("relative h-full w-full overflow-hidden", className)}
+      className={cn("relative h-full w-full overflow-clip", className)}
     >
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center -translate-y-6">
-        <div className="size-48 rounded-full bg-taruma-400/8 blur-3xl" />
+        <div className="size-48 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.13),transparent)]" />
       </div>
 
       {/* Beam origin */}
@@ -240,7 +237,7 @@ function MobileBackground({
         )}
       >
         {/* Left column */}
-        <div className="relative z-10 flex flex-col items-start">
+        <div className="relative z-10 flex min-w-0 flex-1 flex-col items-start">
           <div
             ref={leftAnchorRef}
             className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0"
@@ -249,36 +246,36 @@ function MobileBackground({
             vertical
             pauseOnHover
             repeat={4}
-            className="h-32 [--duration:8s] [--gap:0.375rem] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
+            className="h-32 w-full [--duration:8s] [--gap:0.375rem] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
           >
             {leftItems.map(({ icon: Icon, label }, i) => (
               <div
                 key={i}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5",
+                  "flex w-fit max-w-full items-center gap-1 self-start rounded-lg border px-2 py-1.5 max-[420px]:p-2 sm:gap-1.5 sm:px-2.5",
                   "border-taruma-400/25 bg-taruma-400/8",
-                  "text-[10px] font-medium text-taruma-300 whitespace-nowrap",
+                  "text-[9px] font-medium text-taruma-300 whitespace-nowrap sm:text-[10px]",
                 )}
               >
-                <Icon className="size-3 shrink-0" />
-                <span>{label}</span>
+                <Icon className="size-3 shrink-0 max-[420px]:size-4" />
+                <span className="min-w-0 truncate max-[420px]:sr-only">{label}</span>
               </div>
             ))}
           </Marquee>
         </div>
 
-        {/* iPhone — center hub */}
+        {/* iPhone - center hub */}
         <div
           className={cn(
             "relative w-20 sm:w-35 shrink-0 transition-transform duration-500 ease-out group-hover:translate-y-6",
             modal ? "translate-y-0" : "translate-y-0 sm:translate-y-12",
           )}
         >
-          <Iphone src="/app-login.svg" />
+          <Iphone src="/illustrations/login-dark.png" />
         </div>
 
         {/* Right column */}
-        <div className="relative z-10 flex flex-col items-end">
+        <div className="relative z-10 flex min-w-0 flex-1 flex-col items-end">
           <div
             ref={rightAnchorRef}
             className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0"
@@ -288,19 +285,19 @@ function MobileBackground({
             reverse
             pauseOnHover
             repeat={4}
-            className="h-32 [--duration:8s] [--gap:0.375rem] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
+            className="h-32 w-full [--duration:8s] [--gap:0.375rem] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
           >
             {rightItems.map(({ icon: Icon, label }, i) => (
               <div
                 key={i}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5",
+                  "flex w-fit max-w-full items-center gap-1 self-end rounded-lg border px-2 py-1.5 max-[420px]:p-2 sm:gap-1.5 sm:px-2.5",
                   "border-cumaru-400/20 bg-cumaru-400/5",
-                  "text-[10px] font-medium text-cumaru-300 whitespace-nowrap",
+                  "text-[9px] font-medium text-cumaru-300 whitespace-nowrap sm:text-[10px]",
                 )}
               >
-                <Icon className="size-3 shrink-0" />
-                <span>{label}</span>
+                <Icon className="size-3 shrink-0 max-[420px]:size-4" />
+                <span className="min-w-0 truncate max-[420px]:sr-only">{label}</span>
               </div>
             ))}
           </Marquee>
@@ -329,7 +326,7 @@ function MobileBackground({
       />
 
       {/* Feixe percorrendo a borda do card */}
-      <div className="pointer-events-none absolute inset-0 rounded-3xl">
+      <div className="pointer-events-none absolute inset-0 overflow-clip rounded-3xl">
         <BorderBeam size={90} duration={8} borderWidth={1.5} />
       </div>
 
@@ -339,63 +336,58 @@ function MobileBackground({
   );
 }
 
-// ── Sites que Geram Resultados ────────────────────────────────────
-// Mini bento: Performance · Conversão · SEO · Analytics · CMS
+// ── Sites que Representam o seu Negócio ───────────────────────────
+// Mini bento com os segmentos dos sites que a North já entregou
+
+const siteProjects = [
+  { Icon: IconScale, name: "Gabriela Paiva", segment: "Advocacia", wide: true },
+  {
+    Icon: IconBuildingSkyscraper,
+    name: "Antonelly",
+    segment: "Construção civil e naval",
+    wide: true,
+  },
+  { Icon: IconLeaf, name: "Grupo Matupi", segment: "Alimentos da Amazônia" },
+  { Icon: IconCopyright, name: "MIMP", segment: "Propriedade intelectual" },
+  { Icon: IconBuilding, name: "Office 145", segment: "Empresarial" },
+];
 
 function SitesBackground({ className }: { className?: string }) {
   return (
-    <div className={cn("relative h-full w-full overflow-hidden", className)}>
+    <div className={cn("relative h-full w-full overflow-clip", className)}>
       <div className="absolute inset-x-0 top-5 px-5">
         <div className="grid grid-cols-6 gap-2">
-          {/* Performance */}
-          <div className="col-span-3 rounded-xl border border-white/8 bg-negro-700/40 p-3.5 transition-colors duration-300 group-hover:border-taruma-400/25 group-hover:bg-negro-700/60">
-            <div className="flex items-center gap-1.5">
-              <IconGauge className="size-3.5 text-taruma-400" />
-              <span className="text-[10px] font-medium text-cumaru-500">
-                Performance
-              </span>
-            </div>
-            <div className="mt-2 flex items-baseline gap-1">
-              <NumberTicker
-                value={98}
-                className="text-2xl font-semibold text-cumaru-100"
-              />
-              <span className="text-[10px] text-cumaru-500">
-                /100 PageSpeed
-              </span>
-            </div>
-          </div>
-
-          {/* Conversão */}
-          <div className="col-span-3 rounded-xl border border-taruma-400/20 bg-taruma-400/5 p-3.5 transition-colors duration-300 group-hover:border-taruma-400/35 group-hover:bg-taruma-400/10">
-            <div className="flex items-center gap-1.5">
-              <IconTrendingUp className="size-3.5 text-taruma-400" />
-              <span className="text-[10px] font-medium text-taruma-300">
-                Conversão
-              </span>
-            </div>
-            <div className="mt-2 flex items-baseline gap-1">
-              <span className="text-2xl font-semibold text-taruma-300">
-                +<NumberTicker value={32} className="text-taruma-300" />%
-              </span>
-              <span className="text-[10px] text-cumaru-500">mais leads</span>
-            </div>
-          </div>
-
-          {/* SEO · Analytics · CMS */}
-          {[
-            { Icon: IconSearch, label: "SEO" },
-            { Icon: IconChartBar, label: "Analytics" },
-            { Icon: IconEdit, label: "CMS" },
-          ].map(({ Icon, label }) => (
+          {siteProjects.map(({ Icon, name, segment, wide }, i) => (
             <div
-              key={label}
-              className="col-span-2 flex flex-col items-center gap-1.5 rounded-xl border border-white/8 bg-negro-700/40 p-3 transition-colors duration-300 group-hover:border-taruma-400/20 group-hover:bg-negro-700/60"
+              key={name}
+              className={cn(
+                "min-w-0 overflow-clip rounded-xl border transition-colors duration-300",
+                wide ? "col-span-3" : "col-span-2",
+                i === 1
+                  ? "border-taruma-400/20 bg-taruma-400/5 group-hover:border-taruma-400/35 group-hover:bg-taruma-400/10"
+                  : "border-white/8 bg-negro-700/40 group-hover:border-taruma-400/20 group-hover:bg-negro-700/60",
+              )}
             >
-              <Icon className="size-4 text-taruma-300" />
-              <span className="text-[10px] font-medium text-cumaru-400">
-                {label}
-              </span>
+              {/* Barra de navegador */}
+              <div className="flex items-center gap-1 border-b border-white/8 px-2 py-1.5 max-[420px]:hidden sm:px-3">
+                <span className="size-1 rounded-full bg-white/20" />
+                <span className="size-1 rounded-full bg-white/15" />
+                <span className="size-1 rounded-full bg-white/10" />
+              </div>
+
+              <div className="p-2.5 sm:px-3 sm:pb-2.5 sm:pt-3">
+                {/* Esboço do site */}
+                <div className="flex h-8 items-center justify-center rounded-lg bg-linear-to-br from-taruma-400/25 to-taruma-400/5 sm:h-8">
+                  <Icon className="size-4 text-taruma-300 sm:size-5" />
+                </div>
+
+                <p className="mt-2 truncate text-xs font-semibold text-cumaru-100 max-[420px]:whitespace-normal max-[420px]:text-[10px] max-[420px]:leading-tight">
+                  {name}
+                </p>
+                <p className="mt-0.5 truncate text-[10px] text-cumaru-500 max-[420px]:hidden">
+                  {segment}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -408,7 +400,7 @@ function SitesBackground({ className }: { className?: string }) {
 }
 
 // ── Automação e Inteligência Operacional ──────────────────────────
-// IA no centro orquestrando e-mail, ERP, WhatsApp, planilhas e alertas
+// Fluxo automático no centro orquestrando e-mail, ERP, WhatsApp, planilhas e alertas
 
 const outerOrbit = [
   { Icon: IconMail, label: "E-mail" },
@@ -432,7 +424,7 @@ function AutomationBackground({
   return (
     <div
       className={cn(
-        "relative flex h-full w-full justify-center overflow-hidden",
+        "relative flex h-full w-full justify-center overflow-clip",
         // No card mobile o texto é sempre visível: órbita ancora no topo
         modal
           ? "items-center pb-25"
@@ -442,7 +434,7 @@ function AutomationBackground({
     >
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center -translate-y-6">
-        <div className="size-40 rounded-full bg-taruma-400/8 blur-3xl" />
+        <div className="size-40 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.13),transparent)]" />
       </div>
 
       <div
@@ -451,14 +443,14 @@ function AutomationBackground({
           !modal && "origin-top scale-90 md:origin-center md:scale-100",
         )}
       >
-        {/* Hub — IA no centro */}
+        {/* Hub - IA no centro */}
         <div className="relative z-10">
           <span className="absolute -inset-1.5 animate-pulse rounded-full border border-taruma-400/30" />
           <div className="flex size-12 items-center justify-center rounded-full border border-taruma-400/35 bg-negro-700 p-2.5 shadow-[0_0_28px_-6px_rgba(61,175,166,0.55)]">
-            <IconSparkles className="size-full text-taruma-400" />
+            <IconBolt className="size-full text-taruma-400" />
           </div>
           <span className="absolute -bottom-6 left-1/2 -translate-x-1/2">
-            <NodeLabel>IA</NodeLabel>
+            <NodeLabel>Fluxo</NodeLabel>
           </span>
         </div>
 
@@ -545,7 +537,7 @@ function ServiceModal({
       aria-label={service.name}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
     >
-      {/* Backdrop — independent fade, not part of card layout animation */}
+      {/* Backdrop - independent fade, not part of card layout animation */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -558,13 +550,13 @@ function ServiceModal({
       <motion.div
         layoutId={`service-card-${service.id}`}
         className={cn(
-          "relative z-10 w-full max-w-xl max-h-[88vh] overflow-y-auto",
+          "relative z-10 w-full max-w-xl max-h-[88vh] overflow-y-auto overflow-x-hidden",
           "rounded-3xl bg-negro-800 border border-white/10",
           "[box-shadow:0_0_80px_-20px_rgba(61,175,166,0.15)]",
         )}
       >
-        {/* Visual header — reuses the card background */}
-        <div className="relative h-52 overflow-hidden rounded-t-3xl">
+        {/* Visual header - reuses the card background */}
+        <div className="relative h-52 overflow-clip rounded-t-3xl">
           {service.modalBackground ?? service.background}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-negro-800 via-negro-800/20 to-transparent" />
 
@@ -593,7 +585,7 @@ function ServiceModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2, delay: 0.1 }}
-          className="px-6 pb-8 pt-2"
+          className="px-5 pb-8 pt-2 sm:px-6 wrap-break-word"
         >
           <p className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-taruma-400">
             {service.detail.tagline}
@@ -657,21 +649,6 @@ function ServiceModal({
     </div>
   );
 }
-
-// ── Métricas ──────────────────────────────────────────────────────
-
-const metrics: {
-  prefix?: string;
-  value: number;
-  decimals?: number;
-  suffix?: string;
-  label: string;
-}[] = [
-  { prefix: "+", value: 10, label: "sistemas desenvolvidos" },
-  { prefix: "+", value: 50, label: "módulos entregues" },
-  { value: 99.9, decimals: 1, suffix: "%", label: "de disponibilidade" },
-  { value: 100, suffix: "%", label: "código entregue ao cliente" },
-];
 
 // ── Services section ──────────────────────────────────────────────
 
@@ -745,42 +722,34 @@ const services: ServiceCardProps[] = [
       tagline: "iOS & Android",
       features: [
         {
-          label: "Apps para seus clientes",
+          label: "Seu negócio no bolso do cliente",
           description:
-            "Pedidos, agendamentos, acompanhamento e fidelização na palma da mão.",
+            "Pedidos, agendamentos e acompanhamento em tempo real, na palma da mão de quem compra de você.",
         },
         {
-          label: "Apps para sua equipe",
+          label: "Equipe produtiva, até sem internet",
           description:
-            "Operação em campo, checklists, coletas e registros direto do celular.",
+            "Checklists, coletas e registros direto do celular, que funcionam offline e sincronizam sozinhos.",
         },
         {
-          label: "Publicação nas lojas",
+          label: "Do código à Play Store",
           description:
-            "Configuramos o pipeline de CI/CD e publicamos seu app na App Store e Google Play.",
-        },
-        {
-          label: "Notificações e offline",
-          description:
-            "Push notifications, suporte offline e sincronização transparente com o back-end.",
+            "Cuidamos de toda a publicação e das atualizações, para você só se preocupar em atender seus clientes.",
         },
       ],
       stack: [
-        "React Native",
-        "Expo",
+        "Kotlin",
+        "Jetpack Compose",
         "TypeScript",
-        "Reanimated",
-        "Zustand",
-        "Supabase",
       ],
     },
   },
   {
     id: "sites",
     Icon: IconWorldWww,
-    name: "Sites que Geram Resultados",
+    name: "Sites que Representam o seu Negócio",
     description:
-      "Landing pages, sites institucionais e plataformas focadas em conversão.",
+      "Sites institucionais sob medida que transmitem credibilidade e transformam visitas em contatos.",
     background: (
       <SitesBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
@@ -788,45 +757,38 @@ const services: ServiceCardProps[] = [
       <SitesBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
     detail: {
-      tagline: "Web & Conversão",
+      tagline: "Web & Presença Digital",
       features: [
         {
-          label: "Landing pages de alta conversão",
+          label: "Credibilidade desde o primeiro clique",
           description:
-            "Páginas focadas em resultados com copywriting, CTA estratégico e testes A/B.",
+            "Design profissional que traduz a identidade e a solidez da sua empresa, como já fizemos para escritórios de advocacia, construtoras e marcas locais.",
         },
         {
-          label: "SEO técnico e performance",
+          label: "Seus serviços explicados com clareza",
           description:
-            "Core Web Vitals no verde, SSR/SSG com Next.js e estrutura de dados para melhor indexação.",
+            "Estrutura pensada para o visitante entender o que você faz e falar com você em poucos cliques, por WhatsApp, e-mail ou formulário.",
         },
         {
-          label: "E-commerce completo",
+          label: "Rápido e bem posicionado no Google",
           description:
-            "Lojas virtuais com checkout, gestão de estoque e integração com meios de pagamento.",
+            "SEO técnico, carregamento veloz e funcionamento perfeito no celular, com Next.js.",
         },
         {
-          label: "Sites institucionais",
+          label: "Pronto para crescer com você",
           description:
-            "Presença digital profissional com CMS headless para edição fácil pelo seu time.",
+            "Novas páginas, blog, área de clientes ou integrações quando o negócio pedir, sem refazer o site.",
         },
       ],
-      stack: [
-        "Next.js",
-        "TailwindCSS",
-        "Framer Motion",
-        "Sanity",
-        "Vercel",
-        "Stripe",
-      ],
+      stack: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
     },
   },
   {
     id: "automacao",
     Icon: IconRobot,
-    name: "Automação e Inteligência Operacional",
+    name: "Automação de Processos",
     description:
-      "Menos trabalho manual: fluxos automáticos entre e-mail, IA, ERP e dashboards.",
+      "Sistemas que executam regras de negócio, integram serviços e reagem a eventos, sem trabalho manual.",
     background: (
       <AutomationBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
     ),
@@ -837,30 +799,30 @@ const services: ServiceCardProps[] = [
       />
     ),
     detail: {
-      tagline: "Automação & IA",
+      tagline: "Automação & Integrações",
       features: [
         {
-          label: "Automação de tarefas repetitivas",
+          label: "Menos tarefas manuais",
           description:
-            "Relatórios, conferências e lançamentos que rodam sozinhos, sem erro humano.",
+            "Relatórios, conferências e lançamentos passam a rodar sozinhos, sem retrabalho e sem erro humano.",
         },
         {
-          label: "Fluxos entre sistemas",
+          label: "Regras de negócio no piloto automático",
           description:
-            "E-mail, planilhas, ERP e WhatsApp conectados em fluxos automáticos.",
+            "Seu processo vira software: o sistema valida, calcula e decide conforme as regras da sua operação.",
         },
         {
-          label: "IA aplicada ao negócio",
+          label: "Serviços conectados",
           description:
-            "Classificação de documentos, triagem de mensagens e apoio à decisão com IA.",
+            "Integramos e-mail, planilhas, ERP, WhatsApp e APIs para a informação fluir entre eles sem digitação.",
         },
         {
-          label: "Alertas e monitoramento",
+          label: "Reação automática a eventos",
           description:
-            "Notificações automáticas quando algo foge do padrão da operação.",
+            "Um pedido novo, um prazo vencendo ou um valor fora do padrão disparam as ações certas, na hora.",
         },
       ],
-      stack: ["Python", "Node.js", "IA / LLMs", "Webhooks", "n8n", "APIs"],
+      stack: ["Python", "Node.js", "IA / LLMs", "Webhooks", "APIs"],
     },
   },
 ];
@@ -871,8 +833,6 @@ export default function Services() {
   );
   const headingRef = useRef<HTMLDivElement>(null);
   const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
-  const metricsRef = useRef<HTMLDivElement>(null);
-  const metricsInView = useInView(metricsRef, { once: true, amount: 0.3 });
   const gridRef = useRef<HTMLDivElement>(null);
   const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
   const stripRef = useRef<HTMLDivElement>(null);
@@ -896,11 +856,11 @@ export default function Services() {
       {/* Glow ambiente */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-1/4 size-130 rounded-full bg-taruma-400/4 blur-3xl"
+        className="pointer-events-none absolute -left-32 top-1/4 size-130 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.06),transparent)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-32 bottom-1/4 size-130 rounded-full bg-taruma-400/5 blur-3xl"
+        className="pointer-events-none absolute -right-32 bottom-1/4 size-130 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.08),transparent)]"
       />
       <Container>
         <motion.div
@@ -929,56 +889,8 @@ export default function Services() {
           </div>
           <p className="text-md text-cumaru-400 max-w-lg lg:text-right">
             Soluções que aumentam produtividade, reduzem custos e dão controle
-            da operação — construídas sob medida para o seu negócio.
+            da operação, construídas sob medida para o seu negócio.
           </p>
-        </motion.div>
-
-        {/* Métricas */}
-        <motion.div
-          ref={metricsRef}
-          initial={{ opacity: 0, y: 24 }}
-          animate={metricsInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
-          className="relative mb-10 grid grid-cols-2 gap-y-8 overflow-hidden rounded-3xl border border-white/8 bg-negro-800/40 px-6 py-8 lg:grid-cols-4"
-        >
-          <div
-            aria-hidden
-            className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-taruma-400/40 to-transparent"
-          />
-          {metrics.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 16 }}
-              animate={metricsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1],
-                delay: 0.2 + i * 0.1,
-              }}
-              className={cn(
-                "flex flex-col items-center gap-1.5 text-center",
-                i > 0 && "lg:border-l lg:border-white/6",
-              )}
-            >
-              <div className="flex items-baseline text-3xl font-semibold text-cumaru-100 lg:text-4xl">
-                {m.prefix && (
-                  <span className="text-taruma-400">{m.prefix}</span>
-                )}
-                <NumberTicker
-                  value={m.value}
-                  decimalPlaces={m.decimals ?? 0}
-                  delay={0.2 + i * 0.15}
-                  className="text-cumaru-100"
-                />
-                {m.suffix && (
-                  <span className="text-taruma-400">{m.suffix}</span>
-                )}
-              </div>
-              <span className="text-[10px] font-medium uppercase tracking-widest text-cumaru-500">
-                {m.label}
-              </span>
-            </motion.div>
-          ))}
         </motion.div>
 
         <div ref={gridRef}>

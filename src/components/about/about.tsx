@@ -7,15 +7,15 @@ import Container from "../container/container";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Highlighter } from "@/components/ui/highlighter";
 
-const ROTATIONS = [-4, 5];
+const ROTATIONS = [-4, 5, -6, 3];
 
 const textSlides = [
   {
     tagline: "Infraestrutura",
     title: "Sistemas que duram",
     description: "Código que resiste ao tempo e escala com o negócio.",
-    stat: "99.9%",
-    statLabel: "de uptime nos últimos 12 meses",
+    stat: "100%",
+    statLabel: "do código entregue ao cliente",
   },
   {
     tagline: "Produto",
@@ -26,10 +26,10 @@ const textSlides = [
   },
   {
     tagline: "Integrações",
-    title: "Integrações que funcionam",
-    description: "O ERP fala com a planilha. Sem intermediários, sem surpresas.",
-    stat: "+40",
-    statLabel: "integrações entregues em produção",
+    title: "Integrações que facilitam a vida",
+    description: "O ERP fala com a planilha. Sem digitar duas vezes, sem surpresas.",
+    stat: "1",
+    statLabel: "só lugar para toda a informação da operação",
   },
   {
     tagline: "Suporte",
@@ -46,14 +46,28 @@ const imageSlides = [
     quote:
       "Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento, agora passou a ser automático, ágil e seguro.",
     name: "Paula Pinheiro",
-    designation: "Antonelly Construções — Recepcionista",
+    designation: "Antonelly Construções - Recepcionista",
   },
   {
     src: "/illustrations/adv-paiva.jpg",
     quote:
       "A North entregou exatamente o que eu precisava: um site que transmite seriedade e converte visitas em clientes.",
     name: "Gabriela Paiva",
-    designation: "ADV Paiva — Advogada",
+    designation: "ADV Paiva - Advogada",
+  },
+  {
+    src: "/illustrations/medicao.png",
+    quote:
+      "A matriz de medição mostra, em uma única tela, o que já foi entregue por produto e lote. Acabou a planilha espalhada e a conferência manual.",
+    name: "Equipe de Engenharia",
+    designation: "Antonelly Construções - Medição IP4",
+  },
+  {
+    src: "/illustrations/report.png",
+    quote:
+      "Gerar o relatório ficou simples: cada local mostra as fotos e as legendas pendentes, e o documento sai pronto, sem retrabalho.",
+    name: "Equipe de Medição",
+    designation: "Antonelly Construções - Relatórios",
   },
 ];
 
@@ -80,7 +94,7 @@ export default function About() {
   }, [paused]);
 
   return (
-    <section id="about" className="relative w-full py-20 lg:py-42 bg-negro-900">
+    <section id="about" className="relative w-full overflow-x-clip py-20 lg:py-42 bg-negro-900">
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
@@ -229,7 +243,7 @@ export default function About() {
               </AnimatePresence>
             </div>
 
-            {/* Floating testimonial card — liquid glass, rectangular, bottom-right */}
+            {/* Floating testimonial card - liquid glass, rectangular, bottom-right */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`card-${current}`}

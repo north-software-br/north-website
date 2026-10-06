@@ -50,7 +50,7 @@ export const BentoCard = ({
       pointerEvents: isActive ? "none" : "auto",
     }}
     className={cn(
-      "group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-3xl",
+      "group relative col-span-1 flex flex-col justify-between overflow-clip rounded-3xl",
       "bg-negro-800 border border-white/8",
       "[box-shadow:0_-20px_80px_-20px_rgba(61,175,166,0.06)_inset]",
       "transform-gpu transition-[border-color,box-shadow] duration-300",
@@ -67,7 +67,7 @@ export const BentoCard = ({
     {/* Static bottom gradient */}
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-linear-to-t from-negro-800/90 to-transparent" />
 
-    {/* Text area — slides up on hover to reveal CTA (desktop only) */}
+    {/* Text area - slides up on hover to reveal CTA (desktop only) */}
     <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 flex flex-col gap-1 p-6 pb-16 md:pb-6 transition-all duration-300 md:group-hover:-translate-y-10">
       <div className="mb-2.5 flex size-11 origin-left transform-gpu items-center justify-center rounded-xl border border-taruma-400/20 bg-taruma-400/10 backdrop-blur-sm transition-all duration-300 ease-in-out group-hover:scale-90 group-hover:border-taruma-400/35">
         <Icon className="size-5.5 text-taruma-400" />
@@ -83,7 +83,7 @@ export const BentoCard = ({
       <p className="max-w-xs text-sm text-cumaru-400">{description}</p>
     </div>
 
-    {/* CTA — always visible on mobile, slides up from below on hover on desktop */}
+    {/* CTA - always visible on mobile, slides up from below on hover on desktop */}
     <div className="pointer-events-auto absolute bottom-0 left-0 right-0 z-20 flex items-center p-4 transition-all duration-300 md:translate-y-10 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
       <button
         onClick={onLearnMore}

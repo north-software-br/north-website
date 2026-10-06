@@ -3,7 +3,7 @@ import Container from "@/components/container/container";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade — North Software",
+  title: "Política de Privacidade - North Software",
   description:
     "Saiba como a North Software coleta, usa e protege seus dados pessoais. Transparência e segurança são princípios fundamentais do nosso serviço.",
   alternates: {
