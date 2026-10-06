@@ -19,7 +19,7 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 // (padding do track = 8vw; itens têm w-184, metade = 23rem)
 const RAIL_INSET = "calc(8vw + 23rem)";
 
-// Quantos nós a linha já alcançou para um progresso v (0–1)
+// Quantos nós a linha já alcançou para um progresso v (0-1)
 const countReached = (v: number, thresholds: number[]) => {
   let n = 0;
   while (n < thresholds.length && v >= thresholds[n] - 0.001) n++;
@@ -31,14 +31,14 @@ import { VerticalStep } from "./_components/vertical-step";
 
 export default function Process() {
   // Scroll horizontal pinado (desktop): o scroll vertical é convertido em
-  // deslocamento horizontal 1:1 em pixels — a altura do wrapper é exatamente
+  // deslocamento horizontal 1:1 em pixels - a altura do wrapper é exatamente
   // 100vh + distância horizontal percorrida.
   const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const mobileTimelineRef = useRef<HTMLDivElement>(null);
   const [distance, setDistance] = useState(0);
 
-  // Thresholds de progresso (0–1) em que a linha alcança cada nó (mobile)
+  // Thresholds de progresso (0-1) em que a linha alcança cada nó (mobile)
   const mobileThresholds = useRef<number[]>([]);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function Process() {
     ),
   );
 
-  // Nós alcançados — direto do progresso do scroll (sem spring), para a
+  // Nós alcançados - direto do progresso do scroll (sem spring), para a
   // linha e os marcos responderem 1:1 à rolagem.
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const v = Math.max(0, Math.min(1, latest));
@@ -163,13 +163,13 @@ export default function Process() {
               style={{ x }}
               className="relative flex h-full w-max items-center gap-10 pl-[8vw] pr-[8vw] will-change-transform"
             >
-              {/* Trilho central — do centro do 1º nó ao centro do último */}
+              {/* Trilho central - do centro do 1º nó ao centro do último */}
               <div
                 aria-hidden
                 className="pointer-events-none absolute top-1/2 h-px -translate-y-1/2 bg-white/8"
                 style={{ left: RAIL_INSET, right: RAIL_INSET }}
               />
-              {/* Preenchimento — ScrollProgress dirigido pelo progresso da
+              {/* Preenchimento - ScrollProgress dirigido pelo progresso da
                   jornada pinada, sobreposto ao trilho (insets idênticos) */}
               <ScrollProgress
                 aria-hidden
@@ -189,7 +189,7 @@ export default function Process() {
             </motion.div>
           </div>
 
-          {/* Contador de progresso — onde o visitante está na jornada */}
+          {/* Contador de progresso - onde o visitante está na jornada */}
           <div className="pointer-events-none absolute bottom-8 left-8 z-10 flex items-center gap-3">
             <span className="text-xs font-semibold tabular-nums text-taruma-400">
               {String(reachedDesktop).padStart(2, "0")}
@@ -213,7 +213,7 @@ export default function Process() {
             </AnimatePresence>
           </div>
 
-          {/* Dica de navegação — some assim que a jornada começa */}
+          {/* Dica de navegação - some assim que a jornada começa */}
           <motion.div
             style={{ opacity: hintOpacity }}
             className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 text-xs text-cumaru-500"

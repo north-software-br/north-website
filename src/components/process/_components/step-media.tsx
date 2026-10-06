@@ -28,7 +28,7 @@ import { ProcessStep } from "@/constants";
 // Cada etapa tem um elemento visual único que conta sua parte da
 // história, mantendo a mesma identidade (negro + taruma + cumaru).
 
-// Etapa 01 — Descoberta: Cliente → North → Requisitos/Escopo/Planejamento
+// Etapa 01 - Descoberta: Cliente → North → Requisitos/Escopo/Planejamento
 const BeamNode = forwardRef<
   HTMLDivElement,
   { className?: string; children?: React.ReactNode; label?: string }
@@ -132,7 +132,7 @@ function DiscoveryMedia() {
   );
 }
 
-// Etapa 02 — Design: wireframe → UI final → aprovação
+// Etapa 02 - Design: wireframe → UI final → aprovação
 function DesignMedia({ isInView }: { isInView: boolean }) {
   return (
     <div className="relative h-56 w-full">
@@ -188,7 +188,7 @@ function DesignMedia({ isInView }: { isInView: boolean }) {
   );
 }
 
-// Etapa 03 — Desenvolvimento: terminal com fluxo real de build
+// Etapa 03 - Desenvolvimento: terminal com fluxo real de build
 const DEV_COMMANDS = [
   "git clone north/seu-projeto",
   "npm run build",
@@ -197,7 +197,7 @@ const DEV_COMMANDS = [
 
 const DEV_OUTPUTS: Record<number, string[]> = {
   0: ["✔ Repositório clonado com sucesso."],
-  1: ["▲ Next.js — compilando 42 rotas…", "✔ Build otimizado em 12.4s"],
+  1: ["▲ Next.js - compilando 42 rotas…", "✔ Build otimizado em 12.4s"],
   2: ["✔ Pipeline CI/CD disparado", "🚀 Projeto no ar!"],
 };
 
@@ -217,7 +217,7 @@ function DevMedia({ isInView }: { isInView: boolean }) {
   );
 }
 
-// Etapa 04 — Qualidade: métricas + checklist animado
+// Etapa 04 - Qualidade: métricas + checklist animado
 const QUALITY_CHECKS = [
   { Icon: IconCheck, label: "Testes funcionais aprovados" },
   { Icon: IconBolt, label: "Performance validada" },
@@ -269,7 +269,7 @@ function QualityMedia() {
   );
 }
 
-// Etapa 05 — Implantação: SIAN em produção num container premium
+// Etapa 05 - Implantação: SIAN em produção num container premium
 function DeployMedia() {
   return (
     <div className="relative">
@@ -316,7 +316,7 @@ function DeployMedia() {
   );
 }
 
-// Etapa 06 — Evolução: ecossistema tecnológico em movimento
+// Etapa 06 - Evolução: ecossistema tecnológico em movimento
 const TECH_STACK = [
   "react",
   "nextdotjs",

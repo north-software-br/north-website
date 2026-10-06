@@ -132,7 +132,7 @@ function SystemsBackground({
             </Circle>
             <NodeLabel>CRM</NodeLabel>
           </div>
-          {/* Hub — o sistema que integra tudo */}
+          {/* Hub - o sistema que integra tudo */}
           <div className="flex flex-col items-center gap-1">
             <Circle ref={apiRef} className="size-13 border-taruma-400/35">
               <IconApi className="size-full text-taruma-400" />
@@ -264,7 +264,7 @@ function MobileBackground({
           </Marquee>
         </div>
 
-        {/* iPhone — center hub */}
+        {/* iPhone - center hub */}
         <div
           className={cn(
             "relative w-20 sm:w-35 shrink-0 transition-transform duration-500 ease-out group-hover:translate-y-6",
@@ -443,7 +443,7 @@ function AutomationBackground({
           !modal && "origin-top scale-90 md:origin-center md:scale-100",
         )}
       >
-        {/* Hub — IA no centro */}
+        {/* Hub - IA no centro */}
         <div className="relative z-10">
           <span className="absolute -inset-1.5 animate-pulse rounded-full border border-taruma-400/30" />
           <div className="flex size-12 items-center justify-center rounded-full border border-taruma-400/35 bg-negro-700 p-2.5 shadow-[0_0_28px_-6px_rgba(61,175,166,0.55)]">
@@ -537,7 +537,7 @@ function ServiceModal({
       aria-label={service.name}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
     >
-      {/* Backdrop — independent fade, not part of card layout animation */}
+      {/* Backdrop - independent fade, not part of card layout animation */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -555,7 +555,7 @@ function ServiceModal({
           "[box-shadow:0_0_80px_-20px_rgba(61,175,166,0.15)]",
         )}
       >
-        {/* Visual header — reuses the card background */}
+        {/* Visual header - reuses the card background */}
         <div className="relative h-52 overflow-clip rounded-t-3xl">
           {service.modalBackground ?? service.background}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-negro-800 via-negro-800/20 to-transparent" />
@@ -889,7 +889,7 @@ export default function Services() {
           </div>
           <p className="text-md text-cumaru-400 max-w-lg lg:text-right">
             Soluções que aumentam produtividade, reduzem custos e dão controle
-            da operação — construídas sob medida para o seu negócio.
+            da operação, construídas sob medida para o seu negócio.
           </p>
         </motion.div>
 

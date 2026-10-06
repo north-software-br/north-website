@@ -44,7 +44,7 @@ export function IconCloud({ images, className }: IconCloudProps) {
   const iconCanvasesRef = useRef<HTMLCanvasElement[]>([])
   const imagesLoadedRef = useRef<boolean[]>([])
 
-  // Posições na esfera (Fibonacci) — recalculadas só quando as imagens mudam
+  // Posições na esfera (Fibonacci) - recalculadas só quando as imagens mudam
   useEffect(() => {
     const numIcons = images.length
     const offset = 2 / numIcons
@@ -155,7 +155,7 @@ export function IconCloud({ images, className }: IconCloudProps) {
     dragRef.current.dragging = false
   }
 
-  // Loop de animação — ligado/desligado por visibilidade
+  // Loop de animação - ligado/desligado por visibilidade
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext("2d")

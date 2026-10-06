@@ -5,7 +5,7 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { StepCard } from "./step-card";
 import { StepNode } from "./step-node";
 
-// ── Etapa — layout vertical (mobile) ──────────────────────────────
+// ── Etapa - layout vertical (mobile) ──────────────────────────────
 
 export function VerticalStep({
   step,

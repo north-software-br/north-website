@@ -127,7 +127,7 @@ export default function Hero({
   return (
     <section
       className="h-screen flex items-center justify-center flex-col relative overflow-hidden"
-      aria-label={`${role} — ${introLabel}`}
+      aria-label={`${role} - ${introLabel}`}
       tabIndex={-1}
     >
       {mounted && (

@@ -9,7 +9,7 @@ import { StepMedia } from "./step-media";
 
 // ── Card da etapa (compartilhado entre layouts) ───────────────────
 // Três estados visuais: futura (esmaecida), atual (destaque taruma)
-// e concluída (neutra) — o visitante sabe sempre onde está.
+// e concluída (neutra) - o visitante sabe sempre onde está.
 
 export function StepCard({
   step,
@@ -41,7 +41,7 @@ export function StepCard({
           !reached && "opacity-60 saturate-[0.85]",
         )}
       >
-        {/* Hairline superior — fixa na etapa atual, no hover nas demais */}
+        {/* Hairline superior - fixa na etapa atual, no hover nas demais */}
         <div
           aria-hidden
           className={cn(
@@ -49,7 +49,7 @@ export function StepCard({
             current ? "opacity-100" : "opacity-0 group-hover:opacity-100",
           )}
         />
-        {/* Glow interno — idem */}
+        {/* Glow interno - idem */}
         <div
           aria-hidden
           className={cn(

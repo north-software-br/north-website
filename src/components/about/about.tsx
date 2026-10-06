@@ -46,28 +46,28 @@ const imageSlides = [
     quote:
       "Reduzimos o processo de entrada e saída na empresa. Antes, algo manual e lento, agora passou a ser automático, ágil e seguro.",
     name: "Paula Pinheiro",
-    designation: "Antonelly Construções — Recepcionista",
+    designation: "Antonelly Construções - Recepcionista",
   },
   {
     src: "/illustrations/adv-paiva.jpg",
     quote:
       "A North entregou exatamente o que eu precisava: um site que transmite seriedade e converte visitas em clientes.",
     name: "Gabriela Paiva",
-    designation: "ADV Paiva — Advogada",
+    designation: "ADV Paiva - Advogada",
   },
   {
     src: "/illustrations/medicao.png",
     quote:
       "A matriz de medição mostra, em uma única tela, o que já foi entregue por produto e lote. Acabou a planilha espalhada e a conferência manual.",
     name: "Equipe de Engenharia",
-    designation: "Antonelly Construções — Medição IP4",
+    designation: "Antonelly Construções - Medição IP4",
   },
   {
     src: "/illustrations/report.png",
     quote:
       "Gerar o relatório ficou simples: cada local mostra as fotos e as legendas pendentes, e o documento sai pronto, sem retrabalho.",
     name: "Equipe de Medição",
-    designation: "Antonelly Construções — Relatórios",
+    designation: "Antonelly Construções - Relatórios",
   },
 ];
 
@@ -243,7 +243,7 @@ export default function About() {
               </AnimatePresence>
             </div>
 
-            {/* Floating testimonial card — liquid glass, rectangular, bottom-right */}
+            {/* Floating testimonial card - liquid glass, rectangular, bottom-right */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`card-${current}`}

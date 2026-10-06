@@ -17,7 +17,7 @@ interface BorderBeamProps {
   style?: React.CSSProperties;
   /** Inverte o sentido da animação */
   reverse?: boolean;
-  /** Posição inicial no caminho (0–100) */
+  /** Posição inicial no caminho (0-100) */
   initialOffset?: number;
   borderWidth?: number;
 }

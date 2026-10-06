@@ -97,7 +97,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     number: "02",
     title: "Design e Prototipação",
     description:
-      "Você visualiza e aprova o produto antes do desenvolvimento começar — sem surpresas, sem retrabalho.",
+      "Você visualiza e aprova o produto antes do desenvolvimento começar: sem surpresas, sem retrabalho.",
     deliverables: [
       "Wireframes",
       "UX/UI",
