@@ -80,7 +80,7 @@ export function Iphone({
             alt=""
             fill
             unoptimized={src.endsWith(".svg")}
-            sizes="(max-width: 640px) 60px, 100px"
+            sizes="(max-width: 640px) 160px, 280px"
             className="object-cover object-top"
           />
         </div>

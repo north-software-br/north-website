@@ -27,7 +27,7 @@ export function VerticalStep({
         current={current}
         className="absolute left-5 top-0 -translate-x-1/2"
       />
-      <div className="ml-13">
+      <div className="ml-11 min-w-0 sm:ml-13">
         <StepCard step={step} reached={reached} current={current} />
       </div>
     </div>

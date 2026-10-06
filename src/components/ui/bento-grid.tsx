@@ -50,7 +50,7 @@ export const BentoCard = ({
       pointerEvents: isActive ? "none" : "auto",
     }}
     className={cn(
-      "group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-3xl",
+      "group relative col-span-1 flex flex-col justify-between overflow-clip rounded-3xl",
       "bg-negro-800 border border-white/8",
       "[box-shadow:0_-20px_80px_-20px_rgba(61,175,166,0.06)_inset]",
       "transform-gpu transition-[border-color,box-shadow] duration-300",

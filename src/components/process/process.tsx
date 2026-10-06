@@ -149,11 +149,11 @@ export default function Process() {
           {/* Glow ambiente */}
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/4 top-1/4 size-130 -translate-x-1/2 rounded-full bg-taruma-400/5 blur-3xl"
+            className="pointer-events-none absolute left-1/4 top-1/4 size-130 -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.08),transparent)]"
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute bottom-0 right-0 size-130 rounded-full bg-taruma-400/4 blur-3xl"
+            className="pointer-events-none absolute bottom-0 right-0 size-130 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.06),transparent)]"
           />
 
           {/* Trilha do roadmap */}
@@ -238,7 +238,7 @@ export default function Process() {
       <div className="relative overflow-hidden py-20 lg:hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-24 size-100 -translate-x-1/2 rounded-full bg-taruma-400/5 blur-3xl"
+          className="pointer-events-none absolute left-1/2 top-24 size-100 -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.08),transparent)]"
         />
         <Container>
           <SectionHeader className="mb-16" />

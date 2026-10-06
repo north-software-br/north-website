@@ -45,7 +45,7 @@ export function RoadmapItem({
   );
 
   const card = (
-    <div className="w-full">
+    <div className="w-full [@media(max-height:56rem)]:[zoom:0.84] [@media(max-height:46rem)]:[zoom:0.7]">
       <StepCard step={step} reached={reached} current={current} />
     </div>
   );

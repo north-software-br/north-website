@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Terminal } from "@/components/ui/terminal";
 import { MacosWindow } from "@/components/ui/macos-window";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
-import { AnimatedList } from "@/components/ui/animated-list";
+import { Marquee } from "@/components/ui/shadcn-space/radix/animations/marquee";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { IconCloud } from "@/components/ui/icon-cloud";
 import {
@@ -141,7 +141,7 @@ function DesignMedia({ isInView }: { isInView: boolean }) {
         initial={{ opacity: 0, y: 10 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.4 }}
-        className="absolute left-0 top-3 w-34 -rotate-3 rounded-xl border border-dashed border-white/15 bg-negro-800/90 p-3"
+        className="absolute left-0 top-3 w-[46%] max-w-34 -rotate-3 rounded-xl border border-dashed border-white/15 bg-negro-800/90 p-3"
       >
         <span className="absolute -top-2 left-2 rounded-full border border-white/10 bg-negro-700 px-2 py-0.5 text-[8px] uppercase tracking-wider text-cumaru-500">
           Wireframe
@@ -160,7 +160,7 @@ function DesignMedia({ isInView }: { isInView: boolean }) {
         initial={{ opacity: 0, y: 14 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.65 }}
-        className="absolute bottom-3 right-0 w-34 rotate-2 rounded-xl border border-taruma-400/25 bg-negro-800 p-3 shadow-[0_12px_40px_-12px_rgba(61,175,166,0.35)]"
+        className="absolute bottom-3 right-0 w-[46%] max-w-34 rotate-2 rounded-xl border border-taruma-400/25 bg-negro-800 p-3 shadow-[0_12px_40px_-12px_rgba(61,175,166,0.35)]"
       >
         <span className="absolute -top-2 left-2 rounded-full border border-taruma-400/25 bg-negro-700 px-2 py-0.5 text-[8px] uppercase tracking-wider text-taruma-300">
           UI Final
@@ -225,7 +225,7 @@ const QUALITY_CHECKS = [
   { Icon: IconBug, label: "0 bugs críticos em aberto" },
 ];
 
-function QualityMedia({ isInView }: { isInView: boolean }) {
+function QualityMedia() {
   return (
     <div className="flex w-full flex-col gap-3">
       <div className="grid grid-cols-2 gap-3">
@@ -248,23 +248,23 @@ function QualityMedia({ isInView }: { isInView: boolean }) {
         </div>
       </div>
 
-      <div className="h-41">
-        {isInView && (
-          <AnimatedList delay={800} className="gap-2">
-            {QUALITY_CHECKS.map(({ Icon, label }) => (
-              <div
-                key={label}
-                className="flex w-full items-center gap-2.5 rounded-xl border border-white/8 bg-negro-800/70 px-3 py-2"
-              >
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-taruma-400/15 text-taruma-400">
-                  <Icon className="size-3.5" />
-                </span>
-                <span className="text-[11px] text-cumaru-300">{label}</span>
-              </div>
-            ))}
-          </AnimatedList>
-        )}
-      </div>
+      <Marquee
+        vertical
+        repeat={3}
+        className="h-41 p-0 [--duration:12s] [--gap:0.5rem] mask-[linear-gradient(to_bottom,transparent,#000_15%,#000_85%,transparent)]"
+      >
+        {QUALITY_CHECKS.map(({ Icon, label }) => (
+          <div
+            key={label}
+            className="flex w-full items-center gap-2.5 rounded-xl border border-white/8 bg-negro-800/70 px-3 py-2"
+          >
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-taruma-400/15 text-taruma-400">
+              <Icon className="size-3.5" />
+            </span>
+            <span className="text-[11px] text-cumaru-300">{label}</span>
+          </div>
+        ))}
+      </Marquee>
     </div>
   );
 }
@@ -275,7 +275,7 @@ function DeployMedia() {
     <div className="relative">
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-4 rounded-3xl bg-taruma-400/6 blur-2xl"
+        className="pointer-events-none absolute -inset-4 rounded-3xl bg-[radial-gradient(closest-side,rgba(61,175,166,0.1),transparent)]"
       />
       <div className="relative rounded-2xl border border-taruma-400/20 bg-negro-800/80 p-3 shadow-[0_0_40px_-12px_rgba(61,175,166,0.35)]">
         {/* Barra de status */}
@@ -347,9 +347,12 @@ function EvolutionMedia() {
     <div className="relative flex h-56 w-full items-center justify-center">
       <div
         aria-hidden
-        className="pointer-events-none absolute size-40 rounded-full bg-taruma-400/8 blur-3xl"
+        className="pointer-events-none absolute size-40 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.13),transparent)]"
       />
-      <IconCloud images={TECH_IMAGES} className="size-56" />
+      <IconCloud
+        images={TECH_IMAGES}
+        className="aspect-square h-auto w-56 max-w-full"
+      />
     </div>
   );
 }
@@ -370,7 +373,7 @@ export function StepMedia({
     case "dev":
       return <DevMedia isInView={isInView} />;
     case "quality":
-      return <QualityMedia isInView={isInView} />;
+      return <QualityMedia />;
     case "deploy":
       return <DeployMedia />;
     case "evolution":
