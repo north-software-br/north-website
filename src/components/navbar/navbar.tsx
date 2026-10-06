@@ -24,9 +24,11 @@ const navLinks = [
 
 function smoothScroll(href: string) {
   const id = href.split("#")[1];
-  if (id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  }
+  if (!id) return;
+  const el = document.getElementById(id);
+  // Fora da home a seção não existe: navega para ela
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+  else window.location.assign(`/#${id}`);
 }
 
 export default function NorthNavbar() {
@@ -38,7 +40,7 @@ export default function NorthNavbar() {
       <NavBody>
         <Link
           href="/"
-          aria-label="North Software — início"
+          aria-label="North Software - início"
           className="relative z-20 shrink-0"
         >
           <div className="relative w-9 h-7 overflow-hidden">
@@ -65,7 +67,7 @@ export default function NorthNavbar() {
       {/* Mobile */}
       <MobileNav isOpen={mobileOpen}>
         <MobileNavHeader>
-          <Link href="/" aria-label="North Software — início">
+          <Link href="/" aria-label="North Software - início">
             <div className="relative w-8 h-6 overflow-hidden">
               <Image
                 src={NORTH_N_LOGO}

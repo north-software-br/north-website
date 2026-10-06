@@ -2,8 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { Safari } from "../ui/safari";
-import { BackgroundGradient } from "../ui/background-gradient";
+import { Laptop } from "../ui/laptop";
 import Container from "../container/container";
 import { portfolioData, PortfolioData } from "@/constants";
 
@@ -60,12 +59,16 @@ const ProjectCard = ({ item, index }: ProjectCardProps) => {
 
       {/* Right: preview */}
       <div>
-        <BackgroundGradient className="p-3 sm:p-4 lg:p-3" bright={false}>
-          <Safari
+        <div className="relative mx-auto w-full max-w-136">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.16),transparent)]"
+          />
+          <Laptop
             videoSrc={item.portfolio_video}
             imageSrc={item.portfolio_image}
           />
-        </BackgroundGradient>
+        </div>
       </div>
     </motion.div>
   );

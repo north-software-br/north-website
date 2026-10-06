@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { Safari } from "../ui/safari";
-import { BackgroundGradient } from "../ui/background-gradient";
+import { Laptop } from "../ui/laptop";
 import { Highlight } from "../ui/hero-highlight";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { portfolioData, PortfolioData } from "@/constants";
@@ -17,11 +16,12 @@ interface ProjectCardProps {
 const ProjectCard = ({ item, index }: ProjectCardProps) => {
   return (
     <div
+      data-project-card
       className="sticky top-20 flex items-start pt-6 pb-8 md:h-[60vh] md:min-h-0 md:items-center md:py-0"
       style={{ zIndex: index + 1 }}
     >
       <div className="w-full">
-        <div className="relative max-h-[calc(100svh-4rem)] overflow-hidden md:max-h-[48vh]">
+        <div className="relative max-h-[calc(100svh-4rem)] overflow-hidden md:max-h-[52vh]">
           <div className="flex flex-col gap-5 md:flex-row md:gap-5 sm:bg-transparent bg-background p-2">
             <div className="flex w-full flex-col justify-center gap-4 bg-background md:w-1/2 md:pr-10">
               <span className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
@@ -33,12 +33,19 @@ const ProjectCard = ({ item, index }: ProjectCardProps) => {
             </div>
 
             <div className="w-full md:w-1/2">
-              <BackgroundGradient className="p-3 sm:p-4 lg:p-3" bright={false}>
-                <Safari
+              <div
+                data-project-media
+                className="relative mx-auto w-full max-w-120 md:max-w-[56vh]"
+              >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.16),transparent)]"
+                />
+                <Laptop
                   imageSrc={item.portfolio_image}
                   videoSrc={item.portfolio_video}
                 />
-              </BackgroundGradient>
+              </div>
             </div>
           </div>
         </div>
@@ -50,9 +57,47 @@ const ProjectCard = ({ item, index }: ProjectCardProps) => {
 const Projects = () => {
   const headingRef = useRef<HTMLDivElement>(null);
   const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
+  const listRef = useRef<HTMLElement>(null);
+
+  // O notebook de cada projeto some (fade out) conforme o próximo card sobe
+  // e volta (fade in) ao rolar de volta. O último nunca some; o primeiro
+  // não tem fade de entrada. Opacidade direta no DOM: sem re-render no scroll.
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const cards = Array.from(
+      list.querySelectorAll<HTMLElement>("[data-project-card]"),
+    );
+    const medias = cards.map((c) =>
+      c.querySelector<HTMLElement>("[data-project-media]"),
+    );
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      for (let i = 0; i < cards.length - 1; i++) {
+        const top = cards[i + 1].getBoundingClientRect().top;
+        const p = Math.min(1, Math.max(0, (vh - top) / (vh * 0.9)));
+        const media = medias[i];
+        if (media) media.style.opacity = String(1 - p);
+      }
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   return (
-    <section id="projects" className="bg-background mt-24 sm:mt-32">
+    <section ref={listRef} id="projects" className="bg-background mt-24 sm:mt-32">
       <Container>
         <motion.div
           ref={headingRef}

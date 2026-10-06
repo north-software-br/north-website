@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
     // Evita reotimização frequente das imagens no servidor (31 dias)
     minimumCacheTTL: 2678400,
   },
+  // Contato é uma seção da home, não uma página
+  async redirects() {
+    return ["/contato", "/contact"].map((source) => ({
+      source,
+      destination: "/#contact",
+      permanent: true,
+    }));
+  },
   experimental: {
     optimizePackageImports: ["@tabler/icons-react"],
   },

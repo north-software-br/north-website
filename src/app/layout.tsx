@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "North Software — Sistemas, Apps e Sites sob medida",
+    default: "North Software - Sistemas, Apps e Sites sob medida",
     template: "%s | North Software",
   },
   description:
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
       { url: "/logos/favicons/favicon.ico", sizes: "48x48" },
       { url: "/logos/favicons/favicon-16x16.png", type: "image/png", sizes: "16x16" },
       { url: "/logos/favicons/favicon-32x32.png", type: "image/png", sizes: "32x32" },
-      { url: "/logos/favicons/android-chrome-512x512.png", type: "image/png", sizes: "512x512" },
+      { url: "/logos/favicons/android-chrome-192x192.png", type: "image/png", sizes: "192x192" },
     ],
     apple: "/logos/favicons/apple-touch-icon.png",
     other: [

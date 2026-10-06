@@ -71,7 +71,7 @@
   <rect x="294" y="244" width="60" height="22" rx="11" fill="#3DAFA6" opacity="0.12"/>
   <text x="324" y="259" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#3DAFA6" text-anchor="middle">+13.5%</text>
 
-  <!-- Chart area — fill under curve -->
+  <!-- Chart area - fill under curve -->
   <polygon
     points="48,385 78,372 118,378 158,360 198,368 238,348 278,332 318,318 354,300 354,390 48,390"
     fill="url(#chartFill)"

@@ -1,11 +1,11 @@
 /* =============================================================
-   North Software — Brand Theme
+   North Software - Brand Theme
    Paleta: Negro (primary) · Tarumã (accent) · Cumaru (neutral)
    ============================================================= */
 
 /* ── Raw palette ─────────────────────────────────────────────── */
 :root {
-  /* Negro — do Rio Negro */
+  /* Negro - do Rio Negro */
   --negro-50:  #E8EEF3;
   --negro-100: #C7D3DE;
   --negro-200: #9DAEC0;
@@ -17,7 +17,7 @@
   --negro-800: #08172A;
   --negro-900: #030B17;
 
-  /* Tarumã — encontro das águas */
+  /* Tarumã - encontro das águas */
   --taruma-50:  #E5F6F4;
   --taruma-100: #C2E9E4;
   --taruma-200: #95D7CF;
@@ -29,7 +29,7 @@
   --taruma-800: #11403C;
   --taruma-900: #082220;
 
-  /* Cumaru — papel quente */
+  /* Cumaru - papel quente */
   --cumaru-50:  #FBFAF6;
   --cumaru-100: #F6F3EB;
   --cumaru-200: #F0EDE3; /* CORE */
@@ -46,7 +46,7 @@
   --rule-strong: rgba(20, 48, 74, 0.32);
 }
 
-/* ── Semantic tokens — light mode ────────────────────────────── */
+/* ── Semantic tokens - light mode ────────────────────────────── */
 :root {
   --background:          var(--cumaru-100);   /* #F6F3EB */
   --foreground:          var(--negro-700);    /* #0E2238 */
@@ -75,7 +75,7 @@
   --input:               var(--cumaru-300);   /* #E5DECF */
   --ring:                var(--taruma-400);
 
-  /* Charts — tarumã + negro gradient */
+  /* Charts - tarumã + negro gradient */
   --chart-1: var(--taruma-400);
   --chart-2: var(--taruma-600);
   --chart-3: var(--negro-500);
@@ -95,7 +95,7 @@
   --sidebar-ring:                var(--taruma-400);
 }
 
-/* ── Semantic tokens — dark mode ─────────────────────────────── */
+/* ── Semantic tokens - dark mode ─────────────────────────────── */
 .dark {
   --background:          var(--negro-800);    /* #08172A */
   --foreground:          var(--cumaru-200);   /* #F0EDE3 */
