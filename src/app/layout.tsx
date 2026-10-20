@@ -32,11 +32,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logos/favicons/favicon.ico", sizes: "48x48" },
-      { url: "/logos/favicons/favicon-16x16.png", type: "image/png", sizes: "16x16" },
-      { url: "/logos/favicons/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/logos/favicons/favicon-48x48.png", type: "image/png", sizes: "48x48" },
+      { url: "/logos/favicons/favicon-96x96.png", type: "image/png", sizes: "96x96" },
       { url: "/logos/favicons/android-chrome-192x192.png", type: "image/png", sizes: "192x192" },
     ],
+    shortcut: "/favicon.ico",
     apple: "/logos/favicons/apple-touch-icon.png",
     other: [
       { rel: "manifest", url: "/logos/favicons/site.webmanifest" },
@@ -67,7 +68,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${satoshi.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-<body className="min-h-full flex flex-col">
+<body className="min-h-full flex flex-col" suppressHydrationWarning>
         {/* React faz o hoist destes links para o <head> */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link rel="preconnect" href="https://cdn.simpleicons.org" />
