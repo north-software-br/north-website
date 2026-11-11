@@ -1,6 +1,8 @@
 "use client";
 
+import { useDesktop } from "@/hooks/use-desktop";
 import React, { forwardRef, useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 import Container from "../container/container";
@@ -13,14 +15,8 @@ import {
   IconApi,
   IconLayoutDashboard,
   IconArrowUpRight,
-  IconBrandKotlin,
-  IconComponents,
   IconDeviceMobile,
-  IconBrandApple,
-  IconBrandGooglePlay,
-  IconBrandTypescript,
   IconBell,
-  IconX,
   IconCheck,
   IconWorldWww,
   IconServer,
@@ -34,12 +30,9 @@ import {
   IconCopyright,
   IconBuilding,
 } from "@tabler/icons-react";
-import { BentoGrid, BentoCard } from "../ui/bento-grid";
-import { Iphone } from "../ui/iphone";
-import { Marquee } from "../ui/shadcn-space/radix/animations/marquee";
-import { BorderBeam } from "../ui/border-beam";
 import { OrbitingCircles } from "../ui/orbiting-circles";
-import { Highlighter } from "../ui/highlighter";
+import { SectionHead, Acento } from "../section/section";
+import { whatsappHref } from "@/constants";
 
 // ── Nó com label (compartilhado pelos diagramas de beam) ──────────
 
@@ -61,7 +54,7 @@ Circle.displayName = "Circle";
 
 function NodeLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[9px] font-medium uppercase tracking-wide text-cumaru-500">
+    <span className="text-[11px] font-medium uppercase tracking-wide text-cumaru-500">
       {children}
     </span>
   );
@@ -187,151 +180,19 @@ function SystemsBackground({
 }
 
 // ── Aplicativos para Clientes e Equipes ───────────────────────────
+// Telas reais de um app entregue pela North (Medição IP4: atividades, local de trabalho e módulos)
 
-const leftItems = [
-  { icon: IconBrandKotlin, label: "Kotlin" },
-  { icon: IconComponents, label: "Jetpack Compose" },
-  { icon: IconDeviceMobile, label: "iOS & Android" },
-  { icon: IconBrandTypescript, label: "TypeScript" },
-];
-
-const rightItems = [
-  { icon: IconBrandApple, label: "App Store" },
-  { icon: IconBrandGooglePlay, label: "Play Store" },
-  { icon: IconBell, label: "Notificações" },
-];
-
-function MobileBackground({
-  className,
-  modal,
-}: {
-  className?: string;
-  modal?: boolean;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const centerRef = useRef<HTMLDivElement>(null);
-  const leftAnchorRef = useRef<HTMLDivElement>(null);
-  const rightAnchorRef = useRef<HTMLDivElement>(null);
-
+function AppVisual() {
   return (
-    <div
-      ref={containerRef}
-      className={cn("relative h-full w-full overflow-clip", className)}
-    >
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center -translate-y-6">
-        <div className="size-48 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.13),transparent)]" />
-      </div>
-
-      {/* Beam origin */}
-      <div
-        ref={centerRef}
-        className="pointer-events-none absolute left-1/2 top-[44%] size-2 -translate-x-1/2 -translate-y-1/2 opacity-0 z-20"
+    <div className="relative h-full w-full overflow-clip">
+      <Image
+        src="/projetos/app-sian.webp"
+        alt="Telas de um aplicativo desenvolvido pela North: atividades do dia, escolha do local de trabalho e módulos"
+        fill
+        sizes="(min-width: 1024px) 560px, 92vw"
+        className="object-cover object-[50%_8%] px-6 pt-6"
       />
-
-      {/* Layout: left column | iPhone | right column */}
-      <div
-        className={cn(
-          "absolute inset-0 flex items-center justify-between px-3",
-          modal ? "pb-16" : "pb-40 sm:pb-16",
-        )}
-      >
-        {/* Left column */}
-        <div className="relative z-10 flex min-w-0 flex-1 flex-col items-start">
-          <div
-            ref={leftAnchorRef}
-            className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0"
-          />
-          <Marquee
-            vertical
-            pauseOnHover
-            repeat={4}
-            className="h-32 w-full [--duration:8s] [--gap:0.375rem] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
-          >
-            {leftItems.map(({ icon: Icon, label }, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "flex w-fit max-w-full items-center gap-1 self-start rounded-lg border px-2 py-1.5 max-[420px]:p-2 sm:gap-1.5 sm:px-2.5",
-                  "border-taruma-400/25 bg-taruma-400/8",
-                  "text-[9px] font-medium text-taruma-300 whitespace-nowrap sm:text-[10px]",
-                )}
-              >
-                <Icon className="size-3 shrink-0 max-[420px]:size-4" />
-                <span className="min-w-0 truncate max-[420px]:sr-only">{label}</span>
-              </div>
-            ))}
-          </Marquee>
-        </div>
-
-        {/* iPhone - center hub */}
-        <div
-          className={cn(
-            "relative w-20 sm:w-35 shrink-0 transition-transform duration-500 ease-out group-hover:translate-y-6",
-            modal ? "translate-y-0" : "translate-y-0 sm:translate-y-12",
-          )}
-        >
-          <Iphone src="/illustrations/login-dark.png" />
-        </div>
-
-        {/* Right column */}
-        <div className="relative z-10 flex min-w-0 flex-1 flex-col items-end">
-          <div
-            ref={rightAnchorRef}
-            className="pointer-events-none absolute left-1/2 top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 opacity-0"
-          />
-          <Marquee
-            vertical
-            reverse
-            pauseOnHover
-            repeat={4}
-            className="h-32 w-full [--duration:8s] [--gap:0.375rem] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
-          >
-            {rightItems.map(({ icon: Icon, label }, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "flex w-fit max-w-full items-center gap-1 self-end rounded-lg border px-2 py-1.5 max-[420px]:p-2 sm:gap-1.5 sm:px-2.5",
-                  "border-cumaru-400/20 bg-cumaru-400/5",
-                  "text-[9px] font-medium text-cumaru-300 whitespace-nowrap sm:text-[10px]",
-                )}
-              >
-                <Icon className="size-3 shrink-0 max-[420px]:size-4" />
-                <span className="min-w-0 truncate max-[420px]:sr-only">{label}</span>
-              </div>
-            ))}
-          </Marquee>
-        </div>
-      </div>
-
-      {/* Beams: phone → column anchors */}
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={centerRef}
-        toRef={leftAnchorRef}
-        reverse
-        duration={3.5}
-        gradientStartColor="#3DAFA6"
-        gradientStopColor="#3DAFA6"
-        pathColor="transparent"
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={centerRef}
-        toRef={rightAnchorRef}
-        duration={4}
-        gradientStartColor="#3DAFA6"
-        gradientStopColor="#3DAFA6"
-        pathColor="transparent"
-      />
-
-      {/* Feixe percorrendo a borda do card */}
-      <div className="pointer-events-none absolute inset-0 overflow-clip rounded-3xl">
-        <BorderBeam size={90} duration={8} borderWidth={1.5} />
-      </div>
-
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-negro-800" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/5 bg-linear-to-b from-negro-800" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-negro-800" />
     </div>
   );
 }
@@ -381,10 +242,10 @@ function SitesBackground({ className }: { className?: string }) {
                   <Icon className="size-4 text-taruma-300 sm:size-5" />
                 </div>
 
-                <p className="mt-2 truncate text-xs font-semibold text-cumaru-100 max-[420px]:whitespace-normal max-[420px]:text-[10px] max-[420px]:leading-tight">
+                <p className="mt-2 truncate text-xs font-semibold text-cumaru-100 max-[420px]:whitespace-normal max-[420px]:text-[11px] max-[420px]:leading-tight">
                   {name}
                 </p>
-                <p className="mt-0.5 truncate text-[10px] text-cumaru-500 max-[420px]:hidden">
+                <p className="mt-0.5 truncate text-[11px] text-cumaru-500 max-[420px]:hidden">
                   {segment}
                 </p>
               </div>
@@ -509,147 +370,6 @@ interface ServiceCardProps {
   className?: string;
 }
 
-// ── ServiceModal ──────────────────────────────────────────────────
-
-function ServiceModal({
-  service,
-  onClose,
-}: {
-  service: ServiceCardProps;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={service.name}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
-    >
-      {/* Backdrop - independent fade, not part of card layout animation */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="absolute inset-0 bg-negro-900/80 backdrop-blur-sm"
-        onClick={onClose}
-      />
-
-      {/* Card expands from grid position via layoutId */}
-      <motion.div
-        layoutId={`service-card-${service.id}`}
-        className={cn(
-          "relative z-10 w-full max-w-xl max-h-[88vh] overflow-y-auto overflow-x-hidden",
-          "rounded-3xl bg-negro-800 border border-white/10",
-          "[box-shadow:0_0_80px_-20px_rgba(61,175,166,0.15)]",
-        )}
-      >
-        {/* Visual header - reuses the card background */}
-        <div className="relative h-52 overflow-clip rounded-t-3xl">
-          {service.modalBackground ?? service.background}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-negro-800 via-negro-800/20 to-transparent" />
-
-          {/* Close */}
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.15 }}
-            onClick={onClose}
-            aria-label="Fechar"
-            className={cn(
-              "absolute top-4 right-4 z-30",
-              "flex size-8 items-center justify-center rounded-full",
-              "border border-white/10 bg-negro-700/80 backdrop-blur-sm",
-              "text-cumaru-400 transition-colors hover:text-cumaru-100 cursor-pointer",
-            )}
-          >
-            <IconX className="size-4" />
-          </motion.button>
-        </div>
-
-        {/* Content fades in after the card finishes expanding */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2, delay: 0.1 }}
-          className="px-5 pb-8 pt-2 sm:px-6 wrap-break-word"
-        >
-          <p className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-taruma-400">
-            {service.detail.tagline}
-          </p>
-          <h3 className="mb-1 text-2xl font-bold text-cumaru-100">
-            {service.name}
-          </h3>
-          <p className="mb-6 text-sm text-cumaru-400">{service.description}</p>
-
-          {/* Features */}
-          <div className="mb-6 space-y-3">
-            {service.detail.features.map((f, i) => (
-              <div key={i} className="flex gap-3">
-                <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-taruma-400/15 text-taruma-400">
-                  <IconCheck className="size-3" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-cumaru-200">
-                    {f.label}
-                  </p>
-                  <p className="text-xs text-cumaru-500">{f.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Stack */}
-          {service.detail.stack.length > 0 && (
-            <div className="mb-7">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-cumaru-500">
-                Tecnologias
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {service.detail.stack.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="rounded-full border border-taruma-400/20 bg-taruma-400/8 px-3 py-1 text-xs text-taruma-300"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* CTA */}
-          <a
-            href="#contact"
-            onClick={onClose}
-            className="group/btn relative flex h-11 w-fit cursor-pointer items-center overflow-hidden rounded-full border border-white/10 bg-negro-700 ps-5 pe-12 text-sm font-medium text-cumaru-200 transition-all duration-500 hover:ps-12 hover:pe-5"
-          >
-            <span className="relative z-10 whitespace-nowrap transition-all duration-500">
-              Falar com a equipe
-            </span>
-            <div className="absolute right-1 flex size-9 items-center justify-center rounded-full bg-taruma-400 text-negro-900 transition-all duration-500 group-hover/btn:right-[calc(100%-40px)]">
-              <IconArrowUpRight className="size-3.5" />
-            </div>
-          </a>
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-}
-
 // ── Services section ──────────────────────────────────────────────
 
 const services: ServiceCardProps[] = [
@@ -709,15 +429,7 @@ const services: ServiceCardProps[] = [
     name: "Aplicativos para Clientes e Equipes",
     description:
       "Apps Android e iOS conectados ao seu negócio, para vender, atender e operar.",
-    background: (
-      <MobileBackground className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]" />
-    ),
-    modalBackground: (
-      <MobileBackground
-        modal
-        className="mask-[linear-gradient(to_top,transparent_15%,#000_100%)]"
-      />
-    ),
+    background: <AppVisual />,
     detail: {
       tagline: "iOS & Android",
       features: [
@@ -827,113 +539,179 @@ const services: ServiceCardProps[] = [
   },
 ];
 
-export default function Services() {
-  const [activeService, setActiveService] = useState<ServiceCardProps | null>(
-    null,
+// Serviços: lista à esquerda e um "palco" à direita com o diagrama do serviço, o que entregamos e as
+// tecnologias (antes era uma grade de cartões com um modal). Clique, toque ou foco troca o serviço; o palco
+// tem altura estável (os textos ficam empilhados na mesma célula) e só o diagrama ativo é renderizado.
+// No celular cada serviço abre o próprio painel logo abaixo.
+function Tecnologias({ service, className }: { service: ServiceCardProps; className?: string }) {
+  return (
+    <ul className={cn("flex flex-wrap gap-1.5", className)} aria-label="Tecnologias">
+      {[...new Set(service.detail.stack)].map((t) => (
+        <li key={t} className="rounded-full border border-white/10 bg-negro-900/70 px-2.5 py-0.5 font-mono text-[11px] tracking-wide text-cumaru-300 backdrop-blur">
+          {t}
+        </li>
+      ))}
+    </ul>
   );
-  const headingRef = useRef<HTMLDivElement>(null);
-  const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
-  const gridRef = useRef<HTMLDivElement>(null);
-  const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
-  const stripRef = useRef<HTMLDivElement>(null);
-  const stripInView = useInView(stripRef, { once: true, amount: 0.3 });
+}
+
+// comTecnologias: no palco do desktop as tecnologias vão sobre a imagem (economiza uma linha)
+function Detalhes({ service, comTecnologias = true }: { service: ServiceCardProps; comTecnologias?: boolean }) {
+  return (
+    <div className="flex flex-col gap-6">
+      <ul className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+        {service.detail.features.map((f) => (
+          <li key={f.label} className="flex gap-3">
+            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-taruma-400/15 text-taruma-300">
+              <IconCheck className="size-3" aria-hidden />
+            </span>
+            <span className="flex flex-col gap-1">
+              <span className="text-sm font-medium text-cumaru-100">{f.label}</span>
+              <span className="text-[13px] leading-relaxed text-cumaru-500">{f.description}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-col gap-4 border-t border-white/8 pt-4 sm:flex-row sm:items-center sm:justify-between">
+        {comTecnologias ? <Tecnologias service={service} /> : <span aria-hidden />}
+        <a
+          href={whatsappHref(`Olá! Vim pelo site da North e quero conversar sobre ${service.name.toLowerCase()}.`)}
+          target="_blank"
+          rel="noopener"
+          className="group inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-taruma-400 px-4 text-[13px] font-semibold text-negro-900 transition-colors hover:bg-taruma-300"
+        >
+          Conversar sobre este serviço
+          <IconArrowUpRight className="size-4 transition-transform group-hover:rotate-45" aria-hidden />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// Container cuja altura segue a do conteúdo (ResizeObserver) com transição suave
+function AlturaAnimada({ children }: { children: React.ReactNode }) {
+  const interno = useRef<HTMLDivElement>(null);
+  const [altura, setAltura] = useState<number | "auto">("auto");
+  useEffect(() => {
+    const el = interno.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => setAltura(e.borderBoxSize[0].blockSize));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <motion.div animate={{ height: altura }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
+      <div ref={interno}>{children}</div>
+    </motion.div>
+  );
+}
+
+function Visual({ service }: { service: ServiceCardProps }) {
+  return (
+    <motion.div key={service.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }} className="absolute inset-0">
+      {service.modalBackground ?? service.background}
+    </motion.div>
+  );
+}
+
+export default function Services() {
+  const [ativo, setAtivo] = useState(0);
+  const desktop = useDesktop();
+  const ref = useRef<HTMLElement>(null);
+  const naTela = useInView(ref, { once: true, margin: "200px 0px" });
+  const atual = services[ativo];
 
   return (
-    <section
-      id="services"
-      className="relative w-full overflow-hidden py-20 lg:py-42 bg-negro-900"
-    >
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-negro-800 to-transparent pointer-events-none z-0"
-      />
-
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-negro-800 pointer-events-none z-0"
-      />
-
-      {/* Glow ambiente */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-32 top-1/4 size-130 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.06),transparent)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-32 bottom-1/4 size-130 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.08),transparent)]"
-      />
+    <section ref={ref} id="services" aria-labelledby="servicos-titulo" className="relative pt-16 pb-24 lg:py-36">
+      <div aria-hidden className="pointer-events-none absolute -left-40 top-1/3 size-[32rem] rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.07),transparent)]" />
       <Container>
-        <motion.div
-          ref={headingRef}
-          initial={{ opacity: 0, y: 28 }}
-          animate={headingInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-          className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
-        >
-          <div>
-            <h2 className="mt-4 text-3xl lg:text-5xl font-normal text-cumaru-100 leading-tight">
-              Tecnologia com{" "}
-              <Highlighter
-                action="underline"
-                color="#3DAFA6"
-                strokeWidth={2}
-                animationDuration={800}
-                iterations={2}
-                padding={2}
-                isView
-                delay={700}
-              >
-                <span className="text-accent">propósito.</span>
-              </Highlighter>
-            </h2>
-          </div>
-          <p className="text-md text-cumaru-400 max-w-lg lg:text-right">
-            Soluções que aumentam produtividade, reduzem custos e dão controle
-            da operação, construídas sob medida para o seu negócio.
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <SectionHead
+            id="servicos-titulo"
+            indice="01"
+            rotulo="Serviços"
+            titulo={
+              <>
+                Do sistema interno ao <Acento>app do seu cliente.</Acento>
+              </>
+            }
+          />
+          <p className="revelar max-w-md text-lg leading-relaxed text-cumaru-400 lg:text-right">
+            Soluções que aumentam produtividade, reduzem custos e dão controle da operação, construídas sob medida para o seu negócio.
           </p>
-        </motion.div>
-
-        <div ref={gridRef}>
-        <BentoGrid className="auto-rows-[30rem] sm:auto-rows-[28rem] sm:grid-cols-2 md:grid-cols-2">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 28 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.6,
-                ease: [0.4, 0, 0.2, 1],
-                delay: i * 0.1,
-              }}
-              className="h-full"
-            >
-              <BentoCard
-                id={service.id}
-                name={service.name}
-                description={service.description}
-                tagline={service.detail.tagline}
-                background={gridInView ? service.background : null}
-                Icon={service.Icon}
-                isActive={activeService?.id === service.id}
-                onLearnMore={() => setActiveService(service)}
-                className="h-full"
-              />
-            </motion.div>
-          ))}
-        </BentoGrid>
         </div>
 
-      </Container>
+        <div className="mt-14 grid grid-cols-1 gap-10 lg:mt-20 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          {/* lista */}
+          <ol className="revelar flex min-w-0 flex-col border-t border-white/8">
+            {services.map((s, i) => {
+              const aberto = i === ativo;
+              const Icone = s.Icon;
+              return (
+                <li key={s.id} className="border-b border-white/8">
+                  <button
+                    type="button"
+                    onClick={() => setAtivo(i)}
+                    onMouseEnter={() => desktop && setAtivo(i)}
+                    onFocus={() => desktop && setAtivo(i)}
+                    aria-expanded={aberto}
+                    aria-controls={desktop ? "servico-palco" : `servico-${s.id}`}
+                    className="group relative flex w-full cursor-pointer items-start gap-5 py-6 text-left lg:py-7"
+                  >
+                    <span aria-hidden className={cn("absolute -top-px left-0 h-px w-full origin-left bg-taruma-400 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)]", aberto ? "scale-x-100" : "scale-x-0")} />
+                    <span className={cn("pt-0.5 font-mono text-xs tabular-nums transition-colors", aberto ? "text-taruma-300" : "text-cumaru-600")}>0{i + 1}</span>
+                    <span className="flex min-w-0 flex-1 flex-col gap-1.5">
+                      <span className={cn("font-mono text-[11px] tracking-[0.16em] uppercase transition-colors", aberto ? "text-taruma-300" : "text-cumaru-600")}>{s.detail.tagline}</span>
+                      <span className={cn("text-xl font-semibold tracking-tight transition-colors sm:text-2xl", aberto ? "text-cumaru-100" : "text-cumaru-400 group-hover:text-cumaru-200")}>{s.name}</span>
+                      {/* resumo abre sob o serviço ativo (altura animada por grid-rows, sem medir) */}
+                      <span className={cn("grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(.22,1,.36,1)]", aberto ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
+                        <span className="overflow-hidden">
+                          <span className="block max-w-[42ch] pt-2 text-[15px] leading-relaxed text-cumaru-400">{s.description}</span>
+                        </span>
+                      </span>
+                    </span>
+                    <Icone className={cn("mt-0.5 size-5 shrink-0 transition-colors", aberto ? "text-taruma-300" : "text-cumaru-600")} aria-hidden />
+                  </button>
 
-      <AnimatePresence>
-        {activeService && (
-          <ServiceModal
-            key={activeService.id}
-            service={activeService}
-            onClose={() => setActiveService(null)}
-          />
-        )}
-      </AnimatePresence>
+                  {/* celular e tablet: o painel abre no próprio item */}
+                  {!desktop && aberto && (
+                    <div id={`servico-${s.id}`} className="flex flex-col gap-6 pb-8">
+                      <div className="relative h-64 overflow-hidden rounded-2xl border border-white/8 bg-negro-800 *:*:mask-none!">{naTela && <Visual service={s} />}</div>
+                      <Detalhes service={s} />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* palco (desktop) */}
+          <div className="hidden min-w-0 lg:block">
+          <div id="servico-palco" className="revelar sticky top-28 flex min-w-0 flex-col overflow-hidden rounded-3xl border border-white/8 bg-negro-900/60">
+            <div className="relative h-48 overflow-hidden border-b border-white/8 bg-negro-800">
+              <div aria-hidden className="absolute inset-0 bg-[radial-gradient(60%_80%_at_50%_100%,rgba(61,175,166,.12),transparent_70%)]" />
+              <AnimatePresence mode="wait">{naTela && desktop && <Visual service={atual} />}</AnimatePresence>
+              <Tecnologias key={atual.id} service={atual} className="subir absolute inset-x-5 bottom-4" />
+            </div>
+            {/* a altura acompanha o conteúdo do serviço ativo (animada), sem sobrar espaço vazio nos mais curtos */}
+            <AlturaAnimada>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={atual.id}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="p-6 xl:p-7"
+                >
+                  <Detalhes service={atual} comTecnologias={false} />
+                </motion.div>
+              </AnimatePresence>
+            </AlturaAnimada>
+          </div>
+          </div>
+        </div>
+      </Container>
     </section>
   );
 }

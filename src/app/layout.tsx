@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import ScrollRestoration from "@/components/scroll-restoration";
+import WhatsAppFloat from "@/components/whatsapp-float";
 
 const satoshi = localFont({
   src: "../../public/fonts/satoshi/Satoshi-Variable.woff2",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | North Software",
   },
   description:
-    "Software house do Norte do Brasil: sistemas para operações internas, aplicativos mobile, sites de alta conversão e automação com IA. Construído no Norte. Feito para o mundo.",
+    "Desenvolvemos sistemas para operações internas, aplicativos, sites e automações com IA, sob medida para cada negócio. Construído no Norte, feito para o mundo.",
   metadataBase: new URL("https://northsoftware.com.br"),
   alternates: {
     canonical: "/",
@@ -71,7 +72,6 @@ export default function RootLayout({
 <body className="min-h-full flex flex-col" suppressHydrationWarning>
         {/* React faz o hoist destes links para o <head> */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-        <link rel="preconnect" href="https://cdn.simpleicons.org" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -83,7 +83,7 @@ export default function RootLayout({
                 url: "https://northsoftware.com.br",
                 logo: "https://northsoftware.com.br/logos/NORTH_FULL_LOGO.svg",
                 description:
-                  "Software house especializada em sistemas sob medida, aplicativos mobile, sites e automação com IA.",
+                  "Empresa de desenvolvimento de sistemas sob medida, aplicativos, sites e automação com IA, em Manaus.",
                 areaServed: "BR",
                 contactPoint: {
                   "@type": "ContactPoint",
@@ -100,14 +100,6 @@ export default function RootLayout({
                 "@type": "WebSite",
                 name: "North Software",
                 url: "https://northsoftware.com.br",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target: {
-                    "@type": "EntryPoint",
-                    urlTemplate: "https://northsoftware.com.br/?q={search_term_string}",
-                  },
-                  "query-input": "required name=search_term_string",
-                },
               },
             ]),
           }}
@@ -117,6 +109,7 @@ export default function RootLayout({
 
         <main>{children}</main>
         <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   );

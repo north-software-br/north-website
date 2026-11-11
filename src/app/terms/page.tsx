@@ -3,7 +3,7 @@ import Container from "@/components/container/container";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso - North Software",
+  title: "Termos de Uso",
   description:
     "Leia os termos de uso e condições de serviço da North Software. Entenda seus direitos e obrigações ao utilizar nosso site e serviços.",
   alternates: {
@@ -94,7 +94,7 @@ export default function TermsPage() {
             Termos de Uso
           </h1>
           <p className="text-cumaru-400 text-sm">
-            Última atualização: maio de 2025
+            Última atualização: novembro de 2026
           </p>
         </div>
 

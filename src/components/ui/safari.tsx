@@ -1,8 +1,6 @@
-"use client"
-
-import { useEffect, useRef, type HTMLAttributes, type ReactNode } from "react"
-import { cn } from "@/lib/utils"
-import Image from "next/image"
+// Magic UI "Safari" (magicui.design/r/safari.json). Ajuste North: `vazado` abre a área da tela mesmo sem
+// imagem/vídeo, para mostrar conteúdo HTML posicionado por baixo da moldura.
+import type { HTMLAttributes } from "react"
 
 const SAFARI_WIDTH = 1203
 const SAFARI_HEIGHT = 753
@@ -24,8 +22,8 @@ export interface SafariProps extends HTMLAttributes<HTMLDivElement> {
   imageSrc?: string
   videoSrc?: string
   mode?: SafariMode
-  children?: ReactNode
-  imageClassName?: string
+  /** ajuste North: área da tela transparente (conteúdo HTML por baixo) */
+  vazado?: boolean
 }
 
 export function Safari({
@@ -33,32 +31,13 @@ export function Safari({
   videoSrc,
   url,
   mode = "default",
-  children,
+  vazado = false,
   className,
   style,
-  imageClassName,
   ...props
 }: SafariProps) {
   const hasVideo = !!videoSrc
-  const hasMedia = hasVideo || !!imageSrc || !!children
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    if (!videoRef.current || !videoSrc) return
-    const video = videoRef.current
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.src = videoSrc
-          video.play().catch(() => {})
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(video)
-    return () => observer.disconnect()
-  }, [videoSrc])
+  const hasMedia = hasVideo || !!imageSrc || vazado
 
   return (
     <div
@@ -80,29 +59,14 @@ export function Safari({
           }}
         >
           <video
-            ref={videoRef}
             className="block size-full object-cover"
+            src={videoSrc}
             autoPlay
             loop
             muted
             playsInline
-            preload="none"
+            preload="metadata"
           />
-        </div>
-      )}
-
-      {!hasVideo && !imageSrc && children && (
-        <div
-          className="absolute z-0 overflow-hidden"
-          style={{
-            left: `${LEFT_PCT}%`,
-            top: `${TOP_PCT}%`,
-            width: `${WIDTH_PCT}%`,
-            height: `${HEIGHT_PCT}%`,
-            borderRadius: "0 0 11px 11px",
-          }}
-        >
-          {children}
         </div>
       )}
 
@@ -117,13 +81,11 @@ export function Safari({
             borderRadius: "0 0 11px 11px",
           }}
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element -- componente do Magic UI mantido como veio */}
+          <img
             src={imageSrc}
             alt=""
-            fill
-            unoptimized={imageSrc.endsWith(".svg")}
-            sizes="(max-width: 768px) 100vw, 60vw"
-            className={cn("object-cover object-top", imageClassName)}
+            className="block size-full object-cover object-top"
           />
         </div>
       )}

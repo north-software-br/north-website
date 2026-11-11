@@ -91,14 +91,14 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       initial={{
-        maxWidth: "820px",
+        maxWidth: "880px",
         backgroundColor: "rgba(3,11,23,0.4)",
         boxShadow:
           "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
         backdropFilter: "blur(16px) saturate(150%)",
       }}
       animate={{
-        maxWidth: visible ? "630px" : "820px",
+        maxWidth: visible ? "760px" : "880px", // ajuste North: 5 links + CTA sem quebrar linha
         backgroundColor: "rgba(3,11,23,0.4)",
         boxShadow:
           "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
@@ -120,25 +120,28 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className }: NavItemsProps) => {
+// active: índice da seção em foco (o fundo fica nela quando o mouse não está sobre o menu)
+export const NavItems = ({ items, className, active = null }: NavItemsProps & { active?: number | null }) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const marcado = hovered ?? active;
 
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "flex-1 hidden flex-row items-center justify-center gap-1 text-sm font-medium lg:flex translate-x-5",
+        "flex-1 hidden flex-row items-center justify-center gap-0.5 text-sm font-medium lg:flex",
         className,
       )}
     >
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          className="relative px-4 py-2 text-cumaru-300 hover:text-cumaru-100 transition-colors duration-200"
+          aria-current={active === idx ? "true" : undefined}
+          className={cn("relative shrink-0 px-3.5 py-2 whitespace-nowrap transition-colors duration-200 hover:text-cumaru-100", active === idx ? "text-cumaru-100" : "text-cumaru-300")}
           key={`link-${idx}`}
           href={item.link}
         >
-          {hovered === idx && (
+          {marcado === idx && (
             <motion.div
               layoutId="hovered"
               className="absolute inset-0 h-full w-full rounded-full bg-white/8"
@@ -193,7 +196,6 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose: _onClose,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>
@@ -239,9 +241,10 @@ export const MobileNavToggle = ({
   isOpen: boolean;
   onClick: () => void;
 }) => {
-  return isOpen ? (
-    <IconX className="text-cumaru-200 cursor-pointer" onClick={onClick} />
-  ) : (
-    <IconMenu2 className="text-cumaru-200 cursor-pointer" onClick={onClick} />
+  // ajuste North: botão de verdade (teclado, nome acessível e estado), área de toque de 44px
+  return (
+    <button type="button" onClick={onClick} aria-label={isOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={isOpen} className="-mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full text-cumaru-200">
+      {isOpen ? <IconX aria-hidden /> : <IconMenu2 aria-hidden />}
+    </button>
   );
 };
