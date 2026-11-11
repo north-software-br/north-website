@@ -98,6 +98,7 @@ const ContactForm = () => {
                   id="firstName"
                   name="firstName"
                   placeholder="Nome"
+                  aria-label="Nome"
                   value={formData.firstName}
                   onChange={handleChange}
                   className="h-9 shadow-xs"
@@ -107,6 +108,7 @@ const ContactForm = () => {
                   id="lastName"
                   name="lastName"
                   placeholder="Sobrenome"
+                  aria-label="Sobrenome"
                   value={formData.lastName}
                   onChange={handleChange}
                   className="h-9 shadow-xs"
@@ -118,6 +120,7 @@ const ContactForm = () => {
                 id="email"
                 name="email"
                 placeholder="seu@email.com.br"
+                  aria-label="E-mail"
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -131,7 +134,7 @@ const ContactForm = () => {
                   setFormData((prev) => ({ ...prev, projectType: value ?? "" }))
                 }
               >
-                <SelectTrigger id="projectType" className="w-full h-9 shadow-xs">
+                <SelectTrigger id="projectType" aria-label="Tipo de projeto" className="w-full h-9 shadow-xs">
                   {selectedProject ? (
                     <span className="flex items-center gap-2 text-sm">
                       <selectedProject.icon size={15} className="shrink-0 text-muted-foreground" />
@@ -159,6 +162,7 @@ const ContactForm = () => {
                 id="message"
                 name="message"
                 placeholder="Conte-nos sobre seu projeto"
+                aria-label="Mensagem"
                 value={formData.message}
                 onChange={handleChange}
                 className="h-24 resize-none shadow-xs"

@@ -7,10 +7,33 @@ import {
   IconTrendingUp,
 } from "@tabler/icons-react";
 
+// Contato oficial (padronizado em todo o site)
+export const CONTATO = {
+  email: "contato@northsoftware.com.br",
+  whatsapp: "5592995251477",
+  telefone: "+55 (92) 99525-1477",
+};
+export const whatsappHref = (texto = "Olá! Vim pelo site da North e gostaria de conversar sobre um projeto.") =>
+  `https://wa.me/${CONTATO.whatsapp}?text=${encodeURIComponent(texto)}`;
+
+// Logos de clientes (scale compensa o respiro interno de cada SVG)
+export const CLIENT_LOGOS = [
+  { image: "/logos/logos_clients/logo_antonelly.svg", name: "Antonelly Construções", scale: 1.2 },
+  { image: "/logos/logos_clients/logo_elp.svg", name: "ELP", scale: 3.4 },
+  { image: "/logos/logos_clients/logo_co_paiva.svg", name: "Gabriela C.O. Paiva", scale: 3.5 },
+  // solido: logo em selo colorido (não dá para escurecer como os demais em fundo claro)
+  { image: "/logos/logos_clients/logo_vdl.svg", name: "VDL", scale: 1, solido: true },
+];
+
 export type PortfolioData = {
   portfolio_image?: string;
   portfolio_video?: string;
+  /** capa (primeiro quadro do vídeo ou a tela), mostrada enquanto o vídeo não carrega */
+  portfolio_poster: string;
   portfolio_title: string;
+  /** nome para exibição (o title fica em caixa alta por compatibilidade) */
+  portfolio_name: string;
+  portfolio_type: "Site institucional" | "Sistema interno";
   portfolio_description: string;
   portfolio_year?: string;
 };
@@ -21,12 +44,18 @@ export const portfolioData: PortfolioData[] = [
     portfolio_video:
     "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/adv-paiva.mp4",
     portfolio_title: "GABRIELA C.O. PAIVA",
+    portfolio_name: "Gabriela C.O. Paiva",
+    portfolio_type: "Site institucional",
+    portfolio_poster: "/projetos/adv-paiva.webp",
     portfolio_description:
     "Website institucional desenvolvido para o escritório Gabriela Paiva, com foco em transmitir credibilidade, profissionalismo e presença digital. O projeto foi pensado para apresentar os serviços jurídicos de forma clara e estratégica, destacando a atuação personalizada, a excelência técnica e o compromisso com soluções inteligentes para cada cliente.",
   },
   {
     portfolio_image: "/illustrations/crm-antonelly.jpg",
     portfolio_title: "SIAN - ANTONELLY CONSTRUÇÕES",
+    portfolio_name: "SIAN · Antonelly Construções",
+    portfolio_type: "Sistema interno",
+    portfolio_poster: "/projetos/sian.webp",
     portfolio_description:
           "Plataforma interna de gestão desenvolvida para centralizar processos, indicadores, documentos e operações da empresa em um único ambiente digital. O sistema integra diferentes setores, automatiza rotinas operacionais e fornece informações em tempo real para apoiar a tomada de decisões e aumentar a eficiência dos processos.",
   },
@@ -34,6 +63,9 @@ export const portfolioData: PortfolioData[] = [
     portfolio_video:
       "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/antonelly-site.mp4",
     portfolio_title: "WEB - ANTONELLY CONSTRUÇÕES",
+    portfolio_name: "Antonelly Construções",
+    portfolio_type: "Site institucional",
+    portfolio_poster: "/projetos/antonelly-site.webp",
     portfolio_description:
       "Website institucional para a Antonelly Construções e Serviços, criada para representar a solidez de mais de 20 anos de atuação no mercado. A experiência foi estruturada para comunicar a dimensão da empresa, sua expertise nos setores da construção civil e naval, além do compromisso com qualidade, segurança e excelência operacional.",
   },
@@ -42,6 +74,9 @@ export const portfolioData: PortfolioData[] = [
     portfolio_video:
       "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/matupi.mp4",
     portfolio_title: "GRUPO MATUPI",
+    portfolio_name: "Grupo Matupi",
+    portfolio_type: "Site institucional",
+    portfolio_poster: "/projetos/matupi.webp",
     portfolio_description:
       "A Matupi nasceu com um propósito claro: valorizar as raízes amazônicas e transformar o melhor da produção local em produtos que carregam identidade, qualidade e afeto. No coração da floresta, entre saberes tradicionais e inovação, construímos uma marca com os pés firmes no chão vermelho e os olhos voltados para o futuro. O website institucional foi desenvolvido para traduzir essa essência, comunicando a origem familiar, o cuidado em cada etapa da produção e o compromisso com quem coloca Matupi na mesa.",
   },
@@ -49,6 +84,9 @@ export const portfolioData: PortfolioData[] = [
     portfolio_video:
       "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/mimp.mp4",
     portfolio_title: "MIMP",
+    portfolio_name: "MIMP",
+    portfolio_type: "Site institucional",
+    portfolio_poster: "/projetos/mimp.webp",
     portfolio_description:
       "A MIMP é referência em consultoria de propriedade intelectual, atuando na proteção de marcas, identidades e criações no mercado. Desenvolvemos o website institucional da empresa para traduzir a seriedade e a expertise do escritório apresentando seus serviços de registro de marca e direito autoral de forma clara, acessível e estratégica para quem busca proteger o que construiu.",
   },
@@ -56,6 +94,9 @@ export const portfolioData: PortfolioData[] = [
     portfolio_video:
       "https://cdn.jsdelivr.net/gh/north-software-br/north-website@main/public/midia/office-145.mp4",
     portfolio_title: "OFFICE 145",
+    portfolio_name: "Office 145",
+    portfolio_type: "Site institucional",
+    portfolio_poster: "/projetos/office-145.webp",
     portfolio_description:
       "Website institucional para o edifício Empresarial Office 145, criado para transmitir modernidade, credibilidade e praticidade. O projeto foi pensado para apresentar de forma clara os diferenciais do empreendimento, destacando sua infraestrutura completa, tecnologia, segurança e soluções voltadas para pequenas e médias empresas que buscam um ambiente corporativo funcional e eficiente.",
   },

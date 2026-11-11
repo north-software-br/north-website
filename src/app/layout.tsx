@@ -71,7 +71,6 @@ export default function RootLayout({
 <body className="min-h-full flex flex-col" suppressHydrationWarning>
         {/* React faz o hoist destes links para o <head> */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-        <link rel="preconnect" href="https://cdn.simpleicons.org" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

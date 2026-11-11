@@ -120,8 +120,10 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className }: NavItemsProps) => {
+// active: índice da seção em foco (o fundo fica nela quando o mouse não está sobre o menu)
+export const NavItems = ({ items, className, active = null }: NavItemsProps & { active?: number | null }) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const marcado = hovered ?? active;
 
   return (
     <motion.div
@@ -134,11 +136,12 @@ export const NavItems = ({ items, className }: NavItemsProps) => {
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          className="relative px-4 py-2 text-cumaru-300 hover:text-cumaru-100 transition-colors duration-200"
+          aria-current={active === idx ? "true" : undefined}
+          className={cn("relative px-4 py-2 transition-colors duration-200 hover:text-cumaru-100", active === idx ? "text-cumaru-100" : "text-cumaru-300")}
           key={`link-${idx}`}
           href={item.link}
         >
-          {hovered === idx && (
+          {marcado === idx && (
             <motion.div
               layoutId="hovered"
               className="absolute inset-0 h-full w-full rounded-full bg-white/8"
@@ -193,7 +196,6 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose: _onClose,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>

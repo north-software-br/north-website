@@ -274,7 +274,7 @@ function throttle<T extends (...args: Parameters<T>) => void>(fn: T, ms: number)
 export function DisplacementSphere() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [visible, setVisible] = useState(false);
-  const startRef = useRef(Date.now());
+  const startRef = useRef(0);
   const rafRef = useRef<number>(0);
   const mouseRef = useRef({ x: 0.8, y: 0.5 });
   const springRef = useRef({ x: 0.4, y: 0.25 });
@@ -283,6 +283,7 @@ export function DisplacementSphere() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    startRef.current = Date.now();
     const { innerWidth, innerHeight } = window;
     const renderer = new WebGLRenderer({
       canvas,

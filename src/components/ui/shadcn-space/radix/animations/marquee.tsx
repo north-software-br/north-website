@@ -84,6 +84,12 @@ export function Marquee({
             animation-play-state: paused !important;
           }
  
+          /* ajuste North: parado com movimento reduzido, mostrando só a primeira cópia */
+          @media (prefers-reduced-motion: reduce) {
+            .animate-marquee, .animate-marquee-vertical { animation: none; }
+            .marquee-copia { display: none; }
+          }
+
           .animate-scroll {
             animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
           }
@@ -106,7 +112,9 @@ export function Marquee({
           .map((_, i) => (
             <div
               key={i}
-              className={cn("flex shrink-0 justify-around gap-(--gap)", {
+              // ajuste North: as cópias repetidas são só visuais (o leitor de tela lê a lista uma vez)
+              aria-hidden={i > 0 || undefined}
+              className={cn("flex shrink-0 justify-around gap-(--gap)", i > 0 && "marquee-copia", {
                 "animate-marquee flex-row": !vertical,
                 "animate-marquee-vertical flex-col": vertical,
                 "animate-reverse": reverse,

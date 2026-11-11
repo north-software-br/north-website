@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/hero/hero";
 import Process from "@/components/process/process";
 import Services from "@/components/services/services";
+import { Divisa } from "@/components/section/section";
 
 export const metadata: Metadata = {
   title: "North Software - Sistemas, Apps e Sites sob medida",
@@ -26,15 +27,22 @@ export const metadata: Metadata = {
 const About = dynamic(() => import("@/components/about/about"));
 const Projects = dynamic(() => import("@/components/projects/projects"));
 const Contact = dynamic(() => import("@/components/contact/contact"));
+const Testimonials = dynamic(() => import("@/components/testimonials/testimonials"));
 
 export default function Home() {
   return (
     <>
+      {/* ritmo do encontro das águas: escuro, claro, escuro, claro, escuro */}
       <Hero />
       <Services />
+      <Divisa de="negro" para="cumaru" />
       <Process />
+      <Divisa de="cumaru" para="fundo" inverter />
       <About />
       <Projects />
+      <Divisa de="fundo" para="cumaru" />
+      <Testimonials />
+      <Divisa de="cumaru" para="fundo" inverter />
       <Contact />
     </>
   );

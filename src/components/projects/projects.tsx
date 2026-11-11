@@ -1,146 +1,50 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { motion, useInView } from "motion/react";
-import { Laptop } from "../ui/laptop";
-import { Highlight } from "../ui/hero-highlight";
+// Projetos na home: o sistema interno (SIAN) em destaque e os sites em duas colunas, com as telas reais.
+// A página /projects mostra todos.
+import Link from "next/link";
 import { IconArrowUpRight } from "@tabler/icons-react";
-import { portfolioData, PortfolioData } from "@/constants";
+import { portfolioData } from "@/constants";
 import Container from "../container/container";
+import { Acento, SectionHead } from "../section/section";
+import { ProjetoCard } from "./projeto-card";
 
-interface ProjectCardProps {
-  item: PortfolioData;
-  index: number;
-}
+const destaque = portfolioData.find((p) => p.portfolio_type === "Sistema interno")!;
+const demais = portfolioData.filter((p) => p !== destaque).slice(0, 4);
 
-const ProjectCard = ({ item, index }: ProjectCardProps) => {
+export default function Projects() {
   return (
-    <div
-      data-project-card
-      className="sticky top-20 flex items-start pt-6 pb-8 md:h-[60vh] md:min-h-0 md:items-center md:py-0"
-      style={{ zIndex: index + 1 }}
-    >
-      <div className="w-full">
-        <div className="relative max-h-[calc(100svh-4rem)] overflow-hidden md:max-h-[52vh]">
-          <div className="flex flex-col gap-5 md:flex-row md:gap-5 sm:bg-transparent bg-background p-2">
-            <div className="flex w-full flex-col justify-center gap-4 bg-background md:w-1/2 md:pr-10">
-              <span className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
-                {item.portfolio_title}
-              </span>
-              <span className="line-clamp-5 text-sm font-normal leading-relaxed text-negro-200 sm:line-clamp-none sm:text-base lg:text-lg text-justify">
-                {item.portfolio_description}
-              </span>
-            </div>
-
-            <div className="w-full md:w-1/2">
-              <div
-                data-project-media
-                className="relative mx-auto w-full max-w-120 md:max-w-[56vh]"
-              >
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.16),transparent)]"
-                />
-                <Laptop
-                  imageSrc={item.portfolio_image}
-                  videoSrc={item.portfolio_video}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Projects = () => {
-  const headingRef = useRef<HTMLDivElement>(null);
-  const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
-  const listRef = useRef<HTMLElement>(null);
-
-  // O notebook de cada projeto some (fade out) conforme o próximo card sobe
-  // e volta (fade in) ao rolar de volta. O último nunca some; o primeiro
-  // não tem fade de entrada. Opacidade direta no DOM: sem re-render no scroll.
-  useEffect(() => {
-    const list = listRef.current;
-    if (!list) return;
-    const cards = Array.from(
-      list.querySelectorAll<HTMLElement>("[data-project-card]"),
-    );
-    const medias = cards.map((c) =>
-      c.querySelector<HTMLElement>("[data-project-media]"),
-    );
-
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const vh = window.innerHeight;
-      for (let i = 0; i < cards.length - 1; i++) {
-        const top = cards[i + 1].getBoundingClientRect().top;
-        const p = Math.min(1, Math.max(0, (vh - top) / (vh * 0.9)));
-        const media = medias[i];
-        if (media) media.style.opacity = String(1 - p);
-      }
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  return (
-    <section ref={listRef} id="projects" className="bg-background mt-24 sm:mt-32">
+    <section id="projects" aria-labelledby="projetos-titulo" className="relative bg-negro-900 pb-24 lg:pb-36">
       <Container>
-        <motion.div
-          ref={headingRef}
-          initial={{ opacity: 0, y: 28 }}
-          animate={headingInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-          className="flex flex-col gap-4 justify-center items-center"
-        >
-          <div className="max-w-xs sm:max-w-2xl mx-auto text-center flex flex-col gap-5">
-            <h2 className="text-foreground text-3xl sm:text-5xl font-semibold">
-              Alguns de nossos{" "}
-              <Highlight className="from-taruma-200 via-taruma-100 to-cumaru-300 rounded-3xl text-negro-700 dark:from-taruma-500/70 dark:via-taruma-400/60 dark:to-negro-500 dark:text-cumaru-100">
-                projetos
-              </Highlight>
-            </h2>
-            <p className="text-muted-foreground text-base sm:text-lg font-normal">
-              Uma seleção de trabalhos que entregamos para nossos clientes desde
-              a estratégia de marca até o design de produtos digitais. Cada
-              projeto é uma história de colaboração e criatividade
-            </p>
-          </div>
-        </motion.div>
+        <div className="flex flex-col justify-between gap-8 border-t border-white/8 pt-24 lg:flex-row lg:items-end lg:pt-32">
+          <SectionHead
+            id="projetos-titulo"
+            indice="04"
+            rotulo="Projetos"
+            titulo={
+              <>
+                Projetos reais, <Acento>em produção.</Acento>
+              </>
+            }
+          />
+          <p className="revelar max-w-md text-lg leading-relaxed text-cumaru-400 lg:text-right">
+            Uma seleção de sistemas e sites que entregamos para nossos clientes, do levantamento ao ar.
+          </p>
+        </div>
 
-        {portfolioData.slice(0, 3).map((item, index) => (
-            <ProjectCard key={index} item={item} index={index} />
+        <ProjetoCard item={destaque} destaque className="revelar mt-16 lg:mt-20" />
+
+        <div className="mt-20 grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2 lg:mt-28">
+          {demais.map((p, i) => (
+            <ProjetoCard key={p.portfolio_title} item={p} className={i % 2 ? "revelar md:mt-24" : "revelar"} />
           ))}
+        </div>
 
-        <div className="w-full flex justify-end items-center mt-6">
-          <a
-            href="/projects"
-            className="group/btn relative flex h-10 w-fit cursor-pointer items-center overflow-hidden rounded-full border border-white/10 bg-negro-700 ps-5 pe-12 text-sm font-medium text-cumaru-200 transition-all duration-500 hover:ps-12 hover:pe-5"
-          >
-            <span className="relative z-10 whitespace-nowrap transition-all duration-500">
-              Ver todos os projetos
-            </span>
-            <div className="absolute right-1 flex size-8 items-center justify-center rounded-full bg-taruma-400 text-negro-900 transition-all duration-500 group-hover/btn:right-[calc(100%-36px)]">
-              <IconArrowUpRight className="size-3.5" />
-            </div>
-          </a>
+        <div className="mt-16 flex justify-center lg:mt-20">
+          <Link href="/projects" className="group inline-flex h-12 items-center gap-2 rounded-full px-6 text-[15px] font-medium text-cumaru-200 ring-1 ring-white/15 transition-colors hover:bg-white/5">
+            Ver todos os projetos
+            <IconArrowUpRight className="size-4 text-taruma-300 transition-transform group-hover:rotate-45" aria-hidden />
+          </Link>
         </div>
       </Container>
     </section>
   );
-};
-
-export default Projects;
+}

@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { NORTH_FULL_LOGO } from "../../../public";
@@ -10,8 +8,10 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/#services", label: "Serviços" },
-  { href: "/#projects", label: "Projetos" },
+  { href: "/#process", label: "Processo" },
   { href: "/#about", label: "Sobre" },
+  { href: "/#projects", label: "Projetos" },
+  { href: "/#clientes", label: "Clientes" },
   { href: "/#contact", label: "Contato" },
 ];
 
@@ -21,7 +21,6 @@ const contactLinks = [
     label: "contato@northsoftware.com.br",
   },
   { href: "https://wa.me/5592995251477", label: "+55 (92) 99525-1477" },
-  { href: "#", label: "Amazonas, Brasil" },
 ];
 
 const socialLinks = [
@@ -47,15 +46,9 @@ const socialLinks = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <motion.footer
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+    <footer
       className="bg-negro-900 border-t border-white/6"
     >
       <Container>
@@ -88,7 +81,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={label}
                   className={cn(
-                    "flex size-8 items-center justify-center rounded-lg",
+                    "flex size-10 items-center justify-center rounded-lg",
                     "text-cumaru-400",
                     "hover:border-taruma-400/40 hover:text-taruma-400 transition-colors duration-200",
                   )}
@@ -109,7 +102,7 @@ export default function Footer() {
                 <li key={href}>
                   <a
                     href={href}
-                    className="text-cumaru-400 text-sm hover:text-taruma-400 transition-colors duration-200"
+                    className="inline-block py-1.5 text-cumaru-400 text-sm hover:text-taruma-400 transition-colors duration-200"
                   >
                     {label}
                   </a>
@@ -128,12 +121,13 @@ export default function Footer() {
                 <li key={label}>
                   <a
                     href={href}
-                    className="text-cumaru-400 text-sm hover:text-taruma-400 transition-colors duration-200 break-all"
+                    className="inline-block py-1.5 text-cumaru-400 text-sm hover:text-taruma-400 transition-colors duration-200 break-words"
                   >
                     {label}
                   </a>
                 </li>
               ))}
+              <li className="text-sm text-cumaru-500">Manaus, Amazonas · Brasil</li>
             </ul>
           </div>
         </div>
@@ -146,12 +140,12 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             {[
               { label: "Termos de uso", href: "/terms" },
-              { label: "Política de privacidade.", href: "/privacy" },
+              { label: "Política de privacidade", href: "/privacy" },
             ].map(({ label, href }) => (
               <Link
                 key={label}
                 href={href}
-                className="text-cumaru-600 text-xs hover:text-cumaru-400 transition-colors duration-200"
+                className="inline-block py-1.5 text-cumaru-500 text-xs hover:text-cumaru-300 transition-colors duration-200"
               >
                 {label}
               </Link>
@@ -159,6 +153,6 @@ export default function Footer() {
           </div>
         </div>
       </Container>
-    </motion.footer>
+    </footer>
   );
 }

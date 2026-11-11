@@ -155,3 +155,49 @@
     50%      { transform: translateY(-10px); }
   }
 }
+
+/* ── Home ───────────────────────────────────────────────────── */
+/* Entrada em CSS: o conteúdo está no HTML e visível mesmo sem JavaScript */
+.subir { animation: subir .9s cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes subir { from { opacity: 0; transform: translateY(22px); } }
+
+/* Entrada ao rolar, só onde há suporte (os demais navegadores mostram tudo direto) */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .revelar { animation: revelar linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+    @keyframes revelar { from { opacity: 0; transform: translateY(28px); } }
+  }
+}
+
+/* Divisa das águas: um brilho que corre pela linha entre as seções */
+.divisa-correnteza { stroke-dasharray: 90 1500; animation: correnteza 9s linear infinite; }
+@keyframes correnteza { from { stroke-dashoffset: 1590; } to { stroke-dashoffset: 0; } }
+
+/* Marca N (seção Sobre): margens sobem, a fita escorre na diagonal, um brilho percorre a fita */
+.n-haste { transform-box: fill-box; transform-origin: 50% 100%; animation: n-haste 1s cubic-bezier(.22, 1, .36, 1) .2s both; }
+.n-haste-dir { transform-origin: 50% 0; animation-delay: .32s; }
+@keyframes n-haste { from { transform: scaleY(0); opacity: 0; } }
+.n-fita { animation: n-fita 1.3s cubic-bezier(.22, 1, .36, 1) .55s both; }
+@keyframes n-fita { from { transform: translate(-14px, -28px); opacity: 0; } }
+.n-luz { animation: n-luz 6s cubic-bezier(.65, 0, .35, 1) 2.2s infinite; transform: translate(-160px, -200px); }
+@keyframes n-luz { 0% { transform: translate(-160px, -200px); } 35%, 100% { transform: translate(170px, 260px); } }
+[data-espera] :is(.n-haste, .n-fita, .n-luz) { animation-play-state: paused; }
+.n-divisa { stroke-dasharray: 120 900; animation: n-divisa 9s linear infinite; }
+@keyframes n-divisa { from { stroke-dashoffset: 1020; } to { stroke-dashoffset: 0; } }
+
+/* itens das ilustrações do Processo entrando em sequência e o "ok" aparecendo */
+.checar { animation: subir .6s cubic-bezier(.22, 1, .36, 1) both; }
+.checar-ok { animation: checar-ok .45s cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes checar-ok { from { transform: scale(0); opacity: 0; } }
+
+/* varredura dos testes passando pela tela (ilustração "produto evoluindo") */
+.varredura { animation: varredura 1.8s cubic-bezier(.65, 0, .35, 1) .3s both; }
+@keyframes varredura { from { transform: translateY(-40px); } to { transform: translateY(330px); opacity: 0; } }
+
+/* barra de progresso do depoimento ativo */
+@keyframes progresso { from { transform: scaleX(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .subir, .checar, .checar-ok, .varredura, .divisa-correnteza, .n-haste, .n-fita, .n-divisa { animation: none; }
+  .n-luz { animation: none; opacity: 0; }
+}

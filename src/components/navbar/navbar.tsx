@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NORTH_N_LOGO } from "../../../public";
 import {
   Navbar,
@@ -17,10 +17,29 @@ import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button
 
 const navLinks = [
   { name: "Serviços", link: "/#services" },
-  { name: "Processos", link: "/#process" },
+  { name: "Processo", link: "/#process" },
   { name: "Sobre", link: "/#about" },
   { name: "Projetos", link: "/#projects" },
+  { name: "Clientes", link: "/#clientes" },
 ];
+
+// seção em foco na home (faixa central da tela), para marcar o item do menu
+function useSecaoAtiva() {
+  const [ativa, setAtiva] = useState<number | null>(null);
+  useEffect(() => {
+    const els = navLinks.map((l) => document.getElementById(l.link.split("#")[1]));
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) setAtiva(els.indexOf(e.target as HTMLElement)); }),
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => el && io.observe(el));
+    const hero = document.getElementById("inicio");
+    const ioHero = new IntersectionObserver(([e]) => { if (e.isIntersecting) setAtiva(null); }, { rootMargin: "-45% 0px -50% 0px" });
+    if (hero) ioHero.observe(hero);
+    return () => { io.disconnect(); ioHero.disconnect(); };
+  }, []);
+  return ativa;
+}
 
 function smoothScroll(href: string) {
   const id = href.split("#")[1];
@@ -33,6 +52,7 @@ function smoothScroll(href: string) {
 
 export default function NorthNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const ativa = useSecaoAtiva();
 
   return (
     <Navbar>
@@ -54,7 +74,7 @@ export default function NorthNavbar() {
           </div>
         </Link>
 
-        <NavItems items={navLinks} />
+        <NavItems items={navLinks} active={ativa} />
 
         <InteractiveHoverButton
           onClick={() => smoothScroll("#contact")}
