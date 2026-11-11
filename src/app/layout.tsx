@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | North Software",
   },
   description:
-    "Software house do Norte do Brasil: sistemas para operações internas, aplicativos mobile, sites de alta conversão e automação com IA. Construído no Norte. Feito para o mundo.",
+    "Desenvolvemos sistemas para operações internas, aplicativos, sites e automações com IA, sob medida para cada negócio. Construído no Norte, feito para o mundo.",
   metadataBase: new URL("https://northsoftware.com.br"),
   alternates: {
     canonical: "/",
@@ -82,7 +82,7 @@ export default function RootLayout({
                 url: "https://northsoftware.com.br",
                 logo: "https://northsoftware.com.br/logos/NORTH_FULL_LOGO.svg",
                 description:
-                  "Software house especializada em sistemas sob medida, aplicativos mobile, sites e automação com IA.",
+                  "Empresa de desenvolvimento de sistemas sob medida, aplicativos, sites e automação com IA, em Manaus.",
                 areaServed: "BR",
                 contactPoint: {
                   "@type": "ContactPoint",
@@ -99,14 +99,6 @@ export default function RootLayout({
                 "@type": "WebSite",
                 name: "North Software",
                 url: "https://northsoftware.com.br",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target: {
-                    "@type": "EntryPoint",
-                    urlTemplate: "https://northsoftware.com.br/?q={search_term_string}",
-                  },
-                  "query-input": "required name=search_term_string",
-                },
               },
             ]),
           }}

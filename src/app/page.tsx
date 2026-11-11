@@ -8,14 +8,14 @@ import { Divisa } from "@/components/section/section";
 export const metadata: Metadata = {
   title: "North Software - Sistemas, Apps e Sites sob medida",
   description:
-    "Software house do Norte do Brasil especializada em sistemas para operações internas, aplicativos mobile, sites de alta conversão e automação com IA. Construído no Norte. Feito para o mundo.",
+    "Desenvolvemos sistemas para operações internas, aplicativos, sites e automações com IA, sob medida para cada negócio. Construído no Norte, feito para o mundo.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "North Software - Sistemas, Apps e Sites sob medida",
     description:
-      "Software house do Norte do Brasil especializada em sistemas para operações internas, aplicativos mobile, sites de alta conversão e automação com IA.",
+      "Sistemas, aplicativos, sites e automações com IA, sob medida para cada negócio. Construído no Norte, feito para o mundo.",
     url: "https://northsoftware.com.br",
     siteName: "North Software",
     locale: "pt_BR",

@@ -21,6 +21,10 @@ Site da North Software (software house de Manaus - AM): sistemas para operaçõe
 ## Componentes
 - Priorizar componentes prontos (Shadcn Space, Magic UI, ReUI, Aceternity, ou os já em `components/ui`) em vez de escrever do zero; adaptar cores e corrigir acessibilidade na cópia do projeto, com comentário "ajuste North". Ex.: `ui/shadcn-space/radix/animations/marquee.tsx` (cópias com `aria-hidden`, parado com movimento reduzido), usado na faixa de logos dos Clientes.
 
+## SEO e textos
+- Não usar "software house" (nem no hero, nem em metadados/JSON-LD). Títulos das páginas internas só com o nome da página (o template do layout acrescenta "| North Software").
+- 404 própria em `src/app/not-found.tsx`. Imagem de compartilhamento (`opengraph-image.tsx`) é estática (sem edge runtime).
+
 ## Regras de interface (aprendidas nos projetos Becca, SA Kaizen e AMPARO)
 - Um único `h1` por página.
 - Animações: entrada em CSS quando possível (`.subir` em `globals.css`), `motion` só com `transform`/`opacity`, nada de conteúdo escondido no HTML esperando JS em seções novas, respeitar `prefers-reduced-motion`. Entrada ao rolar das seções novas: classe `.revelar` (CSS `animation-timeline: view()`, sem JS).

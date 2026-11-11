@@ -241,9 +241,10 @@ export const MobileNavToggle = ({
   isOpen: boolean;
   onClick: () => void;
 }) => {
-  return isOpen ? (
-    <IconX className="text-cumaru-200 cursor-pointer" onClick={onClick} />
-  ) : (
-    <IconMenu2 className="text-cumaru-200 cursor-pointer" onClick={onClick} />
+  // ajuste North: botão de verdade (teclado, nome acessível e estado), área de toque de 44px
+  return (
+    <button type="button" onClick={onClick} aria-label={isOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={isOpen} className="-mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full text-cumaru-200">
+      {isOpen ? <IconX aria-hidden /> : <IconMenu2 aria-hidden />}
+    </button>
   );
 };

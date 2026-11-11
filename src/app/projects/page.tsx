@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ProjectsPage from "@/components/projects/projects-page";
 
 export const metadata: Metadata = {
-  title: "Projetos - North Software",
+  title: "Projetos",
   description:
     "Uma seleção de trabalhos que entregamos para nossos clientes. Estratégia, design e desenvolvimento em cada detalhe.",
   alternates: {

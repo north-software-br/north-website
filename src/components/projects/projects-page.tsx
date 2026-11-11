@@ -21,6 +21,7 @@ const ProjectsPage = () => (
         </p>
       </header>
 
+      <h2 className="sr-only">Lista de projetos</h2>
       <div className="mt-16 grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2">
         {portfolioData.map((p) => (
           <ProjetoCard key={p.portfolio_title} item={p} className="revelar" />
