@@ -56,7 +56,7 @@ export function ProjetoCard({ item, destaque = false, className }: { item: Portf
             {[0, 1, 2].map((i) => (
               <span key={i} className="size-2 rounded-full bg-white/15" aria-hidden />
             ))}
-            <span className="ml-3 truncate font-mono text-[10px] tracking-wide text-cumaru-500">{item.portfolio_name}</span>
+            <span className="ml-3 truncate font-mono text-[11px] tracking-wide text-cumaru-500">{item.portfolio_name}</span>
           </div>
           <div className="relative aspect-[16/9] overflow-hidden bg-negro-900">
             <Image
@@ -80,7 +80,7 @@ export function ProjetoCard({ item, destaque = false, className }: { item: Portf
               />
             )}
             {item.portfolio_video && !destaque && (
-              <span className={cn("absolute right-3 bottom-3 flex items-center gap-1.5 rounded-full bg-negro-900/75 px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] text-cumaru-200 uppercase ring-1 ring-white/10 backdrop-blur transition-opacity [@media(pointer:coarse)]:hidden", tocando && "opacity-0")}>
+              <span className={cn("absolute right-3 bottom-3 flex items-center gap-1.5 rounded-full bg-negro-900/75 px-3 py-1.5 font-mono text-[11px] tracking-[0.12em] text-cumaru-200 uppercase ring-1 ring-white/10 backdrop-blur transition-opacity [@media(pointer:coarse)]:hidden", tocando && "opacity-0")}>
                 <IconPlayerPlayFilled className="size-3 text-taruma-300" aria-hidden />
                 Passe o mouse
               </span>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useDesktop } from "@/hooks/use-desktop";
 import React, { forwardRef, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useInView } from "motion/react";
@@ -53,7 +54,7 @@ Circle.displayName = "Circle";
 
 function NodeLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[9px] font-medium uppercase tracking-wide text-cumaru-500">
+    <span className="text-[11px] font-medium uppercase tracking-wide text-cumaru-500">
       {children}
     </span>
   );
@@ -241,10 +242,10 @@ function SitesBackground({ className }: { className?: string }) {
                   <Icon className="size-4 text-taruma-300 sm:size-5" />
                 </div>
 
-                <p className="mt-2 truncate text-xs font-semibold text-cumaru-100 max-[420px]:whitespace-normal max-[420px]:text-[10px] max-[420px]:leading-tight">
+                <p className="mt-2 truncate text-xs font-semibold text-cumaru-100 max-[420px]:whitespace-normal max-[420px]:text-[11px] max-[420px]:leading-tight">
                   {name}
                 </p>
-                <p className="mt-0.5 truncate text-[10px] text-cumaru-500 max-[420px]:hidden">
+                <p className="mt-0.5 truncate text-[11px] text-cumaru-500 max-[420px]:hidden">
                   {segment}
                 </p>
               </div>
@@ -542,23 +543,11 @@ const services: ServiceCardProps[] = [
 // tecnologias (antes era uma grade de cartões com um modal). Clique, toque ou foco troca o serviço; o palco
 // tem altura estável (os textos ficam empilhados na mesma célula) e só o diagrama ativo é renderizado.
 // No celular cada serviço abre o próprio painel logo abaixo.
-function useDesktop() {
-  const [desktop, setDesktop] = useState(false);
-  useEffect(() => {
-    const mq = matchMedia("(min-width: 1024px)");
-    const atualizar = () => setDesktop(mq.matches);
-    atualizar();
-    mq.addEventListener("change", atualizar);
-    return () => mq.removeEventListener("change", atualizar);
-  }, []);
-  return desktop;
-}
-
 function Tecnologias({ service, className }: { service: ServiceCardProps; className?: string }) {
   return (
     <ul className={cn("flex flex-wrap gap-1.5", className)} aria-label="Tecnologias">
       {[...new Set(service.detail.stack)].map((t) => (
-        <li key={t} className="rounded-full border border-white/10 bg-negro-900/70 px-2.5 py-0.5 font-mono text-[10px] tracking-wide text-cumaru-300 backdrop-blur">
+        <li key={t} className="rounded-full border border-white/10 bg-negro-900/70 px-2.5 py-0.5 font-mono text-[11px] tracking-wide text-cumaru-300 backdrop-blur">
           {t}
         </li>
       ))}
@@ -672,7 +661,7 @@ export default function Services() {
                     <span aria-hidden className={cn("absolute -top-px left-0 h-px w-full origin-left bg-taruma-400 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)]", aberto ? "scale-x-100" : "scale-x-0")} />
                     <span className={cn("pt-0.5 font-mono text-xs tabular-nums transition-colors", aberto ? "text-taruma-300" : "text-cumaru-600")}>0{i + 1}</span>
                     <span className="flex min-w-0 flex-1 flex-col gap-1.5">
-                      <span className={cn("font-mono text-[10px] tracking-[0.16em] uppercase transition-colors", aberto ? "text-taruma-300" : "text-cumaru-600")}>{s.detail.tagline}</span>
+                      <span className={cn("font-mono text-[11px] tracking-[0.16em] uppercase transition-colors", aberto ? "text-taruma-300" : "text-cumaru-600")}>{s.detail.tagline}</span>
                       <span className={cn("text-xl font-semibold tracking-tight transition-colors sm:text-2xl", aberto ? "text-cumaru-100" : "text-cumaru-400 group-hover:text-cumaru-200")}>{s.name}</span>
                       {/* resumo abre sob o serviço ativo (altura animada por grid-rows, sem medir) */}
                       <span className={cn("grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(.22,1,.36,1)]", aberto ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
@@ -687,7 +676,7 @@ export default function Services() {
                   {/* celular e tablet: o painel abre no próprio item */}
                   {!desktop && aberto && (
                     <div id={`servico-${s.id}`} className="flex flex-col gap-6 pb-8">
-                      <div className="relative h-64 overflow-hidden rounded-2xl border border-white/8 bg-negro-800">{naTela && <Visual service={s} />}</div>
+                      <div className="relative h-64 overflow-hidden rounded-2xl border border-white/8 bg-negro-800 *:*:mask-none!">{naTela && <Visual service={s} />}</div>
                       <Detalhes service={s} />
                     </div>
                   )}

@@ -38,15 +38,15 @@ export default function Footer() {
             <p className="max-w-xs text-cumaru-400">Construído no Norte, feito para o mundo.</p>
           </div>
 
-          <nav aria-label="Rodapé" className="revelar grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3 lg:flex lg:gap-16">
+          <nav aria-label="Rodapé" className="revelar grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3 lg:flex lg:gap-16 max-sm:[&>ul:last-child]:col-span-2">
             {colunas.map((coluna) => (
-              <ul key={coluna[0].title} className="flex flex-col gap-1 lg:w-40">
+              <ul key={coluna[0].title} className="flex flex-col lg:w-40 lg:gap-1">
                 {coluna.map((l) => (
                   <li key={l.title}>
                     <a
                       href={l.href}
                       {...("externo" in l ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="inline-block py-1.5 text-cumaru-300 transition-[color,translate] duration-200 hover:translate-x-1 hover:text-taruma-300 motion-reduce:hover:translate-x-0"
+                      className="inline-block py-2.5 text-cumaru-300 lg:py-1.5 transition-[color,translate] duration-200 hover:translate-x-1 hover:text-taruma-300 motion-reduce:hover:translate-x-0"
                     >
                       {l.title}
                     </a>

@@ -87,7 +87,7 @@ export default function NorthNavbar() {
       {/* Mobile */}
       <MobileNav isOpen={mobileOpen}>
         <MobileNavHeader>
-          <Link href="/" aria-label="North Software - início">
+          <Link href="/" aria-label="North Software - início" className="-m-2.5 p-2.5">
             <div className="relative w-8 h-6 overflow-hidden">
               <Image
                 src={NORTH_N_LOGO}
@@ -135,7 +135,7 @@ export default function NorthNavbar() {
             Fale conosco
           </InteractiveHoverButton>
 
-          <p className="font-mono text-[10px] text-negro-400 tracking-[0.14em] uppercase">
+          <p className="font-mono text-[11px] text-negro-400 tracking-[0.14em] uppercase">
             Construído no Norte · Manaus, BR
           </p>
         </MobileNavMenu>

@@ -5,9 +5,11 @@
 // e, no desktop, um painel escuro fixo à esquerda (como a foto na trajetória da Becca) com uma tela de sistema que se
 // constrói etapa a etapa (a "outra água" dentro da seção
 // clara). A etapa em foco segue a rolagem; passar o mouse ou focar uma etapa também a seleciona.
+// Celular e tablet: sem painel, e cada etapa mostra só o título; tocar abre a descrição e as entregas (uma por vez).
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
-import { IconCheck } from "@tabler/icons-react";
+import { IconCheck, IconChevronDown } from "@tabler/icons-react";
+import { useDesktop } from "@/hooks/use-desktop";
 import { PROCESS_STEPS } from "@/constants";
 import Container from "../container/container";
 import { Acento, SectionHead } from "../section/section";
@@ -16,6 +18,8 @@ import { cn } from "@/lib/utils";
 
 export default function Process() {
   const [ativa, setAtiva] = useState(0);
+  const [aberta, setAberta] = useState(0);
+  const desktop = useDesktop();
   const lista = useRef<HTMLOListElement>(null);
   const reduzido = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: lista, offset: ["start 60%", "end 60%"] });
@@ -58,10 +62,10 @@ export default function Process() {
             <motion.span aria-hidden style={{ scaleY: reduzido ? 1 : trilho }} className="absolute top-8 bottom-8 left-[19px] w-px origin-top bg-taruma-500" />
 
             {PROCESS_STEPS.map((s, i) => {
-              const foco = i === ativa;
-              const passou = i < ativa;
+              const foco = desktop ? i === ativa : i === aberta;
+              const passou = desktop && i < ativa;
               return (
-                <li key={s.number} data-etapa={i} onMouseEnter={() => setAtiva(i)} className="relative grid grid-cols-[40px_1fr] gap-x-4 sm:gap-x-5">
+                <li key={s.number} data-etapa={i} onMouseEnter={() => desktop && setAtiva(i)} className="relative grid grid-cols-[40px_1fr] gap-x-4 sm:gap-x-5">
                   <span
                     className={cn(
                       "relative z-10 mt-6 flex size-10 items-center justify-center rounded-full border font-mono text-xs tabular-nums transition-colors duration-500",
@@ -70,17 +74,34 @@ export default function Process() {
                   >
                     {s.number}
                   </span>
-                  <article tabIndex={0} onFocus={() => setAtiva(i)} className={cn("flex min-w-0 flex-col gap-3 rounded-3xl border p-6 outline-none transition-[background-color,border-color,box-shadow] duration-500 focus-visible:ring-2 focus-visible:ring-taruma-500 sm:p-7", foco ? "border-taruma-500/40 bg-cumaru-50 shadow-[0_20px_40px_-28px_rgba(8,23,42,.35)]" : "border-negro-700/8 bg-cumaru-50/50")}>
-                    <h3 className={cn("text-xl font-bold tracking-tight transition-colors duration-500 sm:text-2xl", foco ? "text-negro-700" : "text-negro-500")}>{s.title}</h3>
-                    <p className="max-w-[52ch] leading-relaxed text-negro-400">{s.description}</p>
-                    <ul className="flex flex-wrap gap-1.5 pt-1" aria-label="Entregas desta etapa">
-                      {s.deliverables.map((d) => (
-                        <li key={d} className="flex items-center gap-1.5 rounded-full bg-cumaru-200 px-3 py-1 text-xs font-medium text-negro-600">
-                          <IconCheck className="size-3.5 text-taruma-600" aria-hidden />
-                          {d}
-                        </li>
-                      ))}
-                    </ul>
+                  <article tabIndex={desktop ? 0 : undefined} onFocus={() => desktop && setAtiva(i)} className={cn("flex min-w-0 flex-col rounded-3xl border p-6 outline-none transition-[background-color,border-color,box-shadow] duration-500 focus-visible:ring-2 focus-visible:ring-taruma-500 sm:p-7", foco ? "border-taruma-500/40 bg-cumaru-50 shadow-[0_20px_40px_-28px_rgba(8,23,42,.35)]" : "border-negro-700/8 bg-cumaru-50/50")}>
+                    <h3 className={cn("text-xl font-bold tracking-tight transition-colors duration-500 sm:text-2xl", foco ? "text-negro-700" : "text-negro-500")}>
+                      {/* celular: o título abre e fecha a etapa (no desktop tudo fica visível) */}
+                      <button
+                        type="button"
+                        onClick={() => setAberta(i)}
+                        tabIndex={desktop ? -1 : undefined}
+                        aria-expanded={desktop ? undefined : i === aberta}
+                        aria-controls={`etapa-${s.number}`}
+                        className="-my-2 flex w-full cursor-pointer items-center justify-between gap-3 py-2 text-left outline-none focus-visible:underline lg:pointer-events-none lg:cursor-default"
+                      >
+                        {s.title}
+                        <IconChevronDown aria-hidden className={cn("size-5 shrink-0 text-negro-400 transition-transform duration-300 lg:hidden", i === aberta && "rotate-180")} />
+                      </button>
+                    </h3>
+                    <div id={`etapa-${s.number}`} inert={!desktop && i !== aberta} className={cn("grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(.22,1,.36,1)] lg:grid-rows-[1fr] lg:opacity-100", i === aberta ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
+                      <div className="flex flex-col gap-3 overflow-hidden">
+                        <p className="max-w-[52ch] pt-3 leading-relaxed text-negro-400">{s.description}</p>
+                        <ul className="flex flex-wrap gap-1.5 pt-1" aria-label="Entregas desta etapa">
+                          {s.deliverables.map((d) => (
+                            <li key={d} className="flex items-center gap-1.5 rounded-full bg-cumaru-200 px-3 py-1 text-xs font-medium text-negro-600">
+                              <IconCheck className="size-3.5 text-taruma-600" aria-hidden />
+                              {d}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </article>
                 </li>
               );

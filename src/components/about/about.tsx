@@ -30,17 +30,20 @@ export default function About() {
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[.85fr_1.15fr] lg:gap-20">
           {/* a marca e os compromissos */}
           <figure className="revelar flex flex-col items-center gap-12 lg:items-start">
-            <div className="w-[min(62vw,300px)] lg:w-[min(30vw,380px)]">
+            <div className="w-40 sm:w-60 lg:w-[min(30vw,380px)]">
               <LogoNorth seguirMouse semLinhas />
             </div>
             <figcaption className="flex w-full max-w-sm flex-col gap-4">
               <p className="font-mono text-[11px] tracking-[0.16em] text-cumaru-500 uppercase">Em cada projeto</p>
               <ul className="flex flex-col divide-y divide-white/8 border-y border-white/8">
                 {compromissos.map(({ Icone, nome, texto }) => (
-                  <li key={nome} className="flex items-center gap-3 py-3 text-sm">
-                    <Icone className="size-4 shrink-0 text-taruma-300" aria-hidden />
-                    <span className="font-semibold whitespace-nowrap text-cumaru-100">{nome}</span>
-                    <span className="text-cumaru-500">{texto}</span>
+                  <li key={nome} className="flex items-start gap-3 py-3 text-sm sm:items-center">
+                    <Icone className="mt-0.5 size-4 shrink-0 text-taruma-300 sm:mt-0" aria-hidden />
+                    {/* celular: descrição embaixo do nome */}
+                    <span className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3">
+                      <span className="font-semibold whitespace-nowrap text-cumaru-100">{nome}</span>
+                      <span className="text-cumaru-500">{texto}</span>
+                    </span>
                   </li>
                 ))}
               </ul>
