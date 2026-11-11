@@ -101,6 +101,18 @@
   --animate-scroll-indicator: introScrollIndicator 2s ease infinite;
   --animate-mobile-scroll-indicator: introMobileScrollIndicator 1.5s ease infinite;
   --animate-orbit:  orbit calc(var(--duration)*1s) linear infinite;
+  /* Magic UI "Pulsating Button" (ajuste North: nomes próprios para não substituir o animate-pulse do Tailwind,
+     e box-shadow corrigido; o registro gera "boxShadow", inválido em CSS) */
+  --animate-pulsar: pulsar var(--duration) ease-out infinite;
+  --animate-pulsar-ripple: pulsar-ripple var(--duration) cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  @keyframes pulsar {
+    0%, 100% { box-shadow: 0 0 0 0 var(--pulse-color, oklch(from var(--bg) l c h / 0.5)); }
+    50% { box-shadow: 0 0 0 var(--distance) var(--pulse-color, oklch(from var(--bg) l c h / 0.5)); }
+  }
+  @keyframes pulsar-ripple {
+    0% { box-shadow: 0 0 0 0 oklch(from var(--pulse-color, var(--bg)) l c h / 1); }
+    100% { box-shadow: 0 0 0 var(--distance) oklch(from var(--pulse-color, var(--bg)) l c h / 0); }
+  }
   @keyframes orbit {
   0% {
     transform:  rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
@@ -195,6 +207,7 @@
 @keyframes varredura { from { transform: translateY(-40px); } to { transform: translateY(330px); opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
+  .animate-pulsar, .animate-pulsar-ripple { animation: none; }
   .subir, .checar, .checar-ok, .varredura, .divisa-correnteza, .n-haste, .n-fita, .n-divisa { animation: none; }
   .n-luz { animation: none; opacity: 0; }
 }

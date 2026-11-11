@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import ScrollRestoration from "@/components/scroll-restoration";
+import WhatsAppFloat from "@/components/whatsapp-float";
 
 const satoshi = localFont({
   src: "../../public/fonts/satoshi/Satoshi-Variable.woff2",
@@ -108,6 +109,7 @@ export default function RootLayout({
 
         <main>{children}</main>
         <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   );
