@@ -136,7 +136,7 @@ export default function NorthNavbar() {
           </InteractiveHoverButton>
 
           <p className="font-mono text-[10px] text-negro-400 tracking-[0.14em] uppercase">
-            NS-V.2025 // MANAUS, BR
+            Construído no Norte · Manaus, BR
           </p>
         </MobileNavMenu>
       </MobileNav>

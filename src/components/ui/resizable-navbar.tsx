@@ -91,14 +91,14 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       initial={{
-        maxWidth: "820px",
+        maxWidth: "880px",
         backgroundColor: "rgba(3,11,23,0.4)",
         boxShadow:
           "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
         backdropFilter: "blur(16px) saturate(150%)",
       }}
       animate={{
-        maxWidth: visible ? "630px" : "820px",
+        maxWidth: visible ? "760px" : "880px", // ajuste North: 5 links + CTA sem quebrar linha
         backgroundColor: "rgba(3,11,23,0.4)",
         boxShadow:
           "0 8px 40px rgba(3,11,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
@@ -129,7 +129,7 @@ export const NavItems = ({ items, className, active = null }: NavItemsProps & { 
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "flex-1 hidden flex-row items-center justify-center gap-1 text-sm font-medium lg:flex translate-x-5",
+        "flex-1 hidden flex-row items-center justify-center gap-0.5 text-sm font-medium lg:flex",
         className,
       )}
     >
@@ -137,7 +137,7 @@ export const NavItems = ({ items, className, active = null }: NavItemsProps & { 
         <a
           onMouseEnter={() => setHovered(idx)}
           aria-current={active === idx ? "true" : undefined}
-          className={cn("relative px-4 py-2 transition-colors duration-200 hover:text-cumaru-100", active === idx ? "text-cumaru-100" : "text-cumaru-300")}
+          className={cn("relative shrink-0 px-3.5 py-2 whitespace-nowrap transition-colors duration-200 hover:text-cumaru-100", active === idx ? "text-cumaru-100" : "text-cumaru-300")}
           key={`link-${idx}`}
           href={item.link}
         >
