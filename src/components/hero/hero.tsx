@@ -108,7 +108,7 @@ export default function Hero() {
   useInterval(() => setIndice((i) => (i + 1) % frentes.length), 5000);
 
   return (
-    <section id="inicio" className="relative isolate flex min-h-svh items-center overflow-hidden" aria-labelledby="hero-titulo">
+    <section id="inicio" className="relative isolate flex items-center overflow-hidden lg:min-h-svh" aria-labelledby="hero-titulo">
       {noNavegador && (
         <div aria-hidden className="absolute inset-0 -z-20">
           <Suspense>
@@ -121,7 +121,7 @@ export default function Hero() {
         <SpotlightNew />
       </div>
 
-      <div className="relative mx-auto w-full max-w-7xl px-6 pt-32 pb-16 lg:px-8 lg:pb-24">
+      <div className="relative mx-auto w-full max-w-7xl px-6 pt-32 pb-8 lg:px-8 lg:pb-24">
         <div className="flex min-w-0 flex-col items-start">
           <p className="subir mb-6 text-[clamp(1.125rem,1.8vw,1.6rem)] leading-none font-bold" style={atraso(0.1)}>
             Construímos o que o seu negócio{" "}

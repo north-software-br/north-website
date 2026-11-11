@@ -622,7 +622,7 @@ export default function Services() {
   const atual = services[ativo];
 
   return (
-    <section ref={ref} id="services" aria-labelledby="servicos-titulo" className="relative py-24 lg:py-36">
+    <section ref={ref} id="services" aria-labelledby="servicos-titulo" className="relative pt-16 pb-24 lg:py-36">
       <div aria-hidden className="pointer-events-none absolute -left-40 top-1/3 size-[32rem] rounded-full bg-[radial-gradient(closest-side,rgba(61,175,166,0.07),transparent)]" />
       <Container>
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
