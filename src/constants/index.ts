@@ -18,6 +18,8 @@ export const whatsappHref = (texto = "Olá! Vim pelo site da North e gostaria de
 
 // Logos de clientes (scale compensa o respiro interno de cada SVG)
 export const CLIENT_LOGOS = [
+  // logo branco do site deles: em fundo claro o marquee escurece (brightness-0)
+  { image: "/logos/logos_clients/logo_sementes.svg", name: "Centro de Sementes Nativas da Amazônia", scale: 1.1 },
   { image: "/logos/logos_clients/logo_antonelly.svg", name: "Antonelly Construções", scale: 1.2 },
   { image: "/logos/logos_clients/logo_elp.svg", name: "ELP", scale: 3.4 },
   { image: "/logos/logos_clients/logo_co_paiva.svg", name: "Gabriela C.O. Paiva", scale: 3.5 },
@@ -41,6 +43,14 @@ export type PortfolioData = {
 };
 
 export const portfolioData: PortfolioData[] = [
+  {
+    portfolio_title: "SEMENTES DA AMAZÔNIA",
+    portfolio_name: "Centro de Sementes Nativas da Amazônia",
+    portfolio_type: "Site institucional",
+    portfolio_poster: "/projetos/sementes.webp",
+    portfolio_description:
+      "Site institucional do Centro de Sementes Nativas da Amazônia, organização dedicada à conservação ambiental e à valorização da biodiversidade amazônica. O site apresenta a instituição, as notícias e os projetos desenvolvidos com parceiros como a UFAM, com uma navegação clara para quem quer conhecer e apoiar o trabalho.",
+  },
   {
     portfolio_title: "SA KAIZEN",
     portfolio_name: "SA Kaizen Diagnóstico Automotivo",

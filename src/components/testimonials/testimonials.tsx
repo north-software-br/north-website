@@ -13,6 +13,14 @@ import { cn } from "@/lib/utils";
 // um relato por cliente (mais depoimentos virão); o da Equipe de Engenharia da Antonelly está no histórico do git
 const relatos: Testimonial[] = [
   {
+    src: "/projetos/sementes.webp",
+    alt: "Site do Centro de Sementes Nativas da Amazônia",
+    logo: "/logos/logos_clients/logo_sementes.svg",
+    quote: "Amamos o site! Ele apresenta nossos projetos e a parceria com a UFAM com clareza e cuidado. Recomendamos muito o trabalho da North.",
+    name: "Centro de Sementes Nativas da Amazônia",
+    designation: "Projetos em parceria com a UFAM",
+  },
+  {
     src: "/illustrations/SIAN-PRINT.jpg",
     alt: "SIAN: tela de controle de entrada e saída de visitantes",
     logo: "/logos/logos_clients/logo_antonelly.svg",
@@ -24,6 +32,7 @@ const relatos: Testimonial[] = [
     src: "/projetos/adv-paiva.webp",
     alt: "Site do escritório Gabriela C.O. Paiva",
     logo: "/logos/logos_clients/logo_co_paiva.svg",
+    logoEscala: 3.2,
     quote: "A North entregou exatamente o que eu precisava: um site que transmite seriedade e converte visitas em clientes.",
     name: "Gabriela Paiva",
     designation: "ADV Paiva · Advogada",

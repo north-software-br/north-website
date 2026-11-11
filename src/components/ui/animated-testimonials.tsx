@@ -18,6 +18,8 @@ export type Testimonial = {
   src: string;
   alt: string;
   logo?: string;
+  /** ajuste North: compensa o respiro interno de alguns SVGs de logo */
+  logoEscala?: number;
 };
 
 const GIROS = [-6, 4, -3, 7, -5, 3];
@@ -95,8 +97,8 @@ export const AnimatedTestimonials = ({
           <motion.div key={active} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
             <div className="flex items-center gap-4">
               {atual.logo && (
-                <span className="flex h-11 w-20 shrink-0 items-center justify-center">
-                  <Image src={atual.logo} alt="" width={80} height={44} unoptimized className={cn("max-h-full w-full object-contain", claro && "brightness-0 opacity-70")} />
+                <span className="flex h-11 w-20 shrink-0 items-center justify-center overflow-hidden">
+                  <Image src={atual.logo} alt="" width={80} height={44} unoptimized className={cn("max-h-full w-full object-contain", claro && "brightness-0 opacity-70")} style={atual.logoEscala ? { transform: `scale(${atual.logoEscala})` } : undefined} />
                 </span>
               )}
               <div className="flex min-w-0 flex-col">
