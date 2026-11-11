@@ -90,24 +90,19 @@ export default function Process() {
           {/* painel escuro fixo com a ilustração da etapa em foco */}
           <div className="hidden lg:order-1 lg:block">
             <div className="sticky top-28 overflow-hidden rounded-3xl bg-negro-800 shadow-[0_40px_80px_-40px_rgba(8,23,42,.6)] ring-1 ring-negro-700/20">
-              <div className="flex items-center justify-between border-b border-white/8 px-6 py-4 font-mono text-[11px] tracking-[0.16em] text-cumaru-500 uppercase">
+              {/* uma linha só: etapa e progresso (o título já está no cartão ativo ao lado) */}
+              <div className="relative flex items-center gap-4 border-b border-white/8 px-6 py-3.5 font-mono text-[11px] tracking-[0.16em] text-cumaru-500 uppercase">
                 <span>
                   Etapa <span className="text-taruma-300">{etapa.number}</span> / 0{PROCESS_STEPS.length}
                 </span>
-                <span className="text-cumaru-300">{etapa.title}</span>
+                <span aria-hidden className="absolute bottom-0 left-0 h-px bg-taruma-400 transition-[width] duration-500" style={{ width: `${((ativa + 1) / PROCESS_STEPS.length) * 100}%` }} />
               </div>
-              <div className="relative grid h-[25rem] place-items-center overflow-hidden px-7 py-6">
+              <div className="relative h-[24rem] overflow-hidden">
                 <div aria-hidden className="absolute inset-0 bg-[radial-gradient(60%_70%_at_50%_100%,rgba(61,175,166,.14),transparent_70%)]" />
                 {/* a mesma tela de sistema se constrói ao longo das etapas (ideia, wireframe, componentes, testes, no ar, evolução) */}
-                <div className="absolute inset-0 p-6">
+                <div className="absolute inset-0 p-5">
                   <ProdutoEvoluindo etapa={ativa} />
                 </div>
-              </div>
-              {/* progresso das etapas */}
-              <div className="flex gap-1.5 px-6 pb-6">
-                {PROCESS_STEPS.map((s, i) => (
-                  <span key={s.number} className={cn("h-1 flex-1 rounded-full transition-colors duration-500", i <= ativa ? "bg-taruma-400" : "bg-white/10")} />
-                ))}
               </div>
             </div>
           </div>
