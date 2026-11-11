@@ -329,7 +329,10 @@ export function DisplacementSphere() {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // só anima com o hero na tela e a aba visível (o visual não muda; economiza GPU e bateria)
+    let ativo = true;
     const animate = () => {
+      if (!ativo) return;
       rafRef.current = requestAnimationFrame(animate);
       if (uniforms.time) uniforms.time.value = 0.00005 * (Date.now() - startRef.current);
 
@@ -342,6 +345,17 @@ export function DisplacementSphere() {
 
       renderer.render(scene, camera);
     };
+
+    const tocar = (sim: boolean) => {
+      if (reduceMotion) return;
+      if (sim && !ativo) { ativo = true; animate(); }
+      if (!sim) { ativo = false; cancelAnimationFrame(rafRef.current); }
+    };
+    let naTela = true;
+    const io = new IntersectionObserver(([e]) => { naTela = e.isIntersecting; tocar(naTela && !document.hidden); });
+    io.observe(canvas);
+    const aoMudarAba = () => tocar(naTela && !document.hidden);
+    document.addEventListener('visibilitychange', aoMudarAba);
 
     if (!reduceMotion) {
       animate();
@@ -371,7 +385,10 @@ export function DisplacementSphere() {
     const t = setTimeout(() => setVisible(true), 50);
 
     return () => {
+      ativo = false;
       cancelAnimationFrame(rafRef.current);
+      io.disconnect();
+      document.removeEventListener('visibilitychange', aoMudarAba);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
       clearTimeout(t);

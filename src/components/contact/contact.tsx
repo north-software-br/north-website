@@ -54,7 +54,7 @@ export default function Contact() {
                     </span>
                     <span className="flex min-w-0 flex-1 flex-col">
                       <span className={destaque ? "font-mono text-[11px] tracking-[0.16em] text-negro-800/70 uppercase" : "font-mono text-[11px] tracking-[0.16em] text-cumaru-500 uppercase"}>{rotulo}</span>
-                      <span className="truncate text-[15px] font-semibold min-[400px]:text-lg sm:text-xl">{valor}</span>
+                      <span className="text-[15px] font-semibold min-[400px]:text-lg sm:text-xl">{valor.replace("@", "@\u200b") /* quebra depois do @ em telas estreitas */}</span>
                     </span>
                     <IconArrowUpRight className="size-5 shrink-0 transition-transform group-hover:rotate-45" aria-hidden />
                   </a>

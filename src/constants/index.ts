@@ -23,6 +23,8 @@ export const CLIENT_LOGOS = [
   { image: "/logos/logos_clients/logo_co_paiva.svg", name: "Gabriela C.O. Paiva", scale: 3.5 },
   // solido: logo em selo colorido (não dá para escurecer como os demais em fundo claro)
   { image: "/logos/logos_clients/logo_vdl.svg", name: "VDL", scale: 1, solido: true },
+  { image: "/logos/logos_clients/logo_kaizen.png", name: "SA Kaizen Diagnóstico Automotivo", scale: 1.25 },
+  { image: "/logos/logos_clients/logo_amparo.png", name: "AMPARO Cenografia e Eventos", scale: 1 },
 ];
 
 export type PortfolioData = {
@@ -33,12 +35,28 @@ export type PortfolioData = {
   portfolio_title: string;
   /** nome para exibição (o title fica em caixa alta por compatibilidade) */
   portfolio_name: string;
-  portfolio_type: "Site institucional" | "Sistema interno";
+  portfolio_type: "Site institucional" | "Sistema interno" | "Landing page";
   portfolio_description: string;
   portfolio_year?: string;
 };
 
 export const portfolioData: PortfolioData[] = [
+  {
+    portfolio_title: "SA KAIZEN",
+    portfolio_name: "SA Kaizen Diagnóstico Automotivo",
+    portfolio_type: "Landing page",
+    portfolio_poster: "/projetos/kaizen.webp",
+    portfolio_description:
+      "Landing page para a SA Kaizen, oficina de diagnóstico automotivo em Manaus. A página apresenta os serviços de forma clara, mostra a oficina em vídeo e reúne avaliações reais dos clientes, com o WhatsApp sempre à mão para transformar visitas em agendamentos.",
+  },
+  {
+    portfolio_title: "AMPARO",
+    portfolio_name: "AMPARO Cenografia e Eventos",
+    portfolio_type: "Landing page",
+    portfolio_poster: "/projetos/amparo.webp",
+    portfolio_description:
+      "Página da AMPARO Cenografia e Eventos, que cria cenografia, ações promocionais e eventos na Região Norte. Construída para apresentar os trabalhos da empresa com impacto visual e levar o visitante direto para o contato enquanto o novo site é finalizado.",
+  },
 
   {
     portfolio_video:

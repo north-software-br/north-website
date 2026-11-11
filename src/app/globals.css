@@ -194,9 +194,6 @@
 .varredura { animation: varredura 1.8s cubic-bezier(.65, 0, .35, 1) .3s both; }
 @keyframes varredura { from { transform: translateY(-40px); } to { transform: translateY(330px); opacity: 0; } }
 
-/* barra de progresso do depoimento ativo */
-@keyframes progresso { from { transform: scaleX(0); } }
-
 @media (prefers-reduced-motion: reduce) {
   .subir, .checar, .checar-ok, .varredura, .divisa-correnteza, .n-haste, .n-fita, .n-divisa { animation: none; }
   .n-luz { animation: none; opacity: 0; }
