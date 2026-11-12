@@ -108,7 +108,7 @@ export default function Hero() {
   useInterval(() => setIndice((i) => (i + 1) % frentes.length), 5000);
 
   return (
-    <section id="inicio" className="relative isolate flex items-center overflow-hidden lg:min-h-svh" aria-labelledby="hero-titulo">
+    <section id="inicio" className="relative isolate flex min-h-svh items-end overflow-hidden lg:items-center" aria-labelledby="hero-titulo">
       {noNavegador && (
         <div aria-hidden className="absolute inset-0 -z-20">
           <Suspense>
@@ -117,11 +117,13 @@ export default function Hero() {
         </div>
       )}
       <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,var(--background)_0%,color-mix(in_srgb,var(--background)_72%,transparent)_40%,transparent_64%)] max-lg:bg-[linear-gradient(180deg,transparent_0%,color-mix(in_srgb,var(--background)_80%,transparent)_42%,var(--background)_70%)]" />
+      {/* a esfera se dissolve na base do hero (sem o corte reto quando ela passa da borda) */}
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-56 bg-linear-to-t from-background to-transparent" />
       <div className="absolute inset-0 -z-10">
         <SpotlightNew />
       </div>
 
-      <div className="relative mx-auto w-full max-w-7xl px-6 pt-32 pb-8 lg:px-8 lg:pb-24">
+      <div className="relative mx-auto w-full max-w-7xl px-6 pt-32 pb-14 lg:px-8 lg:pb-12">
         <div className="flex min-w-0 flex-col items-start">
           <p className="subir mb-6 text-[clamp(1.125rem,1.8vw,1.6rem)] leading-none font-bold" style={atraso(0.1)}>
             Construímos o que o seu negócio{" "}
