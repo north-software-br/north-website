@@ -45,7 +45,7 @@ export const AnimatedTestimonials = ({
 
   useEffect(() => {
     if (!autoplay || pausado || reduzido) return;
-    const interval = setInterval(() => setActive((prev) => (prev + 1) % testimonials.length), 7000);
+    const interval = setInterval(() => setActive((prev) => (prev + 1) % testimonials.length), 3000);
     return () => clearInterval(interval);
   }, [autoplay, pausado, reduzido, testimonials.length]);
 
@@ -109,7 +109,7 @@ export const AnimatedTestimonials = ({
             <blockquote className={cn("mt-8 text-[clamp(1.25rem,1rem+.9vw,1.75rem)] leading-snug font-medium tracking-tight", claro ? "text-negro-700" : "text-cumaru-100")}>
               <span className="sr-only">{atual.quote}</span>
               <span aria-hidden>
-                {atual.quote.split(" ").map((word, index) => (
+                {`“${atual.quote}”`.split(" ").map((word, index) => (
                   <motion.span
                     key={index}
                     initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
