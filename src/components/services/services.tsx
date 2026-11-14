@@ -29,6 +29,7 @@ import {
   IconLeaf,
   IconCopyright,
   IconBuilding,
+  IconChevronDown,
 } from "@tabler/icons-react";
 import { OrbitingCircles } from "../ui/orbiting-circles";
 import { SectionHead, Acento } from "../section/section";
@@ -556,10 +557,11 @@ function Tecnologias({ service, className }: { service: ServiceCardProps; classN
 }
 
 // comTecnologias: no palco do desktop as tecnologias vão sobre a imagem (economiza uma linha)
-function Detalhes({ service, comTecnologias = true }: { service: ServiceCardProps; comTecnologias?: boolean }) {
+// compacto (celular): só o título de cada entrega, sem a descrição
+function Detalhes({ service, comTecnologias = true, compacto = false }: { service: ServiceCardProps; comTecnologias?: boolean; compacto?: boolean }) {
   return (
     <div className="flex flex-col gap-6">
-      <ul className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+      <ul className={cn("grid grid-cols-1 gap-x-6 sm:grid-cols-2", compacto ? "gap-y-3" : "gap-y-4")}>
         {service.detail.features.map((f) => (
           <li key={f.label} className="flex gap-3">
             <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-taruma-400/15 text-taruma-300">
@@ -567,7 +569,7 @@ function Detalhes({ service, comTecnologias = true }: { service: ServiceCardProp
             </span>
             <span className="flex flex-col gap-1">
               <span className="text-sm font-medium text-cumaru-100">{f.label}</span>
-              <span className="text-[13px] leading-relaxed text-cumaru-500">{f.description}</span>
+              {!compacto && <span className="text-[13px] leading-relaxed text-cumaru-500">{f.description}</span>}
             </span>
           </li>
         ))}
@@ -614,12 +616,35 @@ function Visual({ service }: { service: ServiceCardProps }) {
   );
 }
 
+// Celular: ao trocar de serviço o painel de cima fecha e tudo abaixo sobe. Para a tela não "pular", o título
+// tocado fica parado sob o dedo enquanto o layout muda (compensa a rolagem a cada quadro); depois, se ele ficou
+// na metade de baixo da tela, desliza para logo abaixo do menu para o painel aparecer.
+function ancorar(el: HTMLElement) {
+  const topo = el.getBoundingClientRect().top;
+  const fim = performance.now() + 650;
+  let parar = false;
+  const soltar = () => (parar = true);
+  window.addEventListener("touchstart", soltar, { once: true, passive: true });
+  window.addEventListener("wheel", soltar, { once: true, passive: true });
+  const passo = () => {
+    if (parar) return;
+    const d = el.getBoundingClientRect().top - topo;
+    if (Math.abs(d) > 0.5) window.scrollBy({ top: d, behavior: "instant" });
+    if (performance.now() < fim) return requestAnimationFrame(passo);
+    window.removeEventListener("touchstart", soltar);
+    window.removeEventListener("wheel", soltar);
+    if (topo > window.innerHeight * 0.4) window.scrollBy({ top: topo - 96, behavior: "smooth" });
+  };
+  requestAnimationFrame(passo);
+}
+
 export default function Services() {
-  const [ativo, setAtivo] = useState(0);
+  // celular: começa tudo fechado (null) e cada um abre o que quiser; desktop: sem escolha, o primeiro fica no palco
+  const [ativo, setAtivo] = useState<number | null>(null);
   const desktop = useDesktop();
   const ref = useRef<HTMLElement>(null);
   const naTela = useInView(ref, { once: true, margin: "200px 0px" });
-  const atual = services[ativo];
+  const atual = services[ativo ?? 0];
 
   return (
     <section ref={ref} id="services" aria-labelledby="servicos-titulo" className="relative pt-16 pb-24 lg:pt-24 lg:pb-36">
@@ -645,13 +670,17 @@ export default function Services() {
           {/* lista */}
           <ol className="revelar flex min-w-0 flex-col border-t border-white/8">
             {services.map((s, i) => {
-              const aberto = i === ativo;
+              const aberto = desktop ? i === (ativo ?? 0) : i === ativo;
               const Icone = s.Icon;
               return (
                 <li key={s.id} className="border-b border-white/8">
                   <button
                     type="button"
-                    onClick={() => setAtivo(i)}
+                    onClick={(e) => {
+                      if (desktop) return setAtivo(i);
+                      ancorar(e.currentTarget);
+                      setAtivo(aberto ? null : i); // tocar no aberto fecha
+                    }}
                     onMouseEnter={() => desktop && setAtivo(i)}
                     onFocus={() => desktop && setAtivo(i)}
                     aria-expanded={aberto}
@@ -670,15 +699,17 @@ export default function Services() {
                         </span>
                       </span>
                     </span>
-                    <Icone className={cn("mt-0.5 size-5 shrink-0 transition-colors", aberto ? "text-taruma-300" : "text-cumaru-600")} aria-hidden />
+                    <Icone className={cn("mt-0.5 hidden size-5 shrink-0 transition-colors lg:block", aberto ? "text-taruma-300" : "text-cumaru-600")} aria-hidden />
+                    {/* celular: seta de abrir/fechar no lugar do ícone */}
+                    <IconChevronDown className={cn("mt-0.5 size-5 shrink-0 transition-[rotate,color] duration-300 lg:hidden", aberto ? "rotate-180 text-taruma-300" : "text-cumaru-500")} aria-hidden />
                   </button>
 
                   {/* celular e tablet: o painel abre no próprio item */}
                   {!desktop && aberto && (
-                    <div id={`servico-${s.id}`} className="flex flex-col gap-6 pb-8">
-                      <div className="relative h-64 overflow-hidden rounded-2xl border border-white/8 bg-negro-800 *:*:mask-none!">{naTela && <Visual service={s} />}</div>
-                      <Detalhes service={s} />
-                    </div>
+                    <motion.div id={`servico-${s.id}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col gap-6 pb-8">
+                      <div className="relative h-52 overflow-hidden rounded-2xl border border-white/8 bg-negro-800 *:*:mask-none!">{naTela && <Visual service={s} />}</div>
+                      <Detalhes service={s} compacto />
+                    </motion.div>
                   )}
                 </li>
               );
