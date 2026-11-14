@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { IMAGEM_OG } from "@/constants";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -51,11 +52,13 @@ export const metadata: Metadata = {
     siteName: "North Software",
     locale: "pt_BR",
     type: "website",
+    images: [IMAGEM_OG],
   },
   twitter: {
     card: "summary_large_image",
     title: "North Software",
     description: "Construído no Norte. Feito para o mundo.",
+    images: [IMAGEM_OG],
   },
 };
 

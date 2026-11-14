@@ -23,7 +23,7 @@ Site da North Software (software house de Manaus - AM): sistemas para operaçõe
 
 ## SEO e textos
 - Não usar "software house" (nem no hero, nem em metadados/JSON-LD). Títulos das páginas internas só com o nome da página (o template do layout acrescenta "| North Software").
-- 404 própria em `src/app/not-found.tsx`. Imagem de compartilhamento (`opengraph-image.tsx`) é estática (sem edge runtime).
+- 404 própria em `src/app/not-found.tsx`. Imagem de compartilhamento: arquivo `public/og.png` (1200×630) com URL absoluta sem query string (`IMAGEM_OG` em `constants`), usado no `openGraph.images`/`twitter.images` do layout e das páginas que sobrescrevem `openGraph` (home e /projects; ao sobrescrever `openGraph` numa página nova, incluir `images: [IMAGEM_OG]`). A rota gerada `opengraph-image.tsx` saiu: o WhatsApp não mostrava a prévia e a URL `/opengraph-image?hash` era a suspeita (as tags e a imagem estavam certas no servidor).
 
 ## Regras de interface (aprendidas nos projetos Becca, SA Kaizen e AMPARO)
 - Um único `h1` por página.

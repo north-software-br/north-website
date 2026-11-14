@@ -233,3 +233,13 @@ export const PROCESS_STEPS: ProcessStep[] = [
     media: "evolution",
   },
 ];
+
+// Imagem de prévia (WhatsApp, redes sociais): arquivo estático com extensão e URL absoluta, sem query string,
+// para os leitores de link mais simples (o WhatsApp não mostrava a prévia com a rota gerada /opengraph-image?hash)
+export const IMAGEM_OG = {
+  url: "https://northsoftware.com.br/og.png",
+  width: 1200,
+  height: 630,
+  alt: "North Software - Construído no Norte. Feito para o mundo.",
+  type: "image/png",
+};
