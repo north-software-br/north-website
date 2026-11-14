@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { IMAGEM_OG } from "@/constants";
 import ProjectsPage from "@/components/projects/projects-page";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     siteName: "North Software",
     locale: "pt_BR",
     type: "website",
+    images: [IMAGEM_OG],
   },
 };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { IMAGEM_OG } from "@/constants";
 import dynamic from "next/dynamic";
 import Hero from "@/components/hero/hero";
 import Process from "@/components/process/process";
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
     siteName: "North Software",
     locale: "pt_BR",
     type: "website",
+    images: [IMAGEM_OG],
   },
 };
 
