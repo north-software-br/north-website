@@ -614,12 +614,35 @@ function Visual({ service }: { service: ServiceCardProps }) {
   );
 }
 
+// Celular: ao trocar de serviço o painel de cima fecha e tudo abaixo sobe. Para a tela não "pular", o título
+// tocado fica parado sob o dedo enquanto o layout muda (compensa a rolagem a cada quadro); depois, se ele ficou
+// na metade de baixo da tela, desliza para logo abaixo do menu para o painel aparecer.
+function ancorar(el: HTMLElement) {
+  const topo = el.getBoundingClientRect().top;
+  const fim = performance.now() + 650;
+  let parar = false;
+  const soltar = () => (parar = true);
+  window.addEventListener("touchstart", soltar, { once: true, passive: true });
+  window.addEventListener("wheel", soltar, { once: true, passive: true });
+  const passo = () => {
+    if (parar) return;
+    const d = el.getBoundingClientRect().top - topo;
+    if (Math.abs(d) > 0.5) window.scrollBy({ top: d, behavior: "instant" });
+    if (performance.now() < fim) return requestAnimationFrame(passo);
+    window.removeEventListener("touchstart", soltar);
+    window.removeEventListener("wheel", soltar);
+    if (topo > window.innerHeight * 0.4) window.scrollBy({ top: topo - 96, behavior: "smooth" });
+  };
+  requestAnimationFrame(passo);
+}
+
 export default function Services() {
-  const [ativo, setAtivo] = useState(0);
+  // no celular pode ficar tudo fechado (null); no desktop sempre há um serviço no palco
+  const [ativo, setAtivo] = useState<number | null>(0);
   const desktop = useDesktop();
   const ref = useRef<HTMLElement>(null);
   const naTela = useInView(ref, { once: true, margin: "200px 0px" });
-  const atual = services[ativo];
+  const atual = services[ativo ?? 0];
 
   return (
     <section ref={ref} id="services" aria-labelledby="servicos-titulo" className="relative pt-16 pb-24 lg:pt-24 lg:pb-36">
@@ -651,7 +674,11 @@ export default function Services() {
                 <li key={s.id} className="border-b border-white/8">
                   <button
                     type="button"
-                    onClick={() => setAtivo(i)}
+                    onClick={(e) => {
+                      if (desktop) return setAtivo(i);
+                      ancorar(e.currentTarget);
+                      setAtivo(aberto ? null : i); // tocar no aberto fecha
+                    }}
                     onMouseEnter={() => desktop && setAtivo(i)}
                     onFocus={() => desktop && setAtivo(i)}
                     aria-expanded={aberto}
@@ -675,10 +702,10 @@ export default function Services() {
 
                   {/* celular e tablet: o painel abre no próprio item */}
                   {!desktop && aberto && (
-                    <div id={`servico-${s.id}`} className="flex flex-col gap-6 pb-8">
-                      <div className="relative h-64 overflow-hidden rounded-2xl border border-white/8 bg-negro-800 *:*:mask-none!">{naTela && <Visual service={s} />}</div>
+                    <motion.div id={`servico-${s.id}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col gap-6 pb-8">
+                      <div className="relative h-52 overflow-hidden rounded-2xl border border-white/8 bg-negro-800 *:*:mask-none!">{naTela && <Visual service={s} />}</div>
                       <Detalhes service={s} />
-                    </div>
+                    </motion.div>
                   )}
                 </li>
               );
